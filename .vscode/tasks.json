@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"args": ["-p", "."],
+	"command": "tsc",
+	"problemMatcher": "$tsc",
+	"isShellCommand": true,
+	"showOutput": "silent",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "frontend/",
+			"problemMatcher": [
+				"$eslint-compact"
+			],
+			"group": "build",
+			"label": "npm: build - frontend",
+			"detail": "react-scripts build"
+		}
+	]
+}
