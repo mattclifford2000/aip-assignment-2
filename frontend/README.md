@@ -1,3 +1,8 @@
+Frontend for the AIP Assignment 2 Group 21 Project
+
+run tsc in the /frontend directory to compile the project. Built files will be in the folder build, which is not pushed to the repo.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
