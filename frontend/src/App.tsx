@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import SimpleMenu from './components/SimpleMenu'
+import BootstrapForm from './components/BootstrapForm'
 import './App.css';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           Learn React
         </a>
       </header>
-      <SimpleMenu />
+      <BootstrapForm />
     </div>
     
   );
