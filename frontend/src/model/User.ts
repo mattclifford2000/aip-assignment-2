@@ -7,4 +7,5 @@ export interface User extends Array<Request>{
     UserPassword: string;
     UserRequests: Request[];
     UserDOB: Date;
+    UserScore: number;
 }
