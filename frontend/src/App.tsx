@@ -1,28 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import LoginComponent from "./components/LoginComponent";
+import HeaderComponent from "./components/HeaderComponent";
+import LeaderboardComponent from "./components/LeaderboardComponent";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          
-        >
-          Learn React
-        </a>
-      </header>
-      
+      <HeaderComponent />
+      <h1>Favour Centre</h1>
+      <p>
+        Welcome to the Favour Centre! Please login or register to make use of
+        our fine services!
+      </p>
+      <p>Login</p>
+      <p>Register</p>
+      <LeaderboardComponent />
     </div>
-    
   );
 }
 
