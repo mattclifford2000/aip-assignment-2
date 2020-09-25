@@ -5,3 +5,6 @@ export interface Request {
   RequestContent: string;
   RequestCompletion: boolean;
 }
+
+//A request becomes a 
+//favour when it is completed
