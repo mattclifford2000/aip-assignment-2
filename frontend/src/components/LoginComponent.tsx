@@ -1,18 +1,17 @@
 import * as React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Alert from 'react-bootstrap/Alert';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Card from 'react-bootstrap/Card';
-
+import Alert from "react-bootstrap/Alert";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Card from "react-bootstrap/Card";
 import { Login, createEmptyLogin } from "../model/Login";
+import Modal from "react-bootstrap/Modal";
+import RegisterComponent from "./RegisterComponent";
 
 class LoginComponent extends React.Component {
   public render() {
     return (
       <div>
-        <Card>
-        <h4>Login Below</h4>
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -28,17 +27,14 @@ class LoginComponent extends React.Component {
           <Form.Group controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" className="leftbutton" type="submit">
             Submit
           </Button>
+          <Button variant="primary" className="rightbutton">Register</Button>
         </Form>
-        </Card>
-        
       </div>
     );
   }
-
-  
 }
 
 export default LoginComponent;

@@ -1,33 +1,76 @@
-import React, { Component } from "react";
-import LeaderboardComponent from './LeaderboardComponent';
-import LoginComponent from './LoginComponent';
-import RegisterComponent from './RegisterComponent';
+import * as React from "react";
+import { Component, useState } from "react";
+import LeaderboardComponent from "./LeaderboardComponent";
+import LoginComponent from "./LoginComponent";
+import RegisterComponent from "./RegisterComponent";
+import HeaderComponent from "./HeaderComponent";
+import Button from "react-bootstrap/Button";
+import "./Style.css";
+import ReactDOM from "react-dom";
+import Modal from "react-bootstrap/Modal";
+import { render } from "@testing-library/react";
 
-import './Style.css';
+class FrontPageComponent extends Component<{}, {show: any}> {
 
+  constructor(props: any, context: any) {
+    super(props, context);
 
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 
-class FrontPageComponent extends Component{
+    this.state = {
+      show: null
+    };
+  }
 
+  handleClose() {
+    this.setState({show: null});
+  }
 
+  handleShow(id: any) {
+    this.setState({show: id});
+  }
 
-    render() {
-        return (
-            <div>
-    <h1>Favour Centre</h1>
+render() 
+{
+  return (
+    <div>
+      <HeaderComponent />
+      <h1>Favour Centre</h1>
       <p>
         Welcome to the Favour Centre! Please login or register to make use of
         our fine services!
       </p>
-      <div className = 'loginRegisterTogether'>
-      <LoginComponent /> 
-      
-      <RegisterComponent />
-      </div>
+      <Button variant="primary" onClick={() => this.handleShow('login')}>
+        Login
+      </Button>
+      <Modal 
+      show={this.state.show == 'login'} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <LoginComponent />
+        </Modal.Body>
+      </Modal>
+      <Button variant="primary" onClick={() => this.handleShow('register')}>
+        Register
+      </Button>
+      <Modal 
+      show={this.state.show == 'register'} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <RegisterComponent />
+        </Modal.Body>
+      </Modal>
+      <br></br>
+      <br></br>
       <LeaderboardComponent />
-      </div>
-        );
-    }
+    </div>
+  );
+}
 }
 
 export default FrontPageComponent;

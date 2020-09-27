@@ -7,11 +7,10 @@ import Card from 'react-bootstrap/Card';
 import { Login, createEmptyLogin } from "../model/Login";
 
 class RegisterComponent extends React.Component {
+  
   public render() {
     return (
-      <div>
-          <Card>
-          <h4>Register Below</h4>
+<div>
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email Address</Form.Label>
@@ -35,9 +34,7 @@ class RegisterComponent extends React.Component {
           <Button variant="primary" type="submit">
             Submit
           </Button>
-        </Form>
-          </Card>
-          
+        </Form>   
       </div>
     );
   }

@@ -1,10 +1,13 @@
 import * as React from "react";
 
 class LeaderboardComponent extends React.Component{
-    render() {
+    render() 
+    {
         return (
             <div>
-            <p>Y'all suck at doing favours so no leaderboard yet nerds.</p>
+            <p>1: Matthew Clifford (99999999 points)</p>
+            <p>2: Everyone else (less points)</p>
+            <p>Leaderboard TBD</p>
             </div>
         );
       }

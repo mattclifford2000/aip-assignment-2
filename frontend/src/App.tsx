@@ -8,7 +8,6 @@ import FrontPageComponent from './components/FrontPageComponent'
 function App() {
   return (
     <div className="App">
-      <HeaderComponent />
       <FrontPageComponent />
     </div>
   );
