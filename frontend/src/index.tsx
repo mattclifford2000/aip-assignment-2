@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import './index.css';
+import { History } from 'history';
+import { Security}  from '@okta/okta-react';
 import App from './App';
+import config from './app.config';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+
 
 ReactDOM.render(
   <React.StrictMode>
