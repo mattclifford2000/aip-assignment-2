@@ -10,9 +10,9 @@ import ReactDOM from "react-dom";
 import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
 
-class FrontPageComponent extends Component<{}, {show: any}> {
+class FrontPageComponent extends Component {
 
-  constructor(props: any, context: any) {
+  constructor(props, context) {
     super(props, context);
 
     this.handleShow = this.handleShow.bind(this);
@@ -27,7 +27,7 @@ class FrontPageComponent extends Component<{}, {show: any}> {
     this.setState({show: null});
   }
 
-  handleShow(id: any) {
+  handleShow(id) {
     this.setState({show: id});
   }
 

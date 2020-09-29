@@ -4,15 +4,14 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
-import { Login, createEmptyLogin } from "../model/Login";
 import Modal from "react-bootstrap/Modal";
 import RegisterComponent from "./RegisterComponent";
 
-class LoginComponent extends React.Component {
-  handleSubmit = (event: any) => {};
-  handleChange = (event: any) => {};
+export class LoginComponent extends React.Component {
+  handleSubmit = (event) => {};
+  handleChange = (event) => {};
 
-  public render() {
+  render() {
     return (
       <div>
         <Form onSubmit={this.handleSubmit} noValidate>

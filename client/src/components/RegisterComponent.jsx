@@ -4,70 +4,22 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
-import { Login, createEmptyLogin } from "../model/Login";
+
 import useState from 'react';
 
-handleChange = (event: any) => {
-  event.preventDefault();
-  const { name, value } = event.target;
-  this.setState({ [name]: value });
-  console.log(this.state);
-};
-
-handleSubmit = (event: any) => {};
-
-interface SignUpProps {
-  name?: any;
-  value?: any;
-}
-
-interface SignUpState {
-  dateofbirth: Date;
-  name: string;
-  email: string;
-  password: string;
-  checkbox: HTMLInputElement;
-  errors: {
-    dateofbirth: Date;
-    name: string;
-    email: string;
-    checkbox: HTMLInputElement;
-    password: string;
-  };
-}
-
-export class RegisterComponent extends React.Component<
-  SignUpProps,
-  SignUpState
-> {
+export class RegisterComponent extends React.Component {
   
-
- 
-
-  constructor(props: SignUpProps) {
-    super(props);
-    const initialState = {
-      name: "",
-      email: "",
-      password: "",
-      dateofbirth: "",
-      checkbox: "",
-    };
-    this.state = initialState;
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  public render() {
+  render() {
     return (
       <div>
-        <Form onSubmit={this.handleSubmit} noValidate>
+        <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
               name="email"
               placeholder="Enter email"
-              onChange={this.handleChange}
+              
             />
           </Form.Group>
           <Form.Group controlId="formBasicName">
@@ -76,7 +28,7 @@ export class RegisterComponent extends React.Component<
               type="string"
               name="name"
               placeholder="Enter name"
-              onChange={this.handleChange}
+          
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
@@ -85,7 +37,7 @@ export class RegisterComponent extends React.Component<
               type="password"
               name="password"
               placeholder="Password"
-              onChange={this.handleChange}
+     
             />
           </Form.Group>
           <Form.Group controlId="formBasicDOB">
@@ -94,7 +46,7 @@ export class RegisterComponent extends React.Component<
               type="date"
               name="dateofbirth"
               placeholder="date"
-              onChange={this.handleChange}
+
             />
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">
@@ -102,7 +54,7 @@ export class RegisterComponent extends React.Component<
               name="checkbox"
               type="checkbox"
               label="Check me out"
-              onChange={this.handleChange}
+
             />
           </Form.Group>
           <Button variant="primary" type="submit">
