@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Component, useState } from "react";
 import LeaderboardComponent from "./LeaderboardComponent";
-import LoginComponent from "./LoginComponent";
-import RegisterComponent from "./RegisterComponent";
+import LoginComponent from "./auth/LoginComponent";
+import RegisterComponent from "./auth/RegisterComponent";
 import HeaderComponent from "./HeaderComponent";
 import Button from "react-bootstrap/Button";
 import "./Style.css";
@@ -10,7 +10,7 @@ import ReactDOM from "react-dom";
 import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
 
-class FrontPageComponent extends Component {
+export default class FrontPageComponent extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -19,9 +19,20 @@ class FrontPageComponent extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: null
+      show: null,
+      apiResponse: ""
     };
   }
+
+  callAPI() {
+    fetch("http://localhost:9000/testAPI")
+        .then(res => res.text())
+        .then(res => this.setState({ apiResponse: res }));
+}
+
+componentWillMount() {
+  this.callAPI();
+}
 
   handleClose() {
     this.setState({show: null});
@@ -68,9 +79,10 @@ render()
       <br></br>
       <br></br>
       <LeaderboardComponent />
+      <p className="App-intro">{this.state.apiResponse}</p>
     </div>
   );
 }
 }
 
-export default FrontPageComponent;
+
