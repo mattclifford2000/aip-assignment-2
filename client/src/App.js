@@ -2,8 +2,8 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import HeaderComponent from "./components/HeaderComponent";
-import FrontPageComponent from "./components/FrontPageComponent";
+import HeaderComponent from "./components/shared/HeaderComponent";
+import FrontPageComponent from "./components/main/FrontPageComponent";
 
 
 

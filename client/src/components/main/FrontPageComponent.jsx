@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Component, useState } from "react";
-import LeaderboardComponent from "./LeaderboardComponent";
-import LoginComponent from "./auth/LoginComponent";
-import RegisterComponent from "./auth/RegisterComponent";
-import HeaderComponent from "./HeaderComponent";
+import LeaderboardComponent from "../shared/LeaderboardComponent";
+import LoginComponent from "../auth/LoginForm";
+import RegisterComponent from "../auth/RegisterForm";
+import HeaderComponent from "../shared/HeaderComponent";
 import Button from "react-bootstrap/Button";
 import "./Style.css";
 import ReactDOM from "react-dom";
