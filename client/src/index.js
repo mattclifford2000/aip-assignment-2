@@ -3,11 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Security } from '@okta/okta-react';
+
+function onAuthRequired({ history }) {
+  history.push('/login');
+}
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Router>
+    <Security
+      issuer={config.issuer}
+      client_id={config.client_id}
+      redirect_uri={config.redirect_uri}
+      onAuthRequired={onAuthRequired}
+    ></Security>
     <App />
-  </React.StrictMode>,
+  </Router>,
   document.getElementById('root')
 );
 

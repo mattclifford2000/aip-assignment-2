@@ -1,33 +1,44 @@
 import * as React from "react";
 import { Component, useState } from "react";
-import LeaderboardComponent from "./LeaderboardComponent";
-import LoginComponent from "./LoginComponent";
-import RegisterComponent from "./RegisterComponent";
-import HeaderComponent from "./HeaderComponent";
+import LeaderboardComponent from "../shared/LeaderboardComponent";
+import LoginComponent from "../auth/LoginForm";
+import RegisterComponent from "../auth/RegisterForm";
+import HeaderComponent from "../shared/HeaderComponent";
 import Button from "react-bootstrap/Button";
 import "./Style.css";
 import ReactDOM from "react-dom";
 import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
 
-class FrontPageComponent extends Component<{}, {show: any}> {
+export default class FrontPageComponent extends Component {
 
-  constructor(props: any, context: any) {
+  constructor(props, context) {
     super(props, context);
 
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: null
+      show: null,
+      apiResponse: ""
     };
   }
+
+  callAPI() {
+    fetch("http://localhost:9000/testAPI")
+        .then(res => res.text())
+        .then(res => this.setState({ apiResponse: res }));
+}
+
+componentWillMount() {
+  this.callAPI();
+}
 
   handleClose() {
     this.setState({show: null});
   }
 
-  handleShow(id: any) {
+  handleShow(id) {
     this.setState({show: id});
   }
 
@@ -68,9 +79,10 @@ render()
       <br></br>
       <br></br>
       <LeaderboardComponent />
+      <p className="App-intro">{this.state.apiResponse}</p>
     </div>
   );
 }
 }
 
-export default FrontPageComponent;
+
