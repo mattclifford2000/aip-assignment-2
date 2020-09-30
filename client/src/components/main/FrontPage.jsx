@@ -5,11 +5,12 @@ import LoginForm from "../auth/LoginForm";
 import RegisterForm from "../auth/RegisterForm";
 import Header from "../shared/Header";
 import Button from "react-bootstrap/Button";
-import ReactDOM from "react-dom";
 import Modal from "react-bootstrap/Modal";
-import { render } from "@testing-library/react";
+
+
 
 export default class FrontPage extends Component {
+
 
   constructor(props, context) {
     super(props, context);
@@ -55,7 +56,7 @@ render()
         Login
       </Button>
       <Modal 
-      show={this.state.show == 'login'} onHide={this.handleClose}>
+      show={this.state.show === 'login'} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
@@ -67,7 +68,7 @@ render()
         Register
       </Button>
       <Modal 
-      show={this.state.show == 'register'} onHide={this.handleClose}>
+      show={this.state.show === 'register'} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>

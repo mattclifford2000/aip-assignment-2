@@ -1,6 +1,5 @@
-import React from "react";
+import React, { } from "react";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import FrontPage from "./components/main/FrontPage";
 
 
