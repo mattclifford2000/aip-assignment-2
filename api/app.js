@@ -8,6 +8,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 
+const mongoose = require('mongoose');
+
+require('dotenv').config();
+
 var app = express();
 
 // view engine setup
@@ -41,5 +45,19 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//DATABASE
+mongoose.connect(
+  process.env.DB_PROTOCOL + '://' +
+  process.env.DB_USER + ':' +
+  process.env.DB_PASS + '@' +
+  process.env.DB_ADDR + '/' +
+  process.env.DB_STORE + '?' +
+  process.env.DB_PARAMS,
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  }
+);
 
 module.exports = app;
