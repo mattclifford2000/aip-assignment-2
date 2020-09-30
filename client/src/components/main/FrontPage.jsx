@@ -1,16 +1,15 @@
 import * as React from "react";
 import { Component, useState } from "react";
-import LeaderboardComponent from "../shared/LeaderboardComponent";
-import LoginComponent from "../auth/LoginForm";
-import RegisterComponent from "../auth/RegisterForm";
-import HeaderComponent from "../shared/HeaderComponent";
+import Leaderboard from "../shared/Leaderboard";
+import LoginForm from "../auth/LoginForm";
+import RegisterForm from "../auth/RegisterForm";
+import Header from "../shared/Header";
 import Button from "react-bootstrap/Button";
-import "./Style.css";
 import ReactDOM from "react-dom";
 import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
 
-export default class FrontPageComponent extends Component {
+export default class FrontPage extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -46,7 +45,7 @@ render()
 {
   return (
     <div>
-      <HeaderComponent />
+      <Header />
       <h1>Favour Centre</h1>
       <p>
         Welcome to the Favour Centre! Please login or register to make use of
@@ -61,7 +60,7 @@ render()
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoginComponent />
+          <LoginForm />
         </Modal.Body>
       </Modal>
       <Button variant="primary" onClick={() => this.handleShow('register')}>
@@ -73,12 +72,12 @@ render()
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <RegisterComponent />
+          <RegisterForm />
         </Modal.Body>
       </Modal>
       <br></br>
       <br></br>
-      <LeaderboardComponent />
+      <Leaderboard />
       <p className="App-intro">{this.state.apiResponse}</p>
     </div>
   );

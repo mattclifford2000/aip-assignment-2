@@ -6,43 +6,37 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
 import Modal from "react-bootstrap/Modal";
 import RegisterComponent from "./RegisterForm";
-import OktaAuth from "@okta/okta-auth-js";
-import { withAuth } from "@okta/okta-react";
 
-export default withAuth(
-  class LoginComponent extends React.Component {
+
+export default 
+  class LoginForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        sessionToken: null,
-        error: null,
+        
         email: '',
         password: ''
       };
 
-      this.oktaAuth = new OktaAuth({ url: props.baseUrl });
+    
 
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleEmailChange = this.handleEmailChange.bind(this);
+      this.handleEmailChange = this.handlEmailChange.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
     handleSubmit(e) {
-      e.preventDefault();
-      this.oktaAuth
-        .signIn({
-          username: this.state.username,
-          password: this.state.password
-        })
-        .then(res =>
-          this.setState({
-            sessionToken: res.sessionToken
-          })
-        )
-        .catch(err => {
-          this.setState({ error: err.message });
-          console.log(err.statusCode + ' error', err);
-        });
+      alert('A form was submitted: ' + this.state);
+      fetch('http://localhost:9000/login', {
+        method: 'POST',
+        // We convert the React state to JSON and send it as the POST body
+        body: JSON.stringify(this.state)
+      }).then(function(response) {
+        console.log(response)
+        return response.json();
+      });
+
+    event.preventDefault();
     }
     
     handlEmailChange(e) {
@@ -57,19 +51,12 @@ export default withAuth(
 
     render() {
 
-      if (this.state.sessionToken) {
-        this.props.auth.redirect({ sessionToken: this.state.sessionToken });
-        return null;
-      }
-
-      const errorMessage = this.state.error ? (
-        <span className="error-message">{this.state.error}</span>
-      ) : null;
+     
 
       return (
         <div>
           <Form onSubmit={this.handleSubmit} noValidate>
-          {errorMessage}
+          
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -111,4 +98,4 @@ export default withAuth(
       );
     }
   }
-);
+

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-class LeaderboardComponent extends React.Component{
+class Leaderboard extends React.Component{
     render() 
     {
         return (
@@ -13,4 +13,4 @@ class LeaderboardComponent extends React.Component{
       }
 }
 
-export default LeaderboardComponent;
+export default Leaderboard;

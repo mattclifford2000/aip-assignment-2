@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 
 
-class HeaderComponent extends Component{
+class Header extends Component{
     render() {
         return (
             <div>
@@ -15,4 +15,4 @@ class HeaderComponent extends Component{
       }
 }
 
-export default HeaderComponent;
+export default Header;
