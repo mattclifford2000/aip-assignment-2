@@ -11,7 +11,7 @@ export default class LoginForm extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handlEmailChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
@@ -29,7 +29,7 @@ export default class LoginForm extends Component {
     window.event.preventDefault();
   }
 
-  handlEmailChange(e) {
+  handleEmailChange(e) {
     this.setState({ email: e.target.value });
   }
 
