@@ -36,8 +36,11 @@ export default
         return response.json();
       });
 
-    event.preventDefault();
+      window.event.preventDefault();
+
     }
+
+    
     
     handlEmailChange(e) {
       this.setState({ email: e.target.value });
