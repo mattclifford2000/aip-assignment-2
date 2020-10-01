@@ -9,3 +9,5 @@ let users = [];
 router.get('/', async (req, res) => {
     res.send("Login endpoint is visible");
   })
+
+  module.exports = router;
