@@ -56,7 +56,7 @@ render()
         Login
       </Button>
       <Modal 
-      show={this.state.show == 'login'} onHide={this.handleClose}>
+      show={this.state.show === 'login'} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
@@ -68,7 +68,7 @@ render()
         Register
       </Button>
       <Modal 
-      show={this.state.show == 'register'} onHide={this.handleClose}>
+      show={this.state.show === 'register'} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>

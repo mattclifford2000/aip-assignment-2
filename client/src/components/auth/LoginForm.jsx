@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, } from "react-bootstrap";
-
+import { Button, Form } from "react-bootstrap";
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -50,6 +49,7 @@ export default class LoginForm extends Component {
             <Form.Control
               id="email"
               type="email"
+              name="email"
               placeholder="Enter email"
               value={this.state.email}
               onChange={this.handleEmailChange}
@@ -62,20 +62,14 @@ export default class LoginForm extends Component {
             <Form.Label>Password</Form.Label>
             <Form.Control
               id="password"
+              name="password"
               type="password"
               placeholder="Password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check
-              type="checkbox"
-              label="Check me out"
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Button variant="primary"  className="leftbutton" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
