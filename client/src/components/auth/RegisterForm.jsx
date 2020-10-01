@@ -13,10 +13,8 @@ export default class RegisterComponent extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this); //error here
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleDOBChange = this.handleDOBChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this); //error here
+    
   }
 
   handleSubmit = (e) => {
