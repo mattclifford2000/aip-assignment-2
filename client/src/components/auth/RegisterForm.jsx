@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
+import axios from 'axios';
 
 export default class RegisterComponent extends Component {
   constructor(props) {
@@ -19,6 +20,13 @@ export default class RegisterComponent extends Component {
   }
 
   handleSubmit(e) {
+
+    e.preventDefault();
+
+const { email, password, name, dateofbirth } = this.state;
+
+
+
     alert("A form was submitted: " + this.state);
     fetch("http://localhost:9000/register", {
       method: "POST",
@@ -29,23 +37,11 @@ export default class RegisterComponent extends Component {
       return response.json();
     });
 
-    window.event.preventDefault();
+    
   }
 
-  handleEmailChange(e) {
-    this.setState({ email: e.target.value });
-  }
-
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
-  }
-
-  handleNameChange(e) {
-    this.setState({ name: e.target.value });
-  }
-
-  handleDOBChange(e) {
-    this.setState({ name: e.target.value });
+  handleInputChange = e => {
+    this.setState({[e.target.name]: e.target.value,})
   }
 
   validateForm() {
@@ -69,7 +65,7 @@ export default class RegisterComponent extends Component {
               name="email"
               placeholder="Enter email"
               value={this.state.email}
-              onChange={this.handleEmailChange}
+              onChange={this.handleInputChange}
             />
           </Form.Group>
           <Form.Group controlId="formBasicName">
@@ -80,7 +76,7 @@ export default class RegisterComponent extends Component {
               name="name"
               placeholder="Enter name"
               value={this.state.name}
-              onChange={this.handleNameChange}
+              onChange={this.handleInputChange}
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
@@ -90,7 +86,7 @@ export default class RegisterComponent extends Component {
               name="password"
               placeholder="Password"
               value={this.state.password}
-              onChange={this.handlePasswordChange}
+              onChange={this.handleInputChange}
             />
           </Form.Group>
           <Form.Group controlId="formBasicDOB">
@@ -99,7 +95,7 @@ export default class RegisterComponent extends Component {
               type="date"
               id="dateofbirth"
               value={this.state.dateofbirth}
-              onChange={this.handleDOBChange}
+              onChange={this.handleInputChange}
               name="dateofbirth"
               placeholder="date"
             />
