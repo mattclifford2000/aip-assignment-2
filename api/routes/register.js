@@ -5,26 +5,14 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 let users = [];
-
-router.post("/register", async (req, res) => {
-  console.log("Inside Home Login");
+//User not adding properly
+router.post("/", async (req, res) => {
+  console.log("Success!");
   res.writeHead(200, {
     "Content-Type": "application/json",
   });
   console.log("Users : ", JSON.stringify(users));
   res.end(JSON.stringify(users));
-  router.get("/", async (req, res) => {
-    const newUser = {
-      UserID: 0,
-      UserName: req.body.name,
-      UserEmail: req.body.email,
-      UserPassword: req.body.password,
-      UserDOB: req.body.dateofbirth,
-      UserScore: 0,
-    };
-    users.push(newUser);
-    console.log(users);
-  });
 }); 
 
 
