@@ -5,7 +5,8 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 let users = [];
-//User not adding properly
+//User not adding properly, appears to be blank
+//Could be client or api
 router.post("/", async (req, res) => {
   console.log("Success!");
   res.writeHead(200, {
