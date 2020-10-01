@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
-import axios from 'axios';
+import axios from "axios";
 
 export default class RegisterComponent extends Component {
   constructor(props) {
@@ -13,36 +13,29 @@ export default class RegisterComponent extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this); //error here
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDOBChange = this.handleDOBChange.bind(this);
   }
 
-  handleSubmit(e) {
-
+  handleSubmit = (e) => {
     e.preventDefault();
 
-const { email, password, name, dateofbirth } = this.state;
+    const { email, password, name, dateofbirth } = this.state;
+    const user = { email, password, name, dateofbirth };
 
-
-
-    alert("A form was submitted: " + this.state);
-    fetch("http://localhost:9000/register", {
-      method: "POST",
-      // We convert the React state to JSON and send it as the POST body
-      body: JSON.stringify(this.state),
-    }).then(function (response) {
-      console.log(response);
-      return response.json();
-    });
-
-    
+    axios
+      .post("http://localhost:9000/register", user)
+      .then(() => console.log("User Created"))
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
-  handleInputChange = e => {
-    this.setState({[e.target.name]: e.target.value,})
-  }
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   validateForm() {
     return (
