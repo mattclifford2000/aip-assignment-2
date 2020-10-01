@@ -1,13 +1,18 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var http_module = require('http');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cors = require("cors");
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 var leaderboardRouter = require("./routes/leaderboard");
+var registerRouter = require('./routes/register');
 
 const mongoose = require('mongoose');
 
@@ -30,6 +35,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/testAPI", testAPIRouter);
 app.use("/leaderboard", leaderboardRouter);
+app.use("/register", registerRouter);
+
 
 
 // catch 404 and forward to error handler

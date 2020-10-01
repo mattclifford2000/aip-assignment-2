@@ -1,0 +1,34 @@
+var express = require("express");
+var router = express.Router();
+var axios = require('axios');
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
+
+let users = [];
+
+router.get('/', async (req, res) => {
+    console.log('Inside Home Login');
+    res.writeHead(200, {
+        'Content-Type': 'application/json',
+      });
+      console.log('Users : ', JSON.stringify(users));
+      res.end(JSON.stringify(users));
+})
+
+router.post('/create', async(req, res) => {
+const newUser = {
+UserID: 0,
+UserName: req.body.name,
+UserEmail: req.body.email,
+UserPassword: req.body.password,
+UserDOB: req.body.dateofbirth,
+UserScore: 0,
+};
+
+users.push(newUser);
+console.log(users);
+})
+
+module.exports = router;
+
+
