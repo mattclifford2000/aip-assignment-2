@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   res.end(JSON.stringify(users));
 }); 
 
-
+//Test for visibility
 router.get('/', async (req, res) => {
   res.send("Register endpoint is visible");
 })
