@@ -14,44 +14,38 @@ export default class RegisterComponent extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this); //error here
-    
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-
     const { email, password, name, dateofbirth } = this.state;
     const user = { email, password, name, dateofbirth };
 
+    const url = "http://localhost:9000/register";
     axios
-      .post("http://localhost:9000/register", user)
-      .then(() => console.log("User Created"))
-      .catch((err) => {
-        console.error(err);
+      .post(url, user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((error) => {
+        console.error("You have made a big error. " + error);
+        console.log(user);
       });
-  }
+  };
 
   handleInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  validateForm() {
-    return (
-      this.email.length > 0 &&
-      this.password.length > 0 &&
-      this.name.length > 0 &&
-      this.dateofbirth.length > 0
-    );
-  }
-
   render() {
     return (
       <div>
         <Form onSubmit={this.handleSubmit} noValidate>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
-              id="email"
               type="email"
               name="email"
               placeholder="Enter email"
@@ -59,10 +53,9 @@ export default class RegisterComponent extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicName">
+          <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
-              id="name"
               type="string"
               name="name"
               placeholder="Enter name"
@@ -70,7 +63,7 @@ export default class RegisterComponent extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -80,14 +73,12 @@ export default class RegisterComponent extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicDOB">
+          <Form.Group controlId="dateofbirth">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="date"
-              id="dateofbirth"
               value={this.state.dateofbirth}
               onChange={this.handleInputChange}
-              name="dateofbirth"
               placeholder="date"
             />
           </Form.Group>

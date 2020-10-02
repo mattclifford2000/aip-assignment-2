@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
+import axios from "axios";
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -15,18 +16,27 @@ export default class LoginForm extends Component {
   }
 
   handleSubmit(e) {
-    alert("A form was submitted: " + this.state);
-    fetch("http://localhost:9000/login", {
-      method: "POST",
-      // We convert the React state to JSON and send it as the POST body
-      body: JSON.stringify(this.state),
-    }).then(function (response) {
-      console.log(response);
-      return response.json();
-    });
 
-    window.event.preventDefault();
-  }
+    e.preventDefault();
+
+    const {email, password} = this.state
+    const login = {email, password};
+    const url = "http://localhost:9000/login";
+
+    axios
+      .post(url, login, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((error) => {
+        console.error("You have made a big error. " + error);
+        console.log(login);
+      });
+
+    
+  };
 
   handleEmailChange(e) {
     this.setState({ email: e.target.value });
@@ -44,10 +54,9 @@ export default class LoginForm extends Component {
     return (
       <div>
         <Form onSubmit={this.handleSubmit} noValidate>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="id">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              id="email"
               type="email"
               name="email"
               placeholder="Enter email"
@@ -58,10 +67,9 @@ export default class LoginForm extends Component {
               We'll never share your email with anyone else.
             </Form.Text>
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              id="password"
               name="password"
               type="password"
               placeholder="Password"
