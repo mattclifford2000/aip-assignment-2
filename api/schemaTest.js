@@ -19,21 +19,35 @@ mongoose.connect(
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
-  const kittySchema = new mongoose.Schema({
-    name: String,
+  const userSchema = new mongoose.Schema({
+    userEmail: String,
+    userName: String,
+    userPassword: String,
+    userDOB: Date,
+    userScore: Number,
+    userDebts: Array,
+    userRequests: Array,
+    userCredits: Array,
   });
-  const Kitten = mongoose.model("Kitten", kittySchema);
-  const silence = new Kitten({ name: "Silence" });
+  const User = mongoose.model("User", userSchema);
+  const silence = new User({
+    userEmail: "test@testerm.com",
+    userName: "Silence",
+    userPassword: "",
+    userDOB: "1988-12-09T13:00:00.000+00:00",
+    userScore: 3,
+    userDebts: [],
+    userRequests: [],
+    userCredits: [],
+  });
   //console.log(silence.name);
   silence.save(function (err, silence) {
     if (err) return console.log(err);
     //console.log(silence.name);
   });
 
-  Kitten.find(function (err, kittens) {
+  User.find(function (err, users) {
     if (err) return console.error(err);
-    console.log(kittens);
+    console.log(users);
   });
 });
-
-//mongoose.connect("mongodb://localhost/test", { useNewUrlParser: true });
