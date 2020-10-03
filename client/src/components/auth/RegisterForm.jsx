@@ -7,9 +7,13 @@ export default class RegisterComponent extends Component {
     super(props);
     this.state = {
       email: "",
+      score: 0,
       password: "",
       name: "",
       dateofbirth: "",
+      debts: [],
+      requests: [],
+      credits: [],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,19 +22,27 @@ export default class RegisterComponent extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, name, dateofbirth } = this.state;
-    const user = { email, password, name, dateofbirth };
+    const user = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      dateofbirth: this.state.dateofbirth,
+      score: this.state.score,
+      debts: this.state.debts,
+      requests: this.state.requests,
+      credits: this.state.credits,
+    };
 
     const url = "http://localhost:9000/register";
     axios
-      .post(url, user, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      .post(url, { user })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        console.log(user);
       })
-      .then((response) => console.log(response))
       .catch((error) => {
-        console.error("You have made a big error. " + error);
+        console.error(error);
         console.log(user);
       });
   };

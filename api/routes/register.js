@@ -5,8 +5,6 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 let users = [];
-//User not adding properly, appears to be blank
-//Could be client or api
 router.post("/", async (req, res) => {
   console.log("Success! Data Posted!");
   console.log(req.header('Content-Type'));
