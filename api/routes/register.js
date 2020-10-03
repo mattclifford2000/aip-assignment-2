@@ -1,19 +1,16 @@
 var express = require("express");
 var router = express.Router();
-var axios = require("axios");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
+var adduser = require("./../database/addduser");
 
-let users = [];
+
 router.post("/", async (req, res) => {
   console.log("Success! Data Posted!");
   console.log(req.header('Content-Type'));
   console.log(req.body.user);
   var user = req.body.user;
-  users.push(user);
-  console.log("Users : ", users.length);
-  console.log("Success! Data Posted!");
-  res.end(JSON.stringify(users));
+  adduser.addUser(user);
 });
 ;
 //Test for visibility
