@@ -10,7 +10,7 @@ export default class RegisterComponent extends Component {
       score: 0,
       password: "",
       name: "",
-      dateofbirth: "",
+      dateofbirth: new Date(),
       debts: [],
       requests: [],
       credits: [],
@@ -89,9 +89,10 @@ export default class RegisterComponent extends Component {
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="date"
+              name="dateofbirth"
               value={this.state.dateofbirth}
               onChange={this.handleInputChange}
-              placeholder="date"
+              placeholder="Date of Birth"
             />
           </Form.Group>
           <Button variant="primary" type="submit">

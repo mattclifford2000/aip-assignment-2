@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
-var adduser = require("./../database/addduser");
+var adduser = require("./../database/adduser");
 
 
 router.post("/", async (req, res) => {
@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   console.log(req.header('Content-Type'));
   console.log(req.body.user);
   var user = req.body.user;
-  adduser.addUser(user);
+  //adduser.addUser(user);
 });
 ;
 //Test for visibility
