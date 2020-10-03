@@ -7,46 +7,46 @@ export default class RegisterComponent extends Component {
     super(props);
     this.state = {
       email: "",
-      emailError: "",
-      score: 0,
       password: "",
-      passwordError: "",
       name: "",
-      nameError: "",
       dateofbirth: "",
-      dateofbirthError: "",
-      debts: [],
-      requests: [],
-      credits: [],
+      errors: {
+        email: "",
+        password: "",
+        name: "",
+        dateofbirth: "",
+      },
     };
-
-    
-
-
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this); //error here
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  
+  //Validates if the inputs fit
+  validateForm = (errors) => {
+    let valid = true;
+    Object.values(errors).forEach(
+      // if we have an error string set valid to false
+      (val) => val.length > 0 && (valid = false)
+    );
+    return valid;
+  };
 
   handleSubmit = (e) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
+    e.preventDefault();
+
+    if (this.validateForm(this.state.errors) === false) {
       e.stopPropagation();
     }
-
-    
 
     const user = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       dateofbirth: this.state.dateofbirth,
-      score: this.state.score,
-      debts: this.state.debts,
-      requests: this.state.requests,
-      credits: this.state.credits,
+      score: 0,
+      debts: [],
+      requests: [],
+      credits: [],
     };
 
     const url = "http://localhost:9000/register";
@@ -64,10 +64,47 @@ export default class RegisterComponent extends Component {
   };
 
   handleInputChange = (e) => {
+    var validEmailRegex = RegExp(
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    );
+
+    e.preventDefault();
+    const { name, value } = e.target;
+    let errors = this.state.errors;
+    var today = new Date();
+    switch (name) {
+      case "email":
+        errors.email = validEmailRegex.test(value)
+          ? ""
+          : "You must enter a valid email.";
+        break;
+      case "password":
+        errors.password =
+          value.length < 8
+            ? "Your password must be 8 characters or longer."
+            : "";
+        break;
+      case "name":
+        errors.name =
+          value.length < 6 || value.length > 36
+            ? "Your name must be in between 6 and 36 characters."
+            : "";
+        break;
+      case "dateofbirth":
+        errors.dateofbirth =
+          new Date (value) > new Date(today)
+            ? "Your date of birth must be valid and before today."
+            : "";
+        break;
+      default:
+        break;
+    }
     this.setState({ [e.target.name]: e.target.value });
+    this.setState({ errors, [name]: value });
   };
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <Form onSubmit={this.handleSubmit} noValidate>
@@ -81,6 +118,9 @@ export default class RegisterComponent extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
+          {errors.email.length > 0 && (
+            <span className="error">{errors.email}</span>
+          )}
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -91,6 +131,9 @@ export default class RegisterComponent extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
+          {errors.name.length > 0 && (
+            <span className="error">{errors.name}</span>
+          )}
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -101,6 +144,9 @@ export default class RegisterComponent extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
+          {errors.password.length > 0 && (
+            <span className="error">{errors.password}</span>
+          )}
           <Form.Group controlId="dateofbirth">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
@@ -111,9 +157,22 @@ export default class RegisterComponent extends Component {
               placeholder="Date of Birth"
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          {errors.dateofbirth.length > 0 && (
+            <span className="error">{errors.dateofbirth}</span>
+          )}
+          <br></br>
+          {errors.password.length == 0 &&
+            errors.email.length == 0 &&
+            errors.name.length == 0 &&
+            errors.dateofbirth.length == 0 &&
+            this.state.email.length > 0 &&
+            this.state.password.length > 0 &&
+            this.state.name.length > 0 &&
+            this.state.dateofbirth.length > 0 && (
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            )}
         </Form>
       </div>
     );
