@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -7,21 +7,37 @@ export default class RegisterComponent extends Component {
     super(props);
     this.state = {
       email: "",
+      emailError: "",
       score: 0,
       password: "",
+      passwordError: "",
       name: "",
-      dateofbirth: new Date(),
+      nameError: "",
+      dateofbirth: "",
+      dateofbirthError: "",
       debts: [],
       requests: [],
       credits: [],
     };
 
+    
+
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this); //error here
   }
 
+  
+
   handleSubmit = (e) => {
-    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    
+
     const user = {
       name: this.state.name,
       email: this.state.email,

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -8,49 +8,82 @@ export default class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
+      //error state for form validation
+      errors: {
+        email: "",
+        password: "",
+      },
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleSubmit(e) {
+  //Validates if the inputs for email and password fit
+  validateForm = (errors) => {
+    let valid = true;
+    Object.values(errors).forEach(
+      // if we have an error string set valid to false
+      (val) => val.length > 0 && (valid = false)
+    );
+    return valid;
+  };
 
+  handleSubmit(e) {
     e.preventDefault();
 
-    const {email, password} = this.state
-    const login = {email, password};
+    if (this.validateForm(this.state.errors) === false) {
+      e.stopPropagation();
+    }
+
+    const login = {
+      email: this.state.email,
+      password: this.state.password,
+    };
     const url = "http://localhost:9000/login";
 
     axios
-      .post(url, login, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      .post(url, { login })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        console.log(login);
       })
-      .then((response) => console.log(response))
       .catch((error) => {
-        console.error("You have made a big error. " + error);
+        console.error(error);
         console.log(login);
       });
+  }
 
-    
+  handleInputChange = (e) => {
+    var validEmailRegex = RegExp(
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    );
+
+    e.preventDefault();
+    const { name, value } = e.target;
+    let errors = this.state.errors;
+    switch (name) {
+      case "email":
+        errors.email = validEmailRegex.test(value)
+          ? ""
+          : "You must enter a valid email.";
+        break;
+      case "password":
+        errors.password =
+          value.length < 8
+            ? "Your password must be 8 characters or longer."
+            : "";
+        break;
+      default:
+        break;
+    }
+    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ errors, [name]: value });
   };
 
-  handleEmailChange(e) {
-    this.setState({ email: e.target.value });
-  }
-
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
-  }
-
-  validateForm() {
-    return this.email.length > 0 && this.password.length > 0;
-  }
-
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <Form onSubmit={this.handleSubmit} noValidate>
@@ -61,12 +94,12 @@ export default class LoginForm extends Component {
               name="email"
               placeholder="Enter email"
               value={this.state.email}
-              onChange={this.handleEmailChange}
+              onChange={this.handleInputChange}
             />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
+          {errors.email.length > 0 && (
+            <span className="error">{errors.email}</span>
+          )}
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -74,12 +107,21 @@ export default class LoginForm extends Component {
               type="password"
               placeholder="Password"
               value={this.state.password}
-              onChange={this.handlePasswordChange}
+              onChange={this.handleInputChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          {errors.password.length > 0 && (
+            <span className="error">{errors.password}</span>
+          )}
+          <br></br>
+          {errors.password.length == 0 &&
+            errors.email.length == 0 &&
+            this.state.email.length > 0 &&
+            this.state.password.length > 0 && (
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            )}
         </Form>
       </div>
     );

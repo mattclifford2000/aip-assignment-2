@@ -8,7 +8,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 
-
 export default class FrontPage extends Component {
 
 
@@ -20,7 +19,7 @@ export default class FrontPage extends Component {
 
     this.state = {
       show: null,
-      apiResponse: ""
+      apiResponse: "",
     };
   }
 
@@ -29,6 +28,7 @@ export default class FrontPage extends Component {
         .then(res => res.text())
         .then(res => this.setState({ apiResponse: res }));
 }
+
 
 componentWillMount() {
   this.callAPI();
