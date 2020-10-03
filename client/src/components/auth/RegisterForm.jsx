@@ -20,7 +20,7 @@ export default class RegisterComponent extends Component {
       credits: [],
     };
 
-    const [validated, setValidated] = useState(false);
+    
 
 
     this.handleSubmit = this.handleSubmit.bind(this);

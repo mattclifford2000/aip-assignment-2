@@ -6,8 +6,7 @@ import RegisterForm from "../auth/RegisterForm";
 import Header from "../shared/Header";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import NotAuthenticated from "./NotAuthenticated";
-import Authenticated from "./Authenticated";
+
 
 export default class FrontPage extends Component {
 

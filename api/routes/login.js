@@ -7,12 +7,10 @@ router.use(express.urlencoded({ extended: false }));
 let logins = [];
 
 router.post("/", async (req, res) => {
-  console.log("Success!");
-  res.writeHead(200, {
-    "Content-Type": "application/json",
-  });
-  console.log("Logins : ", JSON.stringify(logins));
-  res.end(JSON.stringify(logins));
+  console.log("Success! Data Posted!");
+  console.log(req.header('Content-Type'));
+  console.log(req.body.login);
+  var login = req.body.login;
 }); 
 
 //test for visibility
