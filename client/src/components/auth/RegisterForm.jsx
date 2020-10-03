@@ -39,6 +39,7 @@ export default class RegisterComponent extends Component {
     }
 
     const user = {
+      id: 0,
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
@@ -92,7 +93,7 @@ export default class RegisterComponent extends Component {
         break;
       case "dateofbirth":
         errors.dateofbirth =
-          new Date (value) > new Date(today)
+          new Date(value) > new Date(today)
             ? "Your date of birth must be valid and before today."
             : "";
         break;
@@ -161,10 +162,10 @@ export default class RegisterComponent extends Component {
             <span className="error">{errors.dateofbirth}</span>
           )}
           <br></br>
-          {errors.password.length == 0 &&
-            errors.email.length == 0 &&
-            errors.name.length == 0 &&
-            errors.dateofbirth.length == 0 &&
+          {errors.password.length === 0 &&
+            errors.email.length === 0 &&
+            errors.name.length === 0 &&
+            errors.dateofbirth.length === 0 &&
             this.state.email.length > 0 &&
             this.state.password.length > 0 &&
             this.state.name.length > 0 &&
