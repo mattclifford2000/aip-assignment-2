@@ -8,17 +8,19 @@ let users = [];
 //User not adding properly, appears to be blank
 //Could be client or api
 router.post("/", async (req, res) => {
-  console.log("Success!");
-  res.writeHead(200, {
-    "Content-Type": "application/json",
-  });
-  console.log("Users : ", JSON.stringify(users));
+  console.log("Success! Data Posted!");
+  console.log(req.header('Content-Type'));
+  console.log(req.body.user);
+  var user = req.body.user;
+  users.push(user);
+  console.log("Users : ", users.length);
+  console.log("Success! Data Posted!");
   res.end(JSON.stringify(users));
-}); 
-
+});
+;
 //Test for visibility
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   res.send("Register endpoint is visible");
-})
+});
 
 module.exports = router;
