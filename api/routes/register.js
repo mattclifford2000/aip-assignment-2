@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
   console.log(req.body.user);
   var user = req.body.user;
   adduser.addUser(user);
-
+//
 });
 ;
 //Test for visibility
