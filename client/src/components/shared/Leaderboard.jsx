@@ -17,7 +17,7 @@ class Leaderboard extends React.Component{
     }
 
     async getLeaderboard() {
-        let response = await fetch('/leaderboard');
+        let response = await fetch('/lists/leaderboard');
         let leaderboard = await response.json();
         console.log(leaderboard);
         this.setState({ leaderboard });

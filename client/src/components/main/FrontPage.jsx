@@ -19,20 +19,12 @@ export default class FrontPage extends Component {
 
     this.state = {
       show: null,
-      apiResponse: "",
     };
   }
 
-  callAPI() {
-    fetch("http://localhost:9000/testAPI")
-        .then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }));
-}
 
 
-componentWillMount() {
-  this.callAPI();
-}
+
 
   handleClose() {
     this.setState({show: null});
@@ -79,7 +71,7 @@ render()
       <br></br>
       <br></br>
       <Leaderboard />
-      <p className="App-intro">{this.state.apiResponse}</p>
+      
     </div>
   );
 }

@@ -39,28 +39,26 @@ export default class RegisterComponent extends Component {
     }
 
     const user = {
-      id: 0,
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       dateofbirth: this.state.dateofbirth,
+      role: "user",
       score: 0,
-      debts: [],
-      requests: [],
+      debits: [],
       credits: [],
+      requests: [],
     };
 
-    const url = "http://localhost:9000/register";
+    const url = "http://localhost:9000/auth/register";
     axios
       .post(url, { user })
       .then((response) => {
         console.log(response);
         console.log(response.data);
-        console.log(user);
       })
       .catch((error) => {
         console.error(error);
-        console.log(user);
       });
   };
 
@@ -75,13 +73,13 @@ export default class RegisterComponent extends Component {
     var today = new Date();
     switch (name) {
       case "email":
-        errors.email = validEmailRegex.test(value)
+        errors.email = validEmailRegex.test(value) || value.length < 6
           ? ""
           : "You must enter a valid email.";
         break;
       case "password":
         errors.password =
-          value.length < 8
+          value.length < 8 || value.length > 1024
             ? "Your password must be 8 characters or longer."
             : "";
         break;
@@ -93,7 +91,7 @@ export default class RegisterComponent extends Component {
         break;
       case "dateofbirth":
         errors.dateofbirth =
-          new Date(value) > new Date(today)
+          new Date(value) >= new Date(today)
             ? "Your date of birth must be valid and before today."
             : "";
         break;

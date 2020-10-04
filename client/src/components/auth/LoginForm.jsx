@@ -40,7 +40,7 @@ export default class LoginForm extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-    const url = "http://localhost:9000/login";
+    const url = "http://localhost:9000/auth/login";
 
     axios
       .post(url, { login })
