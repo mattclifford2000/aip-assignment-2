@@ -2,34 +2,41 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  userEmail: {
-    type: String,
-    unique: true,
-    lowercase: true,
-    required: true,
-  },
-  UserName: {
+  name: {
     type: String,
     unique: false,
     required: true,
     min: 6,
     max: 36,
   },
-  userPassword: {
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+    required: true,
+    min: 6
+  },
+  password: {
     type: String,
     unique: false,
     required: true,
     min: 8,
     max: 1024,
   },
-  userRole: {
+  dateofbirth: {
+    type: Date,
+    default: Date.now(),
+    unique: false,
+    required: true,
+  },
+  role: {
     type: String,
     unique: false,
     enum: ["user", "admin"],
     required: true,
     default: "user",
   },
-  userScore: {
+  score: {
     type: Number,
     unique: false,
     default: 0,
@@ -37,25 +44,19 @@ const UserSchema = new Schema({
     min: 0,
     max: 99999,
   },
-  userDOB: {
-    type: Date,
-    default: Date.now(),
-    unique: false,
-    required: true,
-  },
-  userDebits: {
+  debits: {
     type: Array,
     default: [],
     required: true,
     unique: false,
   },
-  userCredits: {
+  credits: {
     type: Array,
     default: [],
     required: true,
     unique: false,
   },
-  userFavours: {
+  requests: {
     type: Array,
     default: [],
     required: true,
