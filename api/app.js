@@ -8,18 +8,16 @@ var logger = require('morgan');
 var cors = require("cors");
 
 
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 var leaderboardRouter = require("./routes/leaderboard");
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
-
-
 const mongoose = require('mongoose');
 
-require('dotenv').config();
+require('./database/initDB')();
+
 
 var app = express();
 
@@ -58,19 +56,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-//DATABASE
-mongoose.connect(
-  process.env.DB_PROTOCOL + '://' +
-  process.env.DB_USER + ':' +
-  process.env.DB_PASS + '@' +
-  process.env.DB_ADDR + '/' +
-  process.env.DB_STORE + '?' +
-  process.env.DB_PARAMS,
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-  }
-);
 
 module.exports = app;
