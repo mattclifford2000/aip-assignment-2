@@ -1,8 +1,11 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
 import "../../styles/Login.css";
+import "../context/auth.jsx";
+import { useAuth } from "../context/auth.jsx";
+import {Error} from "../shared/AuthForm"
 
 export default class Login extends Component {
   constructor(props) {
@@ -10,6 +13,10 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      isLoggedIn: false,
+      isError: false,
+      
+
       //error state for form validation
       errors: {
         email: "",
@@ -20,6 +27,8 @@ export default class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
+  
 
   //Validates if the inputs for email and password fit
   validateForm = (errors) => {
@@ -43,13 +52,22 @@ export default class Login extends Component {
       .post(url, { login })
       .then((response) => {
         if ((response.status = 200)) {
+          //this.state.setAuthTokens(response.data);
           var user = response.data;
+          this.state.isLoggedIn = true;
+        } else {
+          this.state.isError = true;
         }
       })
       .catch((error) => {
-        console.error(error);
-        console.log(login);
+        this.state.isError = true;
       });
+  };
+
+  redirect = async (e) => {
+    if ((this.state.isLoggedIn = true)) {
+      return <Redirect to="/" />;
+    }
   };
 
   handleInputChange = (e) => {
@@ -122,6 +140,7 @@ export default class Login extends Component {
               )}
             <Link to="/register">Don't have an account?</Link>
           </Form>
+          {this.state.isError && <Error>The username or password provided were incorrect!</Error>}
         </Card>
       </div>
     );
