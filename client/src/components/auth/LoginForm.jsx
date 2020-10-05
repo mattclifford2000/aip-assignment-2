@@ -29,13 +29,8 @@ export default class LoginForm extends Component {
     return valid;
   };
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
-
-    if (this.validateForm(this.state.errors) === false) {
-      e.stopPropagation();
-    }
-
     const login = {
       email: this.state.email,
       password: this.state.password,
@@ -45,6 +40,10 @@ export default class LoginForm extends Component {
     axios
       .post(url, { login })
       .then((response) => {
+        if (response.status = 200)
+        {
+
+        }
         console.log(response);
         console.log(response.data);
         console.log(login);
