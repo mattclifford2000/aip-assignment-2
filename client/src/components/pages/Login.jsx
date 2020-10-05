@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
-import "../../styles/Login.css"
+import "../../styles/Login.css";
 
-export default class LoginForm extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,19 +42,15 @@ export default class LoginForm extends Component {
     axios
       .post(url, { login })
       .then((response) => {
-        if (response.status = 200)
-        {
-
+        if ((response.status = 200)) {
+          var user = response.data;
         }
-        console.log(response);
-        console.log(response.data);
-        console.log(login);
       })
       .catch((error) => {
         console.error(error);
         console.log(login);
       });
-  }
+  };
 
   handleInputChange = (e) => {
     var validEmailRegex = RegExp(
@@ -87,45 +83,45 @@ export default class LoginForm extends Component {
     const { errors } = this.state;
     return (
       <div className="loginform">
-        <Card style={{ width: '18rem'}}>
-        <Form onSubmit={this.handleSubmit} noValidate>
-          <Form.Group controlId="id">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              value={this.state.email}
-              onChange={this.handleInputChange}
-            />
-          </Form.Group>
-          {errors.email.length > 0 && (
-            <span className="error">{errors.email}</span>
-          )}
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </Form.Group>
-          {errors.password.length > 0 && (
-            <span className="error">{errors.password}</span>
-          )}
-          <br></br>
-          {errors.password.length === 0 &&
-            errors.email.length === 0 &&
-            this.state.email.length > 0 &&
-            this.state.password.length > 0 && (
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
+        <Card style={{ width: "18rem" }}>
+          <Form onSubmit={this.handleSubmit} noValidate>
+            <Form.Group controlId="id">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
+            {errors.email.length > 0 && (
+              <span className="error">{errors.email}</span>
             )}
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
+            {errors.password.length > 0 && (
+              <span className="error">{errors.password}</span>
+            )}
+            <br></br>
+            {errors.password.length === 0 &&
+              errors.email.length === 0 &&
+              this.state.email.length > 0 &&
+              this.state.password.length > 0 && (
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              )}
             <Link to="/register">Don't have an account?</Link>
-        </Form>
+          </Form>
         </Card>
       </div>
     );

@@ -5,7 +5,9 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 
 router.post("/register", async (req, res) => {
-  var body = req.body.user;
+  var password = req.body.password;
+  var email = req.body.email;
+  var body = { email: email, password: password };
   console.log("Successful POST.");
   try {
     const { error } = verifyRegisterUser(body);
@@ -43,25 +45,31 @@ router.post("/login", async (req, res) => {
   var body = req.body.login;
   console.log("Successful POST.");
   try {
-    const { error } = verifyRegisterUser(body);
+    const { error } = verifyLoginUser(body);
     if (error) {
+      console.log("Does not meet schema");
       return res.status(400).send(error.details[0].message);
+      
     }
   } catch (err) {
     console.error(err.message);
   }
   const user = await User.findOne({ email: body.email });
   if (!user)
+  {
+    console.log("No user with email found.");
     return res
       .status(400)
       .send(
         "Account does not exist with provided email and password combination."
       );
+  }
   const validPassword = await bcrypt.compare(body.password, user.password);
   if (!validPassword) return res.status(400).send("Incorrect Password");
   //res.send("Login Successful!");
   return res.status(200).send(user);
 });
+
 
 router.get("/register", async (req, res) => {
   res.json({ message: "This is the register route!" });

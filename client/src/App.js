@@ -8,7 +8,6 @@ import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
-import Leaderboard from "./components/shared/Leaderboard";
 import { Navbar, Nav } from "react-bootstrap";
 
 function App(props) {
