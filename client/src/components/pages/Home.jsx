@@ -1,6 +1,6 @@
 import React from "react";
 import Leaderboard from "../shared/Leaderboard";
-import "../styles/main.css";
+import "./../../styles/Home.css";
 
 function Home(props) {
   return (

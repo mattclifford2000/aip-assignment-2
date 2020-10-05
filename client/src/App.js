@@ -1,34 +1,29 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
-import Requests from "./components/pages/Requests"
-import Profile from "./components/pages/Profile"
-import {
-  Navbar,
-  NavDropdown,
-  Nav,
-  Form,
-  FormControl,
-  Button,
-  Modal,
-} from "react-bootstrap";
-
+import Requests from "./components/pages/Requests";
+import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
 import Leaderboard from "./components/shared/Leaderboard";
+import { Navbar, Nav } from "react-bootstrap";
 
-export default class App extends Component {
-  constructor(props, context) {
-    super(props, context);
-  }
+function App(props) {
+  const existingTokens = JSON.parse(localStorage.getItem("tokens"));
+  const [authTokens, setAuthTokens] = useState(existingTokens);
 
-  render() {
-    return (
+  const setTokens = (data) => {
+    localStorage.setItem("tokens", JSON.stringify(data));
+    setAuthTokens(data);
+  };
+
+  return (
+    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
-        <div>
+        <div className="App">
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">Favour Centre</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -45,11 +40,12 @@ export default class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/requests" component={Requests} />
-          <Route exact path="/profile" component={Profile} />
-
+          <PrivateRoute exact path="/requests" component={Requests} />
+          <PrivateRoute exact path="/profile" component={Profile} />
         </div>
       </Router>
-    );
-  }
+    </AuthContext.Provider>
+  );
 }
+
+export default App;

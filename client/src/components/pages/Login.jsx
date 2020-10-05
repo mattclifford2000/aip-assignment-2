@@ -1,6 +1,8 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
-import { Button, Form } from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
+import "../../styles/Login.css"
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -84,7 +86,8 @@ export default class LoginForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div>
+      <div className="loginform">
+        <Card style={{ width: '18rem'}}>
         <Form onSubmit={this.handleSubmit} noValidate>
           <Form.Group controlId="id">
             <Form.Label>Email address</Form.Label>
@@ -121,7 +124,9 @@ export default class LoginForm extends Component {
                 Submit
               </Button>
             )}
+            <Link to="/register">Don't have an account?</Link>
         </Form>
+        </Card>
       </div>
     );
   }
