@@ -1,5 +1,6 @@
 import * as React from "react";
 import axios from "axios";
+import "./../../styles/Leaderboard.css";
 
 export default class Leaderboard extends React.Component {
   state = {
@@ -37,13 +38,13 @@ export default class Leaderboard extends React.Component {
   render() {
     return (
       <div>
-        <h4>Leaderboard</h4>
-        <div style={{ border: "3px solid green" }}>
-          <ul>
+        <h5>Leaderboard</h5>
+        <div className="leaderboard">
+          <ol>
             {this.state.users.map((user) => (
               <li>{user.name + ": " + user.score + " points."}</li>
             ))}
-          </ul>
+          </ol>
         </div>
       </div>
     );
