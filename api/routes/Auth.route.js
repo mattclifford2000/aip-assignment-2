@@ -1,12 +1,12 @@
 const express = require("express");
-const router = express.Router();
+var router = express.Router();
 const { verifyLoginUser, verifyRegisterUser } = require("../helpers/validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 
 router.post("/register", async (req, res) => {
   var body = req.body.user;
-  console.log(body);
+  console.log("Successful POST.");
   try {
     const { error } = verifyRegisterUser(body);
     if (error) {
@@ -36,12 +36,12 @@ router.post("/register", async (req, res) => {
     requests: body.requests,
   });
   const savedUser = await user.save();
-  res.send(savedUser);
+  return res.status(200).send(savedUser);
 });
 
 router.post("/login", async (req, res) => {
   var body = req.body.login;
-  console.log(body);
+  console.log("Successful POST.");
   try {
     const { error } = verifyRegisterUser(body);
     if (error) {
@@ -59,7 +59,8 @@ router.post("/login", async (req, res) => {
       );
   const validPassword = await bcrypt.compare(body.password, user.password);
   if (!validPassword) return res.status(400).send("Incorrect Password");
-  res.send("Login Successful!");
+  //res.send("Login Successful!");
+  return res.status(200).send(user);
 });
 
 router.get("/register", async (req, res) => {

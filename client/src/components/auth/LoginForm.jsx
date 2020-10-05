@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState } from "react"; //eslint-disable-line
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -57,7 +57,7 @@ export default class LoginForm extends Component {
 
   handleInputChange = (e) => {
     var validEmailRegex = RegExp(
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i //eslint-disable-line
     );
 
     e.preventDefault();
@@ -114,8 +114,8 @@ export default class LoginForm extends Component {
             <span className="error">{errors.password}</span>
           )}
           <br></br>
-          {errors.password.length == 0 &&
-            errors.email.length == 0 &&
+          {errors.password.length === 0 &&
+            errors.email.length === 0 &&
             this.state.email.length > 0 &&
             this.state.password.length > 0 && (
               <Button variant="primary" type="submit">

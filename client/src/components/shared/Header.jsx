@@ -7,8 +7,8 @@ class Header extends Component{
             <div>
               <ul className="header">
                 <li><a href="/">Home</a></li>
-                <li><a href="/stuff">Stuff</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/requests">Requests</a></li>
               </ul>
             </div>
         );
