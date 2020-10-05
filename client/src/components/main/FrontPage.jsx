@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, useState } from "react";
+import { Component, useState } from "react"; //eslint-disable-line
 import Leaderboard from "../shared/Leaderboard";
 import LoginForm from "../auth/LoginForm";
 import RegisterForm from "../auth/RegisterForm";

@@ -2,6 +2,7 @@ const Joi = require("@hapi/joi");
 
 var today = new Date();
 
+//Some mismatch exists between the frontend and backend email checker
 const verifyRegisterUser = (user) => {
   const schema = Joi.object({
       //Does not filter for symbols or numbers in name

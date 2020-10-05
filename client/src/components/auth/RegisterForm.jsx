@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState } from "react"; //eslint-disable-line
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ export default class RegisterComponent extends Component {
       password: "",
       name: "",
       dateofbirth: "",
+      result: "",
       errors: {
         email: "",
         password: "",
@@ -56,6 +57,7 @@ export default class RegisterComponent extends Component {
       .then((response) => {
         console.log(response);
         console.log(response.data);
+        this.setState({ result: response.data });
       })
       .catch((error) => {
         console.error(error);
@@ -64,7 +66,8 @@ export default class RegisterComponent extends Component {
 
   handleInputChange = (e) => {
     var validEmailRegex = RegExp(
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+      
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i //eslint-disable-line
     );
 
     e.preventDefault();
@@ -73,9 +76,10 @@ export default class RegisterComponent extends Component {
     var today = new Date();
     switch (name) {
       case "email":
-        errors.email = validEmailRegex.test(value) || value.length < 6
-          ? ""
-          : "You must enter a valid email.";
+        errors.email =
+          validEmailRegex.test(value) || value.length < 6
+            ? ""
+            : "You must enter a valid email.";
         break;
       case "password":
         errors.password =
@@ -173,6 +177,7 @@ export default class RegisterComponent extends Component {
               </Button>
             )}
         </Form>
+        <Form.Label>{this.result}</Form.Label>
       </div>
     );
   }
