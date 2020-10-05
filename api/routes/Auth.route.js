@@ -4,6 +4,7 @@ const { verifyLoginUser, verifyRegisterUser } = require("../helpers/validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 
+
 router.post("/register", async (req, res) => {
   var password = req.body.password;
   var email = req.body.email;
@@ -65,7 +66,11 @@ router.post("/login", async (req, res) => {
       );
   }
   const validPassword = await bcrypt.compare(body.password, user.password);
-  if (!validPassword) return res.status(400).send("Incorrect Password");
+  if (!validPassword) 
+  {
+    console.log("Incorrect password")
+    return res.status(400).send("Incorrect Password");
+  }
   //res.send("Login Successful!");
   return res.status(200).send(user);
 });
