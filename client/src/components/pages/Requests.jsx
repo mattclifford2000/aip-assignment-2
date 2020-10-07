@@ -1,7 +1,7 @@
 import React from "react";
 
-function Home(props) {
+function Requests(props) {
   return <div>Requests Page</div>;
 }
 
-export default Home;
+export default Requests;

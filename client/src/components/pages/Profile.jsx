@@ -1,7 +1,7 @@
 import React from "react";
 
-function Home(props) {
+function Profile(props) {
   return <div>Profile Page</div>;
 }
 
-export default Home;
+export default Profile;
