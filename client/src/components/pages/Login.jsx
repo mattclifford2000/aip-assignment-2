@@ -63,7 +63,7 @@ function Login(props) {
               name="password"
               type="password"
               placeholder="Password"
-              value={this.state.password}
+              value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -81,3 +81,5 @@ function Login(props) {
     </div>
   );
 }
+
+export default Login;
