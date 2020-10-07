@@ -6,21 +6,25 @@ const User = require("../models/User.model");
 
 
 router.post("/register", async (req, res) => {
+  var name = req.body.name;
   var password = req.body.password;
   var email = req.body.email;
-  var body = { email: email, password: password };
-  console.log("Successful POST.");
+  var dateofbirth = req.body.dateofbirth;
+  var body = { name: name, email: email, password: password, dateofbirth: dateofbirth };
+  console.log("Successful POST register.");
   try {
+    console.log(body);
     const { error } = verifyRegisterUser(body);
     if (error) {
-      return res.status(400).send(error.details[0].message);
+      console.log("Broke")
+      return res.status(200).send(error.details[0].message);
     }
   } catch (err) {
     console.error(err.message);
   }
   const emailExists = await User.exists({ email: body.email });
   if (emailExists)
-    return res.status(400).send("A user exists with this email.");
+    return res.status(200).send("A user exists with this email.");
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(body.password, salt);
   var newRole = "user";
@@ -81,7 +85,7 @@ router.get("/register", async (req, res) => {
 });
 
 router.get("/login", async (req, res) => {
-  res.json({ message: "This is the loginroute!" });
+  res.json({ message: "This is the login route!" });
 });
 
 module.exports = router;
