@@ -54,18 +54,18 @@ export default class Login extends Component {
         if ((response.status = 200)) {
           //this.state.setAuthTokens(response.data);
           var user = response.data;
-          this.state.isLoggedIn = true;
+          this.setState({isLoggedIn: true});
         } else {
-          this.state.isError = true;
+          this.setState({isError: true});
         }
       })
       .catch((error) => {
-        this.state.isError = true;
+        this.setState({isError: true});
       });
   };
 
   redirect = async (e) => {
-    if ((this.state.isLoggedIn = true)) {
+    if ((this.setState({isLoggedIn: true}))) {
       return <Redirect to="/" />;
     }
   };

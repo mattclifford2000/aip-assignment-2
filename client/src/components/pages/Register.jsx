@@ -35,6 +35,7 @@ export default class RegisterComponent extends Component {
   };
 
   handleSubmit = (e) => {
+    console.log(this.state);
     e.preventDefault();
 
     if (this.validateForm(this.state.errors) === false) {
@@ -54,8 +55,11 @@ export default class RegisterComponent extends Component {
     };
 
     const url = "http://localhost:9000/auth/register";
+
+
+
     axios
-      .post(url, { user })
+      .post(url, user)
       .then((response) => {
         console.log(response);
         console.log(response.data);
