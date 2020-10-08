@@ -10,9 +10,9 @@ import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
 import { Navbar, Nav } from "react-bootstrap";
 
-
 import { Component } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
+
 
 class DebugRouter extends BrowserRouter {
   constructor(props) {

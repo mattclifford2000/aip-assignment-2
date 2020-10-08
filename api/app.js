@@ -6,8 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cors = require("cors");
+const jwt = require("jsonwebtoken");
 
-const AuthRoute = require('./routes/Auth.route');
+require('dotenv').config();
+
+const LoginRoute = require('./routes/login.route');
+const RegisterRoute = require('./routes/register.route');
+
 const ListRoute = require("./routes/Lists.route")
 require('./database/initDB')();
 
@@ -22,10 +27,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use('/auth', AuthRoute);
+
+app.use('/login', LoginRoute);
+app.use('/register', RegisterRoute);
+
 app.use('/lists', ListRoute);
 
+app.get('/authtest', authenticateToken, (req, res) => {
+  console.log(req.user);
+})
 
+function authenticateToken(req, res, next){
+
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if(token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

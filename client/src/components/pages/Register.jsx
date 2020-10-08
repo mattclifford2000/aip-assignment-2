@@ -54,7 +54,7 @@ export default class RegisterComponent extends Component {
       requests: [],
     };
 
-    const url = "http://localhost:9000/auth/register";
+    const url = "http://localhost:9000/register";
 
 
 

@@ -20,12 +20,14 @@ function Login(props) {
       email: email,
       password: password,
     };
-    const url = "http://localhost:9000/auth/login";
+    const url = "http://localhost:9000/login";
 
     axios
       .post(url, { login })
       .then((response) => {
+        //console.log(response);
         if (response.status === 200) {
+          console.log(response.data);
           setAuthTokens(response.data);
           setLoggedIn(true);
         } else {
