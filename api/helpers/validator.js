@@ -4,6 +4,8 @@ var today = new Date();
 
 //Some mismatch exists between the frontend and backend email checker
 const verifyRegisterUser = (user) => {
+  console.log("User: ");
+  console.log(user);
   const schema = Joi.object({
       //Does not filter for symbols or numbers in name
       //as using alphanum() param disallows spaces.
@@ -17,6 +19,7 @@ const verifyRegisterUser = (user) => {
     credits: Joi.array(),
     requests: Joi.array(),
   });
+  console.log(schema.validate(user));
   return schema.validate(user);
 };
 

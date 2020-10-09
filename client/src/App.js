@@ -10,6 +10,23 @@ import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
 import { Navbar, Nav } from "react-bootstrap";
 
+import { Component } from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
+
+
+class DebugRouter extends BrowserRouter {
+  constructor(props) {
+    super(props);
+    console.log('initial history is: ', JSON.stringify(this.history, null, 2))
+    this.history.listen((location, action) => {
+      console.log(
+        `The current URL is ${location.pathname}${location.search}${location.hash}`
+      )
+      console.log(`The last navigation action was ${action}`, JSON.stringify(this.history, null, 2));
+    });
+  }
+}
+
 function App(props) {
   const existingTokens = JSON.parse(localStorage.getItem("tokens"));
   const [authTokens, setAuthTokens] = useState(existingTokens);
@@ -21,7 +38,7 @@ function App(props) {
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-      <Router>
+      <DebugRouter>
         <div className="App">
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">Favour Centre</Navbar.Brand>
@@ -42,7 +59,7 @@ function App(props) {
           <PrivateRoute exact path="/requests" component={Requests} />
           <PrivateRoute exact path="/profile" component={Profile} />
         </div>
-      </Router>
+      </DebugRouter>
     </AuthContext.Provider>
   );
 }

@@ -19,7 +19,7 @@ export default class Leaderboard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("/lists/leaderboard").then((res) => {
+    axios.get("lists/leaderboard").then((res) => {
       var users = res.data;
       var data = [];
       if (users.length < 10) {
@@ -34,6 +34,8 @@ export default class Leaderboard extends React.Component {
       this.setState({ users: data });
     });
   }
+
+  
 
   render() {
     return (
