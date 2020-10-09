@@ -1,49 +1,54 @@
 import * as React from "react";
+import axios from "axios";
+import "./../../styles/Leaderboard.css";
 
-class Leaderboard extends React.Component{
+export default class Leaderboard extends React.Component {
+  state = {
+    users: [],
+  };
 
-    constructor(props) {
-        super(props);
-        this.state = { username: '' };
-        this.state = {
-            leaderboard: 
-                [{ name: 'a', score: 0 }, { name: 'b', score: 0 }]
-            
-        };
-    }
-
-    async componentDidMount() {
-        await this.getLeaderboard();
-    }
-
-    async getLeaderboard() {
-        let response = await fetch('/leaderboard');
-        let leaderboard = await response.json();
-        console.log(leaderboard);
-        this.setState({ leaderboard });
-        console.log(this.state.leaderboard);
-    }
-
-    render() 
-    {
-        return (
-            <div>
-                <p>0: Lachlan Brown (∞ points)</p>
-                <p>1: Matthew Clifford (99999999 points)</p>
-                <p>2: Everyone else (less points)</p>
-                <div style={{ border: '3px solid green' }}>
-                    <ul>
-                        {this.state.leaderboard.map((entry, i) => {
-                            return (
-                                <li>{i}. {entry.name} ({entry.score} points)</li>
-                            )
-                        })}
-                    </ul>
-                </div>
-            </div>
-
-        );
+  GetSortOrder(prop) {
+    return function (a, b) {
+      if (a[prop] > b[prop]) {
+        return -1;
+      } else if (a[prop] < b[prop]) {
+        return 1;
       }
-}
+      return 0;
+    };
+  }
 
-export default Leaderboard
+  componentDidMount() {
+    axios.get("lists/leaderboard").then((res) => {
+      var users = res.data;
+      var data = [];
+      if (users.length < 10) {
+        users.sort(this.GetSortOrder("score"));
+      } else {
+        users.sort(this.GetSortOrder("score"));
+        for (var i = 0; i < 10; i++) {
+          data.push(users[i]);
+        }
+      }
+
+      this.setState({ users: data });
+    });
+  }
+
+  
+
+  render() {
+    return (
+      <div>
+        <h5>Leaderboard</h5>
+        <div className="leaderboard">
+          <ol>
+            {this.state.users.map((user) => (
+              <li>{user.name + ": " + user.score + " points."}</li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    );
+  }
+}
