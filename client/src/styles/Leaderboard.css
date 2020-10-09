@@ -1,0 +1,25 @@
+.leaderboard ol {
+  padding: 20px;
+  background: #cce5ff;
+  border: 1px solid black;
+}
+
+.leaderboard ol li {
+  padding: 5px;
+  margin-left: 35px;
+}
+
+.leaderboard {
+  margin: auto;
+  align-items: center;
+  align-self: center;
+  height: 50px;
+  width: 300px;
+  background: #cce5ff;
+}
+
+h5 {
+  background: #cce5ff;
+  width: 300px;
+  margin: auto;
+}
