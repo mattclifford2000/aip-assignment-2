@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
+import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
@@ -50,12 +51,14 @@ function App(props) {
                 <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/register">Register</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/logout">Logout</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
           <PrivateRoute exact path="/requests" component={Requests} />
           <PrivateRoute exact path="/profile" component={Profile} />
         </div>
