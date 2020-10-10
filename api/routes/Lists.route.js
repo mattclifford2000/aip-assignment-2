@@ -9,13 +9,6 @@ router.get("/leaderboard", async (req, res) => {
     .sort({ score: -1 }) //Use the score field to sort the query by score descending
     .limit(10); //Only take the top 10 results from the query
 
-  // var size = Object.keys(users).length;
-  // if (size == 0) {
-  //   console.log("0 users in system");
-  // } else {
-  //   console.log("1 or more users in system");
-  // }
-
   res.json(users);
   console.log("Sent Leaderboard");
 });

@@ -1,12 +1,12 @@
-POST http://localhost:9000/login
-content-type: application/json
+# POST http://localhost:9000/login
+# content-type: application/json
 
-{
-    "login": {
-        "email": "lachlanb@favourcentre.com.au",
-        "password": "password"
-    }
-}
+# {
+#     "login": {
+#         "email": "lachlanb@favourcentre.com.au",
+#         "password": "password"
+#     }
+# }
 
 # GET http://localhost:9000/lists/leaderboard
 
@@ -14,3 +14,5 @@ content-type: application/json
 
 # GET http://localhost:9000/authtest
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRlb2ZiaXJ0aCI6IjE5OTAtMDUtMDVUMDA6MDA6MDAuMDAwWiIsInJvbGUiOiJhZG1pbiIsInNjb3JlIjo5OTk5LCJkZWJpdHMiOltdLCJjcmVkaXRzIjpbXSwicmVxdWVzdHMiOltdLCJfaWQiOiI1ZjdlY2I3NmEwZjYwNDliMzA5ZWRlNDUiLCJuYW1lIjoiTGFjaGxhbkIiLCJlbWFpbCI6ImxhY2hsYW5iQGZhdm91cmNlbnRyZS5jb20uYXUiLCJwYXNzd29yZCI6IiQyYiQxMCQ0cWpxdlJvQXZ2VTQ0MTRobmd5MS5lR2U0TUZhQ3V1d21TSHc4MVF1QTJZUmFNRjdVa3ZuSyIsIl9fdiI6MCwiaWF0IjoxNjAyMTQ4MTc1fQ.5tV_mQ5getnpa4mUs2taKdOVFf0rpwV9pNafW3DVcCU
+
+GET http://localhost:9000/requests/mine

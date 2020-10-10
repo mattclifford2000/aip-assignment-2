@@ -6,8 +6,9 @@ import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
 import Requests from "./components/pages/Requests";
+import Favours from "./components/pages/Favours";
 import Profile from "./components/pages/Profile";
-import PrivateRoute from "./components/routes/PrivateRoute";
+import ViewFavours from "./components/pages/ViewFavours";
 import { AuthContext } from "./components/context/auth";
 import { Navbar, Nav } from "react-bootstrap";
 
@@ -50,6 +51,7 @@ function App(props) {
                 <Nav.Link href="/requests">Requests</Nav.Link>
                 <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/register">Register</Nav.Link>
+                <Nav.Link href="/favours">Favours</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
                 <Nav.Link href="/logout">Logout</Nav.Link>
               </Nav>
@@ -59,8 +61,9 @@ function App(props) {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <PrivateRoute exact path="/requests" component={Requests} />
-          <PrivateRoute exact path="/profile" component={Profile} />
+          <Route exact path="/favours" component={Favours} />
+          <Route exact path="/requests" component={Requests} />
+          <Route exact path="/profile" component={Profile} />
         </div>
       </DebugRouter>
     </AuthContext.Provider>

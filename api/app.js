@@ -14,6 +14,8 @@ const LoginRoute = require('./routes/login.route');
 const RegisterRoute = require('./routes/register.route');
 
 const ListRoute = require("./routes/Lists.route")
+const FavourRoute = require("./routes/favours.route")
+const RequestRoute = require("./routes/requests.route")
 require('./database/initDB')();
 
 var app = express();
@@ -32,6 +34,8 @@ app.use('/login', LoginRoute);
 app.use('/register', RegisterRoute);
 
 app.use('/lists', ListRoute);
+app.use('/favours', FavourRoute);
+app.use('/requests', RequestRoute);
 
 app.get('/authtest', authenticateToken, (req, res) => {
   console.log(req.user);
