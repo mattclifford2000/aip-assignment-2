@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const LoginRoute = require('./routes/login.route');
 const RegisterRoute = require('./routes/register.route');
-
+const RequestRoute = require('./routes/request.route');
 const ListRoute = require("./routes/Lists.route")
 require('./database/initDB')();
 
@@ -30,18 +30,20 @@ app.use(bodyParser.json());
 
 app.use('/login', LoginRoute);
 app.use('/register', RegisterRoute);
-
+app.use('/request', RequestRoute);
 app.use('/lists', ListRoute);
+
+
 
 app.get('/authtest', authenticateToken, (req, res) => {
   console.log(req.user);
 })
 
-function authenticateToken(req, res, next){
+function authenticateToken(req, res, next) {
 
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  if(token == null) return res.sendStatus(401);
+  if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
@@ -51,12 +53,12 @@ function authenticateToken(req, res, next){
 }
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
