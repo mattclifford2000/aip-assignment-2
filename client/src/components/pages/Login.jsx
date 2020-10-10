@@ -1,4 +1,5 @@
-import React, { useState } from "react"; //eslint-disable-line
+
+import React, { Component, useState } from "react"; //eslint-disable-line
 import { Link, Redirect } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
@@ -20,11 +21,14 @@ function Login(props) {
       email: email,
       password: password,
     };
-    const url = "http://localhost:9000/auth/login";
+    const url = "http://localhost:9000/login";
 
     axios
       .post(url, { login })
       .then((response) => {
+        localStorage.setItem('user', response.data.name);
+        localStorage.setItem('loggedIn', true);
+        localStorage.setItem('authToken', response.data.token);
         if (response.status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
@@ -45,7 +49,7 @@ function Login(props) {
     <div className="loginform">
       <Card style={{ width: "18rem" }}>
         <Form onSubmit={handleSubmit} noValidate>
-          <Form.Group controlId="email">
+          <Form.Group controlId="id">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -83,3 +87,4 @@ function Login(props) {
 }
 
 export default Login;
+

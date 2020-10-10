@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "api",
   "version": "0.0.0",
@@ -32,3 +33,39 @@
     "validator": "^13.1.17"
   }
 }
+=======
+{
+  "name": "api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.20.0",
+    "bcrpyt": "^2.0.0",
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "http-errors": "~1.6.3",
+    "is-empty": "^1.2.0",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.0",
+    "mongoose": "^5.10.7",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "redux": "^4.0.5",
+    "validator": "^13.1.17"
+  }
+}
+>>>>>>> 25c778ce2d7b7fce4b611052862e3473438dbd3b
