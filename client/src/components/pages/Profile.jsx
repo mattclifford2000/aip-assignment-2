@@ -10,7 +10,7 @@ import "./../../styles/Home.css";
 function Home(props) {
   return (
     <div class="center">
-      <p>Hello {this.state.user.name}!</p>
+      <p>Hello {localStorage.getItem('user')}!</p>
     </div>
   );
 }
