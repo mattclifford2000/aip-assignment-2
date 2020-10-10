@@ -3,12 +3,10 @@ var router = express.Router();
 const { verifyLoginUser, verifyRegisterUser } = require("../helpers/validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
-
+const jwt = require("json-web-token");
 
 router.post("/register", async (req, res) => {
-  var password = req.body.password;
-  var email = req.body.email;
-  var body = { email: email, password: password };
+  var body = req.body.user;
   console.log("Successful POST.");
   try {
     const { error } = verifyRegisterUser(body);
@@ -49,32 +47,40 @@ router.post("/login", async (req, res) => {
     const { error } = verifyLoginUser(body);
     if (error) {
       console.log("Does not meet schema");
-      return res.status(400).send(error.details[0].message);
-      
+      return res.status(400).send(`You have 
+      entered invalid details. 
+      Please try again.`);
     }
   } catch (err) {
     console.error(err.message);
   }
   const user = await User.findOne({ email: body.email });
-  if (!user)
-  {
+  if (!user) {
     console.log("No user with email found.");
-    return res
-      .status(400)
-      .send(
-        "Account does not exist with provided email and password combination."
-      );
+    return res.status(400).send(
+      `Account does not exist with provided 
+        email and password combination. Try again`
+    );
   }
   const validPassword = await bcrypt.compare(body.password, user.password);
-  if (!validPassword) 
-  {
-    console.log("Incorrect password")
+  if (!validPassword) {
+    console.log("Incorrect password");
     return res.status(400).send("Incorrect Password");
   }
-  //res.send("Login Successful!");
-  return res.status(200).send(user);
-});
+  //use the payload to store information about
+  //the user such as username, user role, etc.
+  let payload = { email: body.email };
 
+   //create the refresh token with the longer lifespan
+   let refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.REFRESH_TOKEN_LIFE
+})
+
+
+
+  //return res.status(200).send(user);
+});
 
 router.get("/register", async (req, res) => {
   res.json({ message: "This is the register route!" });

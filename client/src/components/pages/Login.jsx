@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react"; //eslint-disable-line
+import React, { useState } from "react"; //eslint-disable-line
 import { Link, Redirect } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
@@ -45,7 +45,7 @@ function Login(props) {
     <div className="loginform">
       <Card style={{ width: "18rem" }}>
         <Form onSubmit={handleSubmit} noValidate>
-          <Form.Group controlId="id">
+          <Form.Group controlId="email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
