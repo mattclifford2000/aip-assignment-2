@@ -25,9 +25,10 @@ function Login(props) {
     axios
       .post(url, { login })
       .then((response) => {
-        //console.log(response);
+        localStorage.setItem('user', response.data.name);
+        localStorage.setItem('loggedIn', true);
+        localStorage.setItem('authToken', response.data.token);
         if (response.status === 200) {
-          console.log(response.data);
           setAuthTokens(response.data);
           setLoggedIn(true);
         } else {
