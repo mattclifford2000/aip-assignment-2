@@ -1,3 +1,4 @@
+
 import React, { Component, useState } from "react"; //eslint-disable-line
 import { Link, Redirect } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
@@ -25,9 +26,11 @@ function Login(props) {
     axios
       .post(url, { login })
       .then((response) => {
-        //console.log(response);
+        localStorage.setItem('user', response.data.name);
+        localStorage.setItem('loggedIn', true);
+        localStorage.setItem('authToken', response.data.token);
+        setLoggedIn(true);
         if (response.status === 200) {
-          console.log(response.data);
           setAuthTokens(response.data);
           setLoggedIn(true);
         } else {
@@ -39,7 +42,7 @@ function Login(props) {
       });
   }
 
-  if (isLoggedIn) {
+  if (localStorage.getItem('loggedIn') === true) {
     return <Redirect to="/" />;
   }
 
@@ -85,3 +88,4 @@ function Login(props) {
 }
 
 export default Login;
+

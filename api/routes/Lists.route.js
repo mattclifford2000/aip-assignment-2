@@ -1,4 +1,3 @@
-
 var express = require("express");
 var router = express.Router();
 const User = require("../models/User.model");
@@ -21,3 +20,4 @@ router.get("/leaderboard", async (req, res) => {
 });
 
 module.exports = router;
+

@@ -34,8 +34,9 @@ router.post("/", async (req, res) => {
         console.log("Incorrect password")
         return res.status(400).send("Incorrect Password");
     }
-    const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
-    return res.json(accessToken);
+    const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
+    console.log(user.toJSON());
+    return res.send({name: user.name, token: accessToken});
 });
 
 router.get("/", async (req, res) => {
