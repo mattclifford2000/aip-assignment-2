@@ -4,17 +4,42 @@ const Schema = mongoose.Schema;
 
 const RequestSchema = new Schema({
     ownerID: {
-        type: Schema.Types.ObjectId,
+        type: String,
         unique: false,
-        ref: "User",
+        required: false
     },
-    requestcontent: {
-        Cupcakes: [Number],
-        Muffins: [Number],
-        Mints: [Number],
-        Coffees: [Number],
-        Chocolates: [Number],
+
+    cupcakes: {
+        type: Number,
+        unique: false,
+        required: false,
     },
+
+    chocolates: {
+        type: Number,
+        unique: false,
+        required: false,
+    },
+
+    mints: {
+        type: Number,
+        unique: false,
+        required: false,
+    },
+
+
+    coffees: {
+        type: Number,
+        unique: false,
+        required: false,
+    },
+
+    icecreams: {
+        type: Number,
+        unique: false,
+        required: false,
+    },
+
     requeststatus: {
         type: Boolean,
         unique: false,
@@ -28,3 +53,12 @@ const RequestSchema = new Schema({
 });
 
 module.exports = mongoose.model("Request", RequestSchema);
+
+
+/*     ownerID: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        ref: "User",
+    },
+
+    */
