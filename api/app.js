@@ -11,6 +11,7 @@ const { Base64 } = require("js-base64");
 
 require("dotenv").config();
 
+
 const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
+
 
 app.use("/login", LoginRoute);
 app.use("/register", RegisterRoute);

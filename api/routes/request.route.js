@@ -2,7 +2,9 @@ var express = require("express");
 var router = express.Router();
 const Request = require("../models/Request.model");
 
+
 /*
+
 router.post("/", async (req, res) => {
 
     var requestTitle = req.body.requestTitle;
@@ -23,6 +25,7 @@ router.post("/", async (req, res) => {
         icecreams: icecreams
     });
     const savedRequest = await request.save();
+
     console.log(savedRequest); 
 }
 
