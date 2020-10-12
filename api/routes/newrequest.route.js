@@ -1,7 +1,6 @@
 const express = require("express");
 var router = express.Router();
 const { verifyUser } = require("../helpers/verifyUser");
-const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 const Request = require("../models/Request.model");
 

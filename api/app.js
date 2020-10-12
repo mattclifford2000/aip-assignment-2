@@ -14,7 +14,8 @@ require("dotenv").config();
 const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
-const ListRoute = require("./routes/Lists.route");
+const ListRoute = require("./routes/lists.route");
+const RequestRoute = require("./routes/request.route");
 const NewRequestRoute = require("./routes/newrequest.route");
 
 require("./database/initDB")();
@@ -35,6 +36,7 @@ app.use("/login", LoginRoute);
 app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
 app.use("/newrequest", NewRequestRoute);
+app.use("/request", RequestRoute);
 
 app.use("/lists", ListRoute);
 

@@ -13,6 +13,7 @@ export default class NewRequestComponent extends Component {
       requestcontent: "",
       requestcompleted: false,
       errors: {
+        requestname: "",
         requestcontent: "",
         requestcompleted: "",
       },
@@ -48,6 +49,23 @@ export default class NewRequestComponent extends Component {
   handleInputChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
+    let errors = this.state.errors;
+    switch (name) {
+      case "requestname":
+        errors.requestname =
+          value.length < 3 || value.length > 1024
+            ? "Your request name must be 3 characters or longer."
+            : "";
+        break;
+      case "requestcontent":
+        errors.requestcontent =
+          value.length < 3 || value.length > 1024
+            ? "Your request description must be 3 characters or longer."
+            : "";
+        break;
+      default:
+        break;
+    }
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -59,14 +77,14 @@ export default class NewRequestComponent extends Component {
           <Form onSubmit={this.handleSubmit} noValidate>
             <Form.Group controlId="token">
               <Form.Control
-                type="string"
+                type="hidden"
                 name="token"
                 value={localStorage.getItem("authToken")}
               />
             </Form.Group>
             <Form.Group controlId="requestcompleted">
               <Form.Control
-                type="string"
+                type="hidden"
                 name="requestcompleted"
                 value={false}
               />
@@ -80,6 +98,7 @@ export default class NewRequestComponent extends Component {
                 value={this.state.requestname}
                 onChange={this.handleInputChange}
               />
+              <p> {this.state.errors.requestname} </p>
             </Form.Group>
             <Form.Group controlId="requestcontent">
               <Form.Label>Request Description</Form.Label>
@@ -90,10 +109,14 @@ export default class NewRequestComponent extends Component {
                 value={this.state.requestcontent}
                 onChange={this.handleInputChange}
               />
+              <p> {this.state.errors.requestcontent} </p>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
+            {this.state.requestname.length >= 3 &&
+              this.state.requestcontent.length >= 3 && (
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              )}
           </Form>
         </Card>
       </div>
