@@ -17,7 +17,7 @@ const FavourSchema = new Schema({
     unique: false,
     required: true,
   },
-  favourstatus: {
+  favourcompleted: {
     type: Boolean,
     unique: false,
     required: true,
