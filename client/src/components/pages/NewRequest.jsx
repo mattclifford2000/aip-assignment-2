@@ -18,26 +18,11 @@ export default class NewRequestComponent extends Component {
       },
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    //this.handleInputChange = this.handleInputChange.bind(this);
   }
-
-  //Validates if the inputs fit
-  /* validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      // if we have an error string set valid to false
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
-  };*/
 
   handleSubmit = (e) => {
     console.log(this.state);
     e.preventDefault();
-
-    /*if (this.validateForm(this.state.errors) === false) {
-      e.stopPropagation();
-    }*/
 
     const request = {
       token: localStorage.getItem("authToken"),
@@ -63,44 +48,13 @@ export default class NewRequestComponent extends Component {
   handleInputChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    //let errors = this.state.errors;
-    //var today = new Date();
-    /*switch (name) {
-      case "email":
-        errors.email =
-          validEmailRegex.test(value) || value.length < 6
-            ? ""
-            : "You must enter a valid email.";
-        break;
-      case "password":
-        errors.password =
-          value.length < 8 || value.length > 1024
-            ? "Your password must be 8 characters or longer."
-            : "";
-        break;
-      case "name":
-        errors.name =
-          value.length < 6 || value.length > 36
-            ? "Your name must be in between 6 and 36 characters."
-            : "";
-        break;
-      case "dateofbirth":
-        errors.dateofbirth =
-          new Date(value) >= new Date(today)
-            ? "Your date of birth must be valid and before today."
-            : "";
-        break;
-      default:
-        break;
-    }*/
     this.setState({ [e.target.name]: e.target.value });
-    //this.setState({ errors, [name]: value });
   };
 
   render() {
-    //this.setState({ token: localStorage.getItem("authToken") });
     return (
       <div className="registerform">
+        {/*Reuse RegisterForm styling for now*/}
         <Card style={{ width: "18rem" }}>
           <Form onSubmit={this.handleSubmit} noValidate>
             <Form.Group controlId="token">
