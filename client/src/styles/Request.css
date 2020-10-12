@@ -1,18 +1,18 @@
-.request{
-    margin: 2% 20% 2% 20%;
-    padding: 20px;
+.request {
+  margin: 2% 20% 2% 20%;
+  padding: 20px;
 }
 
-.requestList{
-    list-style: none;
-    text-align: left;
-    line-height: 10px;
+.requestList {
+  list-style: none;
+  text-align: left;
+  line-height: 10px;
 }
 
-.requestList h1{
-    font-size: 30px;
+.requestList h1 {
+  font-size: 30px;
 }
 
-.requestList li{
-    background-color: #cce5ff;
+.requestList li {
+  background-color: #cce5ff;
 }

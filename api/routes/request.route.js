@@ -3,6 +3,7 @@ var router = express.Router();
 const Request = require("../models/Request.model");
 
 
+/*
 
 router.post("/", async (req, res) => {
 
@@ -24,17 +25,17 @@ router.post("/", async (req, res) => {
         icecreams: icecreams
     });
     const savedRequest = await request.save();
-    console.log(savedRequest);
+
+    console.log(savedRequest); 
 }
 
-)
+)*/
 
 router.get("/", async (req, res) => {
-    const requests = await Request
-        .find()
-    res.json(requests)
-    console.log("Sent request");
-
+  const requests = await Request.find();
+  console.log(requests);
+  res.json(requests);
+  console.log("Sent request");
 });
 
 module.exports = router;
