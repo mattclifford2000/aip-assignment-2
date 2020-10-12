@@ -1,3 +1,4 @@
+
 import React, { Component, useState } from "react"; //eslint-disable-line
 import { Link, Redirect } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
@@ -28,6 +29,7 @@ function Login(props) {
         localStorage.setItem('user', response.data.name);
         localStorage.setItem('loggedIn', true);
         localStorage.setItem('authToken', response.data.token);
+        setLoggedIn(true);
         if (response.status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
@@ -40,7 +42,7 @@ function Login(props) {
       });
   }
 
-  if (isLoggedIn) {
+  if (localStorage.getItem('loggedIn') === true) {
     return <Redirect to="/" />;
   }
 
@@ -86,3 +88,4 @@ function Login(props) {
 }
 
 export default Login;
+
