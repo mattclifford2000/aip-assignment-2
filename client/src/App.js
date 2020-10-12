@@ -7,23 +7,25 @@ import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
-import PrivateRoute from "./components/routes/PrivateRoute";
+//import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
 import { Navbar, Nav } from "react-bootstrap";
 
-import { Component } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
-
+import { Component } from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 
 class DebugRouter extends BrowserRouter {
   constructor(props) {
     super(props);
-    console.log('initial history is: ', JSON.stringify(this.history, null, 2))
+    console.log("initial history is: ", JSON.stringify(this.history, null, 2));
     this.history.listen((location, action) => {
       console.log(
         `The current URL is ${location.pathname}${location.search}${location.hash}`
-      )
-      console.log(`The last navigation action was ${action}`, JSON.stringify(this.history, null, 2));
+      );
+      console.log(
+        `The last navigation action was ${action}`,
+        JSON.stringify(this.history, null, 2)
+      );
     });
   }
 }
@@ -59,8 +61,8 @@ function App(props) {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <PrivateRoute exact path="/requests" component={Requests} />
-          <PrivateRoute exact path="/profile" component={Profile} />
+          {/* <PrivateRoute exact path="/requests" component={Requests} />
+          <PrivateRoute exact path="/profile" component={Profile} /> */}
         </div>
       </DebugRouter>
     </AuthContext.Provider>
