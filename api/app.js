@@ -57,23 +57,3 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-
-/*
-app.get("/authtest", authenticateToken, (req, res) => {
-  console.log(req.user);
-});
-
-function authenticateToken(req, res, next) {
-  console.log(req.headers["Host"]);
-  console.log(req.params);
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
-*/
