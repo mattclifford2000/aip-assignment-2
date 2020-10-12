@@ -15,6 +15,8 @@ const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
 const ListRoute = require("./routes/Lists.route");
+const NewRequestRoute = require("./routes/newrequest.route");
+
 require("./database/initDB")();
 
 var app = express();
@@ -32,6 +34,7 @@ app.use(bodyParser.json());
 app.use("/login", LoginRoute);
 app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
+app.use("/newrequest", NewRequestRoute);
 
 app.use("/lists", ListRoute);
 

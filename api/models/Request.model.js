@@ -7,12 +7,17 @@ const RequestSchema = new Schema({
     unique: false,
     ref: "User",
   },
+  requestname: {
+    type: String,
+    unique: false,
+    required: true,
+  },
   requestcontent: {
     type: String,
     unique: false,
     required: true,
   },
-  requeststatus: {
+  requestcompleted: {
     type: Boolean,
     unique: false,
     required: true,
