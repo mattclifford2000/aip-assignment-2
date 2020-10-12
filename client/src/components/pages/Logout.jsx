@@ -12,9 +12,9 @@ function Logout(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    localStorage.setItem('user', 'NULL');
+    localStorage.setItem('user', null);
     localStorage.setItem('loggedIn', false);
-    localStorage.setItem('authToken', 'NULL');
+    localStorage.setItem('authToken', null);
         
   }
 
