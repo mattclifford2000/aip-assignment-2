@@ -3,32 +3,33 @@ import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const { authTokens } = useAuth();
-  const auth = localStorage.getItem("loggedIn");
+    const { authTokens } = useAuth();
+    const auth = localStorage.getItem("loggedIn");
+    console.log(localStorage.getItem("loggedIn"));
 
-  return (
-    <Route
-      {...rest}
-      render={
-        (props) =>
-          localStorage.getItem("loggedIn") == true ? (
-            <Component {...props} />
-          ) : (
-            <Redirect to="/login" />
-          )
-        /*if (localStorage.getItem('loggedIn') == true)
-        {
-(<Component {...props} />
-        }
-        else
-        {
-          (<Redirect to="/login" />)
-          
-        }
-        */
-      }
-    />
-  );
+    if (localStorage.getItem("loggedIn") == true){
+        return (
+            <Route
+                {...rest}
+                render={
+                    (props) =>
+                        <Component {...props}
+                    />
+                }
+            />
+        )
+    } else {
+        return (
+            <Route
+                {...rest}
+                render={
+                    (props) =>
+                        <Component {...props}
+                        />
+                }
+            />
+        )
+    }
 }
 
 export default PrivateRoute;
