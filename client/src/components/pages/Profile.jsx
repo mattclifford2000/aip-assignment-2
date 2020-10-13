@@ -1,12 +1,20 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Home.css";
+import { Button, Form, Card } from "react-bootstrap";
+
 
 
 
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
+
+
+  function handleDelete(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+  }
 
 
   useEffect(() => {
@@ -16,9 +24,6 @@ function Profile(props) {
         setRequests(res.data);
       })
   });
-
-  console.log(localStorage.getItem('user'));
-  console.log(localStorage.getItem('loggedIn'));
 
 
   return (
@@ -32,7 +37,9 @@ function Profile(props) {
             <p>Request Description: {request.requestcontent}</p>
             <p>Request ID (TESTING): {request._id}</p>
             <p>Request userID (TESTING): {request.ownerID}</p>
-
+            <Button value={request._id} variant="danger" type="submit" onClick={handleDelete}>
+              DELETE (currently just prints id to console)
+            </Button>
           </li>
         ))}
       </ol>
