@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  res.json({ message: "This is the newfavour route!" });
+  res.json({ message: "This is the newrequest route!" });
 });
 
 module.exports = router;
