@@ -2,12 +2,13 @@ var express = require("express");
 var router = express.Router();
 const Request = require("../models/Request.model");
 const User = require("../models/User.model");
+const { verifyUser } = require("../helpers/verifyUser");
+
 
 
 
 router.get("/", async (req, res) => {
   const requests = await Request.find();
-  console.log(requests);
   res.json(requests);
   console.log("Sent request");
 });
@@ -18,9 +19,19 @@ router.post("/mine", async (req, res) => {
   res.json(requests);
 });
 
+router.post("/delete", async (req, res) => {
+  const { requestID, authToken } = req.body;
+  const verifiedUser = verifyUser(authToken);
+  const requests = await Request.findOne({ _id: requestID });
+  if (verifiedUser.user._id == requests.ownerID){
+    console.log("deleting")
+    const request = await Request.deleteOne({ _id: requestID });
+    console.log(request);
+  }
+    //res.json(request);
+});
+
 module.exports = router;
-
-
 
 
 

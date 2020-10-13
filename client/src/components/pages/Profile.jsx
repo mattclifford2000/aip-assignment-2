@@ -13,7 +13,14 @@ function Profile(props) {
 
   function handleDelete(e) {
     e.preventDefault();
-    console.log(e.target.value);
+    console.log(localStorage.getItem('userID'));
+    axios
+      .post("/request/delete", { requestID: e.target.value,
+                                 authToken: localStorage.getItem('authToken')
+      })
+      .then((res) => {
+        setRequests(res.data);
+      });
   }
 
 
@@ -22,7 +29,7 @@ function Profile(props) {
       .post("/request/mine",  { name: localStorage.getItem('username') })
       .then((res) => {
         setRequests(res.data);
-      })
+      });
   });
 
 
@@ -38,7 +45,7 @@ function Profile(props) {
             <p>Request ID (TESTING): {request._id}</p>
             <p>Request userID (TESTING): {request.ownerID}</p>
             <Button value={request._id} variant="danger" type="submit" onClick={handleDelete}>
-              DELETE (currently just prints id to console)
+              DELETE
             </Button>
           </li>
         ))}

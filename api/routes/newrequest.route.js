@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     requestcompleted: req.body.requestcompleted,
   });
   const savedRequest = await request.save();
-  console.log(savedRequest);
+  //console.log(savedRequest);
   return res.status(200).send(savedRequest);
 });
 

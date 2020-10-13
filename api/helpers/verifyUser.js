@@ -6,8 +6,6 @@ require("dotenv").config();
 
 //Returns a HTTP status code, and user if JWT is valid.
 const verifyUser = (token) => {
-  console.log(token);
-  console.log(process.env.ACCESS_TOKEN_SECRET);
   if (token == null) return { status: 401, user: {} };
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
