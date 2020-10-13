@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const Request = require("../models/Request.model");
+const User = require("../models/User.model");
+
 
 
 router.get("/", async (req, res) => {
@@ -8,6 +10,12 @@ router.get("/", async (req, res) => {
   console.log(requests);
   res.json(requests);
   console.log("Sent request");
+});
+
+router.post("/mine", async (req, res) => {
+  const user = await User.findOne({ name: req.body.name });
+  const requests = await Request.find({ ownerID: user._id });
+  res.json(requests);
 });
 
 module.exports = router;
