@@ -65,11 +65,8 @@ function App(props) {
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/requests" component={Requests} />
-          <Route exact path="/newrequest" component={NewRequest} />
-          <PrivateRoute exact path="/profile" component={Profile} />
-          {/*} <PrivateRoute exact path="/requests" component={Requests} />
           <PrivateRoute exact path="/newrequest" component={NewRequest} />
-  <PrivateRoute exact path="/profile" component={Profile} />*/}
+          <PrivateRoute exact path="/profile" component={Profile} />
         </div>
       </DebugRouter>
     </AuthContext.Provider>
