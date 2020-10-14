@@ -6,6 +6,8 @@ import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
 import NewRequest from "./components/pages/NewRequest";
+import NewFavour from "./components/pages/NewFavour";
+
 
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
@@ -53,6 +55,7 @@ function App(props) {
                 <Nav.Link href="/">Home Page</Nav.Link>
                 <Nav.Link href="/requests">Requests</Nav.Link>
                 <Nav.Link href="/newrequest">New Request</Nav.Link>
+                <Nav.Link href="/newfavour">New Favour</Nav.Link>
                 <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/register">Register</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
@@ -66,6 +69,7 @@ function App(props) {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/requests" component={Requests} />
           <PrivateRoute exact path="/newrequest" component={NewRequest} />
+          <PrivateRoute exact path="/newfavour" component={NewFavour} />
           <PrivateRoute exact path="/profile" component={Profile} />
         </div>
       </DebugRouter>

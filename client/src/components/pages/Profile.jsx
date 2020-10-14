@@ -26,7 +26,7 @@ function Profile(props) {
 
   useEffect(() => {
     axios
-      .post("/request/mine",  { authToken: localStorage.getItem('authToken') })
+      .post("/request/myrequests",  { authToken: localStorage.getItem('authToken') })
       .then((res) => {
         setRequests(res.data);
       });
