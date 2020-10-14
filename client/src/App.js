@@ -5,25 +5,29 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
+import NewRequest from "./components/pages/NewRequest";
+
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
 import { Navbar, Nav } from "react-bootstrap";
 
-import { Component } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
-
+import { Component } from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 
 class DebugRouter extends BrowserRouter {
   constructor(props) {
     super(props);
-    console.log('initial history is: ', JSON.stringify(this.history, null, 2))
+    console.log("initial history is: ", JSON.stringify(this.history, null, 2));
     this.history.listen((location, action) => {
       console.log(
         `The current URL is ${location.pathname}${location.search}${location.hash}`
-      )
-      console.log(`The last navigation action was ${action}`, JSON.stringify(this.history, null, 2));
+      );
+      console.log(
+        `The last navigation action was ${action}`,
+        JSON.stringify(this.history, null, 2)
+      );
     });
   }
 }
@@ -48,6 +52,7 @@ function App(props) {
               <Nav className="mr-auto">
                 <Nav.Link href="/">Home Page</Nav.Link>
                 <Nav.Link href="/requests">Requests</Nav.Link>
+                <Nav.Link href="/newrequest">New Request</Nav.Link>
                 <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/register">Register</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
@@ -59,7 +64,8 @@ function App(props) {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <PrivateRoute exact path="/requests" component={Requests} />
+          <Route exact path="/requests" component={Requests} />
+          <PrivateRoute exact path="/newrequest" component={NewRequest} />
           <PrivateRoute exact path="/profile" component={Profile} />
         </div>
       </DebugRouter>
@@ -68,4 +74,3 @@ function App(props) {
 }
 
 export default App;
-

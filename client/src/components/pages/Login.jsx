@@ -26,9 +26,11 @@ function Login(props) {
     axios
       .post(url, { login })
       .then((response) => {
-        localStorage.setItem('user', response.data.name);
+        localStorage.setItem('username', response.data.name);
+        localStorage.setItem('user', response.data.user);
+        localStorage.setItem('userID', response.data.id);
         localStorage.setItem('loggedIn', true);
-        localStorage.setItem('authToken', response.data.token);
+        localStorage.setItem('authToken', response.data.authToken);
         setLoggedIn(true);
         if (response.status === 200) {
           setAuthTokens(response.data);
@@ -42,7 +44,7 @@ function Login(props) {
       });
   }
 
-  if (localStorage.getItem('loggedIn') === true) {
+  if (localStorage.getItem('loggedIn') == "true") {
     return <Redirect to="/" />;
   }
 

@@ -2,17 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const RequestSchema = new Schema({
+
   ownerID: {
     type: Schema.Types.ObjectId,
     unique: false,
     ref: "User",
+  },
+  requestname: {
+    type: String,
+    unique: false,
+    required: true,
   },
   requestcontent: {
     type: String,
     unique: false,
     required: true,
   },
-  requeststatus: {
+  requestcompleted: {
     type: Boolean,
     unique: false,
     required: true,
@@ -20,3 +26,4 @@ const RequestSchema = new Schema({
 });
 
 module.exports = mongoose.model("Request", RequestSchema);
+
