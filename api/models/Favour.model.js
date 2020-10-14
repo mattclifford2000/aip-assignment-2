@@ -12,6 +12,11 @@ const FavourSchema = new Schema({
     unique: false,
     ref: "User",
   },
+  favourname: {
+    type: String,
+    unique: false,
+    required: true,
+  },
   favourcontent: {
     type: String,
     unique: false,
