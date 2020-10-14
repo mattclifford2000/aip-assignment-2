@@ -29,6 +29,26 @@ router.post("/delete", async (req, res) => {
   res.send(requests);
 });
 
+router.post("/new", async (req, res) => {
+  let verifiedUser = verifyUser(req.body.token);
+  console.log("here");
+  console.log(req.body)
+  if (verifiedUser.status != "200") {
+    console.log("failed");
+    return res.send(verifiedUser.status);
+  }
+  const request = new Request({
+    ownerID: verifiedUser.user._id,
+    name: req.body.name,
+    content: req.body.content,
+    completed: req.body.completed,
+    chocolates: req.body.chocolates, 
+    muffins: req.body.muffins
+  });
+  const savedRequest = await request.save();
+  return res.status(200).send(savedRequest);
+});
+
 module.exports = router;
 
 
