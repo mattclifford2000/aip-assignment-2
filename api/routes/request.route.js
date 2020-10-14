@@ -14,8 +14,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/mine", async (req, res) => {
-  const user = await User.findOne({ name: req.body.name });
-  const requests = await Request.find({ ownerID: user._id });
+  const { authToken } = req.body;
+  const verifiedUser = verifyUser(authToken);
+  //const user = await User.findOne({ name: req.body.name });
+  const requests = await Request.find({ ownerID: verifiedUser.user._id });
   res.json(requests);
 });
 
