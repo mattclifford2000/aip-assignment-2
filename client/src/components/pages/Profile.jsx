@@ -14,6 +14,7 @@ function Profile(props) {
   function handleDelete(e) {
     e.preventDefault();
     console.log(localStorage.getItem('userID'));
+    
     axios
       .post("/request/delete", { requestID: e.target.value,
                                  authToken: localStorage.getItem('authToken')
@@ -30,7 +31,7 @@ function Profile(props) {
       .then((res) => {
         setRequests(res.data);
       });
-  });
+  }, requests);
 
 
   return (
