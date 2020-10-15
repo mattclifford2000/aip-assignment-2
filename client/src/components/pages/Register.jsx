@@ -31,10 +31,12 @@ function Register(props) {
       credits: [],
       requests: [],
     };
+    console.log(user);
+    console.log({user});
 
-    const url = "http://localhost:9000/auth/register";
+    const url = "http://localhost:9000/register";
     axios
-      .post(url, { user })
+      .post(url, user)
       .then((response) => {
         if (response.status === 200) {
           setAuthTokens(response.data);
@@ -65,6 +67,7 @@ function Register(props) {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
+                console.log(email);
               }}
             />
           </Form.Group>

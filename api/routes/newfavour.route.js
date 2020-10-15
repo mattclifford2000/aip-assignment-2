@@ -13,6 +13,11 @@ router.post("/", async (req, res) => {
 
   const externalUser = await User.findOne({email : req.body.externalemail});
 
+  if (externalUser == null) {
+    console.log("No User of that email exists")
+    return res.status(404).send("No User of that email exists");
+  }
+
   const favour = new Favour({
     debitorID: ((req.body.owed) ? verifiedUser.user._id : externalUser.id),
     creditorID: (!(req.body.owed) ? verifiedUser.user._id : externalUser.id),
