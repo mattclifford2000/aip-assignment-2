@@ -4,14 +4,19 @@ import "./../../styles/Home.css";
 import RequestComp from "./functionalComponents/request.comp"
 
 
-
-
-
 function Profile(props) {
   const [requests, setRequests] = useState([]);
 
 
-  function handleDelete(e) {
+  useEffect(() => {
+    axios
+      .post("/request/mine",  { authToken: localStorage.getItem('authToken') })
+      .then((res) => {
+        setRequests(res.data);
+      });
+  });
+
+  const handleDelete = (e) => {
     e.preventDefault();
     console.log(localStorage.getItem('userID'));
     
@@ -32,7 +37,6 @@ function Profile(props) {
         setRequests(res.data);
       });
   }, requests);
-
 
   return (
     <div class="center">

@@ -17,6 +17,9 @@ const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
 const ListRoute = require("./routes/lists.route");
 const RequestRoute = require("./routes/request.route");
+/*const NewRequestRoute = require("./routes/newrequest.route");*/
+const NewFavourRoute = require("./routes/newfavour.route");
+
 
 require("./database/initDB")();
 
@@ -37,6 +40,7 @@ app.use("/login", LoginRoute);
 app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
 app.use("/request", RequestRoute);
+app.use("/newfavour", NewFavourRoute);
 
 app.use("/lists", ListRoute);
 
