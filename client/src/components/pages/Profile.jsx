@@ -4,14 +4,19 @@ import "./../../styles/Home.css";
 import { Button, Form, Card } from "react-bootstrap";
 
 
-
-
-
 function Profile(props) {
   const [requests, setRequests] = useState([]);
 
 
-  function handleDelete(e) {
+  useEffect(() => {
+    axios
+      .post("/request/mine",  { authToken: localStorage.getItem('authToken') })
+      .then((res) => {
+        setRequests(res.data);
+      });
+  });
+
+  const handleDelete = (e) => {
     e.preventDefault();
     console.log(localStorage.getItem('userID'));
     axios
@@ -22,17 +27,6 @@ function Profile(props) {
         setRequests(res.data);
       });
   }
-
-
-  useEffect(() => {
-    axios
-      .post("/request/myrequests",  { authToken: localStorage.getItem('authToken') })
-      .then((res) => {
-        setRequests(res.data);
-      });
-  });
-
-
   return (
     <div class="center">
       <p>Hello {localStorage.getItem('username')}!</p>

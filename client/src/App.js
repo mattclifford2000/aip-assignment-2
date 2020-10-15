@@ -7,6 +7,7 @@ import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
 import NewRequest from "./components/pages/NewRequest";
 import NewFavour from "./components/pages/NewFavour";
+import Request from "./components/pages/Request";
 
 
 import Requests from "./components/pages/Requests";
@@ -71,6 +72,8 @@ function App(props) {
           <PrivateRoute exact path="/newrequest" component={NewRequest} />
           <PrivateRoute exact path="/newfavour" component={NewFavour} />
           <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/request/:id" component={Request} />
+
         </div>
       </DebugRouter>
     </AuthContext.Provider>
