@@ -43,6 +43,7 @@ app.use("/newfavour", NewFavourRoute);
 app.use("/lists", ListRoute);
 
 //app.use(express.static('client/build'));
+app.use(express.static('client/build'));
 app.listen(process.env.PORT || 9000)
 console.log(process.env.NODE_ENV);
 
