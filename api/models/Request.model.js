@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
 const RequestSchema = new Schema({
 
   ownerID: {
@@ -8,21 +9,23 @@ const RequestSchema = new Schema({
     unique: false,
     ref: "User",
   },
-  requestname: {
+  name: {
     type: String,
     unique: false,
     required: true,
   },
-  requestcontent: {
+  content: {
     type: String,
     unique: false,
     required: true,
   },
-  requestcompleted: {
+  completed: {
     type: Boolean,
     unique: false,
     required: true,
   },
+  chocolates: Number,
+  muffins: Number
 });
 
 module.exports = mongoose.model("Request", RequestSchema);

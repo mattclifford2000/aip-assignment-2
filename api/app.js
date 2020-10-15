@@ -39,7 +39,6 @@ app.use(bodyParser.json());
 app.use("/login", LoginRoute);
 app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
-app.use("/newrequest", NewRequestRoute);
 app.use("/request", RequestRoute);
 app.use("/newfavour", NewFavourRoute);
 
