@@ -44,6 +44,10 @@ app.use("/newfavour", NewFavourRoute);
 
 app.use("/lists", ListRoute);
 
+//app.use(express.static('client/build'));
+app.listen(process.env.PORT || 9000)
+console.log(process.env.NODE_ENV);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
