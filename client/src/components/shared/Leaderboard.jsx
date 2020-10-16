@@ -2,7 +2,7 @@
 import * as React from "react";
 import axios from "axios";
 import "./../../styles/Leaderboard.css";
-import { Button, Form, Card } from "react-bootstrap";
+import { Button, Form, Card, Table } from "react-bootstrap";
 
 export default class Leaderboard extends React.Component {
   state = {
@@ -56,19 +56,21 @@ export default class Leaderboard extends React.Component {
   render() {
     return (
       <div>
+        <h1> Leaderboard </h1>
         <table>
-
           <tr>
             <th> Rank </th>
             <th> User </th>
-            <th> Owing favours </th>
-            <th> Owed favours </th>
+            <th> Owing  </th>
+            <th> Owed  </th>
             <th> Points </th>
           </tr>
           <tbody>
             {this.renderTableData()}
           </tbody>
         </table>
+
+
 
       </div>
     );
