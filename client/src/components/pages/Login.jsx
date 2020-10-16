@@ -50,6 +50,7 @@ function Login(props) {
 
   return (
     <div className="loginform">
+      <p> Loggedin: {isLoggedIn} </p>
       <Card style={{ width: "18rem" }}>
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group controlId="id">

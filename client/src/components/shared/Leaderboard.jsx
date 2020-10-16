@@ -2,6 +2,7 @@
 import * as React from "react";
 import axios from "axios";
 import "./../../styles/Leaderboard.css";
+import { Button, Form, Card, Table } from "react-bootstrap";
 
 export default class Leaderboard extends React.Component {
   state = {
@@ -36,19 +37,41 @@ export default class Leaderboard extends React.Component {
     });
   }
 
-  
-
+  renderTableData() {
+    var i = 0;
+    return this.state.users.map((user, index) => {
+      const { name, score } = user
+      i++
+      return (
+        <tr key={name}>
+          <td> {i} </td>
+          <td>{name}</td>
+          <td> - </td>
+          <td> - </td>
+          <td>{score}</td>
+        </tr>
+      )
+    })
+  }
   render() {
     return (
       <div>
-        <h5>Leaderboard</h5>
-        <div className="leaderboard">
-          <ol>
-            {this.state.users.map((user) => (
-              <li>{user.name + ": " + user.score + " points."}</li>
-            ))}
-          </ol>
-        </div>
+        <h1> Leaderboard </h1>
+        <table>
+          <tr>
+            <th> Rank </th>
+            <th id="userHeader"> User </th>
+            <th> Owing  </th>
+            <th> Owed  </th>
+            <th> Points </th>
+          </tr>
+          <tbody>
+            {this.renderTableData()}
+          </tbody>
+        </table>
+
+
+
       </div>
     );
   }
