@@ -1,17 +1,22 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Home.css";
-import { Button, Form, Card } from "react-bootstrap";
-
-
-
+import RequestComp from "./functionalComponents/request.comp"
 
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
 
 
-  function handleDelete(e) {
+  useEffect(() => {
+    axios
+      .post("/request/mine",  { authToken: localStorage.getItem('authToken') })
+      .then((res) => {
+        setRequests(res.data);
+      });
+  });
+
+  const handleDelete = (e) => {
     e.preventDefault();
     console.log(localStorage.getItem('userID'));
     
@@ -33,24 +38,17 @@ function Profile(props) {
       });
   }, requests);
 
-
   return (
     <div class="center">
       <p>Hello {localStorage.getItem('username')}!</p>
       <h1> Requests </h1>
-      <ol class="requestList">
+      <ul class="requestList">
         {requests.map((request) => (
           <li class="request">
-            <h1> {request.requestname} </h1>
-            <p>Request Description: {request.requestcontent}</p>
-            <p>Request ID (TESTING): {request._id}</p>
-            <p>Request userID (TESTING): {request.ownerID}</p>
-            <Button value={request._id} variant="danger" type="submit" onClick={handleDelete}>
-              DELETE
-            </Button>
+            <RequestComp request={request} setRequests={setRequests} />
           </li>
         ))}
-      </ol>
+      </ul>
     </div>
   );
 }

@@ -9,13 +9,15 @@ export default class NewRequestComponent extends Component {
     super(props);
     this.state = {
       token: "",
-      requestname: "",
-      requestcontent: "",
-      requestcompleted: false,
+      name: "",
+      content: "",
+      completed: false,
+      chocolates: 0,
+      muffins: 0,
       errors: {
-        requestname: "",
-        requestcontent: "",
-        requestcompleted: "",
+        name: "",
+        content: "",
+        completed: "",
       },
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,12 +29,14 @@ export default class NewRequestComponent extends Component {
 
     const request = {
       token: localStorage.getItem("authToken"),
-      requestname: this.state.requestname,
-      requestcontent: this.state.requestcontent,
-      requestcompleted: this.state.requestcompleted,
+      name: this.state.name,
+      content: this.state.content,
+      completed: this.state.completed,
+      chocolates: this.state.chocolates,
+      muffins: this.state.muffins
     };
 
-    const url = "http://localhost:9000/newrequest";
+    const url = "http://localhost:9000/request/new";
 
     axios
       .post(url, request)
@@ -51,14 +55,14 @@ export default class NewRequestComponent extends Component {
     const { name, value } = e.target;
     let errors = this.state.errors;
     switch (name) {
-      case "requestname":
-        errors.requestname =
+      case "name":
+        errors.name =
           value.length < 3 || value.length > 1024
             ? "Your request name must be 3 characters or longer."
             : "";
         break;
-      case "requestcontent":
-        errors.requestcontent =
+      case "content":
+        errors.content =
           value.length < 3 || value.length > 1024
             ? "Your request description must be 3 characters or longer."
             : "";
@@ -82,37 +86,57 @@ export default class NewRequestComponent extends Component {
                 value={localStorage.getItem("authToken")}
               />
             </Form.Group>
-            <Form.Group controlId="requestcompleted">
+            <Form.Group controlId="completed">
               <Form.Control
                 type="hidden"
-                name="requestcompleted"
+                name="completed"
                 value={false}
               />
             </Form.Group>
-            <Form.Group controlId="requestname">
+            <Form.Group controlId="name">
               <Form.Label>Request Name</Form.Label>
               <Form.Control
                 type="string"
-                name="requestname"
+                name="name"
                 placeholder="Enter request name"
-                value={this.state.requestname}
+                value={this.state.name}
                 onChange={this.handleInputChange}
               />
-              <p> {this.state.errors.requestname} </p>
+              <p> {this.state.errors.name} </p>
             </Form.Group>
-            <Form.Group controlId="requestcontent">
+            <Form.Group controlId="chocolates">
+              <Form.Label>Chocolates</Form.Label>
+              <Form.Control
+                type="number"
+                name="chocolates"
+                placeholder="How many chocolates?"
+                value={this.state.chocolates}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="muffins">
+              <Form.Label>Muffins</Form.Label>
+              <Form.Control
+                type="number"
+                name="muffins"
+                placeholder="How many muffins?"
+                value={this.state.muffins}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="content">
               <Form.Label>Request Description</Form.Label>
               <Form.Control
                 type="string"
-                name="requestcontent"
+                name="content"
                 placeholder="Enter a description of the request"
-                value={this.state.requestcontent}
+                value={this.state.content}
                 onChange={this.handleInputChange}
               />
-              <p> {this.state.errors.requestcontent} </p>
+              <p> {this.state.errors.content} </p>
             </Form.Group>
-            {this.state.requestname.length >= 3 &&
-              this.state.requestcontent.length >= 3 && (
+            {this.state.name.length >= 3 &&
+              this.state.content.length >= 3 && (
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
