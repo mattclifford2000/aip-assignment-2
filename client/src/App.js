@@ -9,12 +9,13 @@ import Register from "./components/pages/Register";
 import NewFavour from "./components/pages/NewFavour";
 import Request from "./components/pages/Request";
 
-
+import "./styles/Navbar.css";
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
+
 
 import { Component } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
@@ -59,7 +60,7 @@ function App(props) {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                   <Nav.Link href="/">Home</Nav.Link>
-                  <Nav.Link href="/requests">Requests</Nav.Link>
+                  <Nav.Link href="/requests" class="navbarText">Requests</Nav.Link>
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
                 </Nav>
                 <Nav inline>
@@ -74,7 +75,7 @@ function App(props) {
 
           {/*Navbar when user is logged in*/}
           {localStorage.getItem('loggedIn') == "true" &&
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" id="customNavbar">
               <Navbar.Brand href="#home">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">

@@ -1,3 +1,5 @@
+/* OLD CODE
+
 .leaderboard ol {
   padding: 20px;
   background: #cce5ff;
@@ -23,3 +25,54 @@ h5 {
   width: 300px;
   margin: auto;
 }
+
+*/
+
+* {background-color:#FAFAFA;}
+
+table {
+  border-collapse: separate;
+  border-spacing:5px;
+  border: 1px solid black;
+  height: 50px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: default;
+}
+th, td {
+  width: 150px;
+  text-align: center;
+  border-spacing: 100px;
+  border: 1px solid black;
+  padding: 30px;
+  background-color: white;
+}
+
+th{
+  background-color: #FAFAFA;
+  font-size: 15px;
+}
+
+tr{
+  font-size: 25px;
+}
+
+
+
+tbody>tr>:nth-child(2){
+  text-align:left;
+ }
+
+ tbody>:nth-child(1):hover{ 
+  color: gold;
+ }
+
+ tbody>:nth-child(2):hover{ 
+  color: silver;
+ }
+
+ tbody>:nth-child(3):hover{ 
+  color: #cd7f32;
+ }
+
