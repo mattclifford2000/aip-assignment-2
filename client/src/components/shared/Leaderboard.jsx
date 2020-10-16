@@ -60,7 +60,7 @@ export default class Leaderboard extends React.Component {
         <table>
           <tr>
             <th> Rank </th>
-            <th> User </th>
+            <th id="userHeader"> User </th>
             <th> Owing  </th>
             <th> Owed  </th>
             <th> Points </th>
