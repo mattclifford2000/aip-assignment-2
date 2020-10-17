@@ -7,30 +7,54 @@ import { Link, Redirect } from "react-router-dom";
 
 function SearchRequests(props) {
     const [requests, setRequests] = useState([]);
+    const [query, setQuery] = useState([]);
 
 
     function handleSubmit(e) {
-        e.preventDefault();
+
         console.log(e.target.value);
-        const query = "6666";
-
         const url = "http://localhost:9000/request/searchRequest";
-
 
         axios
             .post(url, { query })
+            .then((response) => {
+                setRequests(response.data)
+            })
     }
 
 
+    function showRequests(e) {
+
+        console.log(requests);
+    }
+
     return (
         <div>
-            <h1> Requests</h1>
-            <Form onSubmit={handleSubmit} noValidate>
-                <Button variant="primary" type="submit">
-                    Submit
+            <h1> Search requests</h1>
+            <Card style={{ width: "18rem" }}>
+                <Form onSubmit={handleSubmit} noValidate>
+                    <Form.Group controlId="password">
+                        <Form.Control
+                            name="query"
+                            type="query"
+                            placeholder="query"
+                            value={query}
+                            onChange={(e) => {
+                                setQuery(e.target.value);
+                            }}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
           </Button>
-                <Link to="/register">Don't have an account?</Link>
-            </Form>
+                </Form>
+            </Card>
+
+
+
+            <Button onClick={showRequests} variant="primary">
+                Submit
+          </Button>
         </div>
     );
 }

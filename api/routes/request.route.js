@@ -20,10 +20,21 @@ router.get("/", async (req, res) => {
 
 router.post("/searchRequest", async (req, res) => {
   console.log(req.body.query);
-  const result = await Request.find({ name: req.body.query });
+  const query = req.body.query;
+
+  var regex = RegExp('.*' + query + '.*')
+
+  /* Return records where search query is contained in request name OR request content*/
+  const result = await Request.find({
+    $or: [{ name: new RegExp('^' + req.body.query) },
+    { content: new RegExp('^' + req.body.query + '.*') }]
+  });
+
   res.send(result);
   console.log(result)
 });
+
+
 
 router.post("/mine", async (req, res) => {
   const { authToken } = req.body;
