@@ -25,8 +25,8 @@ function Requests(props) {
       <ol class="requestList">
         {requests.map((request) => (
           <li class="request">
-            <h1> {request.requestname} </h1>
-            <p>Request Description: {request.requestcontent}</p>
+            <h1> {request.name} </h1>
+            <p>Request Description: {request.content}</p>
             <p>Request ID (TESTING): {request._id}</p>
             <p>Request userID (TESTING): {request.ownerID}</p>
 

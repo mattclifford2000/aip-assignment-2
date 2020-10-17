@@ -50,11 +50,7 @@ function SearchRequests(props) {
                 </Form>
             </Card>
 
-
-
-            <Button onClick={showRequests} variant="primary">
-                Submit
-          </Button>
+            <p> {requests.name}</p>
         </div>
     );
 }

@@ -30,7 +30,7 @@ router.post("/searchRequest", async (req, res) => {
     { content: new RegExp('^' + req.body.query + '.*') }]
   });
 
-  res.send(result);
+  res.json(result);
   console.log(result)
 });
 
@@ -74,7 +74,5 @@ router.post("/new", async (req, res) => {
   const savedRequest = await request.save();
   return res.status(200).send(savedRequest);
 });
-
-module.exports = router;
 
 module.exports = router;
