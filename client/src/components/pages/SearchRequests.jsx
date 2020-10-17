@@ -3,7 +3,7 @@ import "./../../styles/Home.css";
 import axios from "axios";
 import { Button, Form, Card } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
-
+import "../../styles/searchRequests.css";
 
 function SearchRequests(props) {
     const [requests, setRequests] = useState([]);
@@ -23,13 +23,9 @@ function SearchRequests(props) {
     }
 
 
-    function showRequests(e) {
-
-        console.log(requests);
-    }
 
     return (
-        <div>
+        <div class="searchRequestForm">
             <h1> Search requests</h1>
             <Card style={{ width: "18rem" }}>
                 <Form onSubmit={handleSubmit} noValidate>
@@ -45,12 +41,11 @@ function SearchRequests(props) {
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                        Search
           </Button>
                 </Form>
             </Card>
 
-            <p> {requests.name}</p>
         </div>
     );
 }
