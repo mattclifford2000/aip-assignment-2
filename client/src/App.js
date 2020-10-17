@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
+import SearchRequests from "./components/pages/SearchRequests";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
@@ -83,6 +84,7 @@ function App(props) {
                   <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link href="/requests">Requests</Nav.Link>
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
+                  <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
                   <Nav.Link href="/newfavour">New Favour</Nav.Link>
                   <Nav.Link href="/profile">Profile</Nav.Link>
                 </Nav>
@@ -104,6 +106,7 @@ function App(props) {
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/requests" component={Requests} />
+          <Route exact path="/searchrequests" component={SearchRequests} />
           {/*<PrivateRoute exact path="/newrequest" component={NewRequest} />*/}
           <PrivateRoute exact path="/newfavour" component={NewFavour} />
           <PrivateRoute exact path="/profile" component={Profile} />
