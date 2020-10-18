@@ -63,6 +63,7 @@ function App(props) {
                   <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link href="/requests" class="navbarText">Requests</Nav.Link>
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
+                  <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
                 </Nav>
                 <Nav inline>
                   <Nav.Link href="/register">Register</Nav.Link>
