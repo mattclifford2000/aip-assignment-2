@@ -24,7 +24,8 @@ router.post("/searchRequest", async (req, res) => {
 
   var regex = RegExp('.*' + query + '.*')
 
-  /* Return records where search query is contained in request name OR request content*/
+  /* This only returns results where search query is at the start of the request name OR content. */
+  /* Need to work out how to return results where query is contained anywhere in the request name OR content */
   const result = await Request.find({
     $or: [{ name: new RegExp('^' + req.body.query) },
     { content: new RegExp('^' + req.body.query + '.*') }]
