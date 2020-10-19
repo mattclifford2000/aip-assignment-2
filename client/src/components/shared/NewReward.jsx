@@ -5,15 +5,8 @@ import { Card, Button, Spinner, Form } from "react-bootstrap";
 class NewReward extends React.Component {
     constructor(props) {
         super(props);
-        /*this.state = {
-            id: "",
-            name: "",
-            content: "",
-            isLoading: false,
-            submitted: false,
-        };*/
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
 
       }
 
@@ -21,47 +14,15 @@ class NewReward extends React.Component {
         this.props.onInputChange(e);
       }
 
-      handleSubmit(e){
-        this.props.onSubmit(e);
+      handleDelete(e){
+        this.props.onDelete(e);
       }
-    /*
-      handleSubmit = (e) => {
-        console.log(this.state);
-        e.preventDefault();
-    
-        const reward = {
-          name: this.state.name,
-          content: this.state.content,
-        };
-    
-        const url = "http://localhost:9000/reward/new";
-        
-        this.isLoading = true;
-
-        axios
-          .post(url, reward)
-          .then((response) => {
-            this.setState({ id: response.data._id});
-            this.isLoading = false;
-            this.submitted = true;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };*/
-
-    /*
-    handleInputChange = (e) => {    
-        const { name, value } = e.target;
-        this.setState({ [e.target.name]: e.target.value });
-    }; */
     
     render() {
-      //const name = this.props.reward.name;
-      //const content = this.props.reward.content;
       const data = this.props.data;
+      if(data != null) {
       return (
-        <Card style={{ width: "100%" }}>
+        <Card style={{ width: "auto", margin: "10px" }}>
             <Form.Group controlId={data.key}>
             <Form.Label>Reward Name</Form.Label>
               <Form.Control
@@ -80,12 +41,17 @@ class NewReward extends React.Component {
                 onChange={this.handleInputChange}
               />
             </Form.Group>
-            <Button variant="info" onClick={this.handleSubmit}>
-                  Confirm Reward
-                </Button>
+            <Form.Group><Button variant="danger" id={data.key} onClick={this.handleDelete}>
+                  Delete Reward
+                </Button></Form.Group>
+
+            
             </Card>      
             );
     }
+    else return null;
+  }
+  
   }
 
   export default NewReward;
