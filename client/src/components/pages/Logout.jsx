@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
-import { Link, Redirect, History } from "react-router-dom";
+import { Link, Redirect, History, useHistory } from "react-router-dom";
 import { Button, Form, Card, Navbar, Nav } from "react-bootstrap";
 import axios from "axios";
 import "../../styles/Login.css";
