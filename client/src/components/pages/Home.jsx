@@ -8,9 +8,6 @@ function Home(props) {
 
   return (
     <div class="center">
-      Welcome to the Favour Centre!
-      <p>Username:</p>
-      <p>{localStorage.getItem('username')}</p>
       <Leaderboard />
     </div>
   );
