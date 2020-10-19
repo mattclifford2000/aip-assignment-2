@@ -17,6 +17,7 @@ export default class NewFavourComponent extends Component {
       favourcontent: "",
       favourcompleted: false,
       rewards: Array(),
+      rewardIDs: Array(),
       errors: {
         favourname: "",
         favourcontent: "",
@@ -29,35 +30,40 @@ export default class NewFavourComponent extends Component {
 
    handleSubmit = async (e) => {
     e.preventDefault();
-    const rewardIDs = await this.submitRewards();
-    const favourIDs = await this.submitFavour(rewardIDs)
+    let promise = new Promise ((resolve, reject) => {
+      let complete = false;
+      complete = this.submitRewards();
+      while(!complete){};
+      if(complete){resolve("done")}
+    })
+    this.submitFavour(promise)
+    //this.submitRewards().then(this.submitFavour());
+    //const rewardIDs = await this.submitRewards();
+    //const favourIDs = await setTimeout(this.submitFavour(rewardIDs), 10000);
     //this.submitFavour(rewardIDs)
     //this.submitRewards(this.submitFavour);
   };
 
   async submitRewards() {
-    let ids = Array();
+    //let ids = Array();
     const url = "http://localhost:9000/reward/new";
     this.state.rewards.map((reward) => {
-      axios
+       axios
       .post(url, reward)
       .then((response) => {
-       ids[reward.key] = (response.data._id);
-       ids = (response.data._id);
-
+       this.setState({
+        rewards: this.state.rewardIDs.concat(response.data._id)
+      })
         console.log(response);
       })
       .catch((error) => {
         console.error(error);
       });
     });
-    console.log(ids);
-    return ids;
+    return true;
   }
 
-  async submitFavour (rewardIDs) {
-    setTimeout(function() {
-      console.log("timedout");
+  async submitFavour (promise) {
       const favour = {
         token: localStorage.getItem("authToken"),
         externalemail: this.state.externalemail,
@@ -65,11 +71,11 @@ export default class NewFavourComponent extends Component {
         favourname: this.state.favourname,
         favourcontent: this.state.favourcontent,
         favourcompleted: this.state.favourcompleted,
-        favourrewards: JSON.stringify(rewardIDs),
+        favourrewards: this.state.rewardIDs,
       };
       console.log("local favour");
       console.log(favour);
-      console.log(rewardIDs);
+      console.log(this.state.rewardIDs);
       const url = "http://localhost:9000/favour/new";
   
       axios
@@ -82,8 +88,7 @@ export default class NewFavourComponent extends Component {
         .catch((error) => {
           console.error(error);
         });
-
-    }, 10000);
+        promise = promise + 1;
   }
   
 
