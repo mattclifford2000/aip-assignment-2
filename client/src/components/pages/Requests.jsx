@@ -17,7 +17,7 @@ function Requests(props) {
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })
-  });
+  }, []);
 
   return (
     <div>

@@ -115,11 +115,11 @@ export default class NewFavourComponent extends Component {
             ? "Your favour description must be 3 characters or longer."
             : "";
         break;
-        case "owebutton":
-        this.setState({owed : false});
+      case "owebutton":
+        this.setState({ owed: false });
         break;
-        case "owedbutton":
-        this.setState({owed : true});
+      case "owedbutton":
+        this.setState({ owed: true });
         break;
       default:
         break;
@@ -128,16 +128,19 @@ export default class NewFavourComponent extends Component {
   };
 
   externalUserLabel() {
+
     return(this.state.owed ? "Email of user who owes you" : "Email of user you owe");
   } 
 
+
   render() {
     return (
-      <div className="registerform">
+      <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
         <Card style={{ width: "18rem" }}>
           <Form noValidate>
             <ButtonGroup aria-label="Favour Choice">
+
               <Button 
               name="owebutton"
               variant="info"
@@ -147,6 +150,7 @@ export default class NewFavourComponent extends Component {
               name="owedbutton"
               variant="info"
               onClick={this.handleInputChange}
+
               >I am owed</Button>            </ButtonGroup>
             <Form.Group controlId="token">
               <Form.Control
@@ -162,8 +166,10 @@ export default class NewFavourComponent extends Component {
                 value={false}
               />
             </Form.Group>
+
             <Form.Group controlId="externalemail">
             <Form.Label>{this.externalUserLabel()}</Form.Label>
+
               <Form.Control
                 type="email"
                 name="externalemail"

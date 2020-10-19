@@ -56,7 +56,7 @@ function App(props) {
           {/*Navbar when user is not logged in*/}
           {localStorage.getItem('loggedIn') == "false" &&
             <Navbar bg="light" expand="lg">
-              <Navbar.Brand href="#home">Favour Centre</Navbar.Brand>
+              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -78,7 +78,7 @@ function App(props) {
           {/*Navbar when user is logged in*/}
           {localStorage.getItem('loggedIn') == "true" &&
             <Navbar bg="light" expand="lg" id="customNavbar">
-              <Navbar.Brand href="#home">Favour Centre</Navbar.Brand>
+              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

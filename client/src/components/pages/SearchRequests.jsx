@@ -43,9 +43,25 @@ function SearchRequests(props) {
                     </Form>
                 </Card>
             </div>
-            <h1> Requests </h1>
+
             {/* Only show if a search query has been made */}
-            {resultIndicator != undefined && <p> Search results for {resultIndicator} </p>}
+            {/* Single result */}
+            {resultIndicator != undefined && requests.length == 1 &&
+                <div> <h1> Requests </h1>
+                    <p> {requests.length} result for "{resultIndicator}" </p> </div>}
+
+            {/* Multiple results */}
+            {resultIndicator != undefined && requests.length > 1 &&
+                <div> <h1> Requests </h1>
+                    <p> {requests.length} results for "{resultIndicator}" </p> </div>}
+
+            {/* No results */}
+            {resultIndicator != undefined && requests.length == 0 &&
+                <div> <h1> Requests </h1>
+                    <p> No results for "{resultIndicator}" </p> </div>}
+
+
+
             <ol class="requestList">
                 {requests.map((request) => (
                     <li class="request">
