@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Home.css";
 import RequestComp from "./functionalComponents/request.comp"
-
+import { Button } from "react-bootstrap"
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
@@ -70,6 +70,7 @@ function Profile(props) {
           <li class="request">
             <h1> {favour.name} </h1>
             <p>Request Description: {favour.content}</p>
+            <Button href={"/favour/" + favour._id} variant="secondary"> View Favour</Button>
           </li>
         ))}
       </ol>
@@ -79,6 +80,7 @@ function Profile(props) {
           <li class="request">
             <h1> {favour.name} </h1>
             <p>Request Description: {favour.content}</p>
+            <Button href={"/favour/" + favour._id} variant="secondary"> View Favour</Button>
           </li>
         ))}
       </ol>
