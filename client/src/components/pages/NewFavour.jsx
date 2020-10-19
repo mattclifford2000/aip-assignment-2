@@ -3,6 +3,8 @@ import { Button, Form, Card, ButtonGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
+import NewReward from "../shared/NewReward"
+import { isValidElement } from "react";
 
 export default class NewFavourComponent extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ export default class NewFavourComponent extends Component {
       favourname: "",
       favourcontent: "",
       favourcompleted: false,
+      rewards: Array(),
       errors: {
         favourname: "",
         favourcontent: "",
@@ -22,32 +25,95 @@ export default class NewFavourComponent extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
 
-  handleSubmit = (e) => {
-    console.log(this.state);
+   handleSubmit = async (e) => {
     e.preventDefault();
+    const rewardIDs = await this.submitRewards();
+    const favourIDs = await this.submitFavour(rewardIDs)
+    //this.submitFavour(rewardIDs)
+    //this.submitRewards(this.submitFavour);
+  };
 
-    const favour = {
-      token: localStorage.getItem("authToken"),
-      externalemail: this.state.externalemail,
-      owed: this.state.owed,
-      favourname: this.state.favourname,
-      favourcontent: this.state.favourcontent,
-      favourcompleted: this.state.favourcompleted,
-    };
-
-    const url = "http://localhost:9000/newfavour";
-
-    axios
-      .post(url, favour)
+  async submitRewards() {
+    let ids = Array();
+    const url = "http://localhost:9000/reward/new";
+    this.state.rewards.map((reward) => {
+      axios
+      .post(url, reward)
       .then((response) => {
+       ids[reward.key] = (response.data._id);
+       ids = (response.data._id);
+
         console.log(response);
-        console.log(response.data);
-        this.setState({ result: response.data });
       })
       .catch((error) => {
         console.error(error);
       });
+    });
+    console.log(ids);
+    return ids;
+  }
+
+  async submitFavour (rewardIDs) {
+    setTimeout(function() {
+      console.log("timedout");
+      const favour = {
+        token: localStorage.getItem("authToken"),
+        externalemail: this.state.externalemail,
+        owed: this.state.owed,
+        favourname: this.state.favourname,
+        favourcontent: this.state.favourcontent,
+        favourcompleted: this.state.favourcompleted,
+        favourrewards: JSON.stringify(rewardIDs),
+      };
+      console.log("local favour");
+      console.log(favour);
+      console.log(rewardIDs);
+      const url = "http://localhost:9000/favour/new";
+  
+      axios
+        .post(url, favour)
+        .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          this.setState({ result: response.data });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+    }, 10000);
+  }
+  
+
+  addReward = (e) => {
+    const reward = {
+      key: this.state.rewards.length,
+      name: "",
+      content: "",
+    }
+    this.setState({
+      rewards: this.state.rewards.concat(reward)
+    });
+  }
+
+ //ROUGH IMPLEMENTATION PASSING REWARD KEY THROUGH EVENT ID, IMPROVE 
+  handleRewardInputChange = (e) => {    
+    const { name, value, id } = e.target;
+    switch(name){
+      case "name":
+      this.state.rewards[id].name = value;
+      break;
+      case "content":
+      this.state.rewards[id].content = value;
+      break;
+      default:
+      break;
+    };
+    this.setState({
+      rewards: this.state.rewards
+    });
   };
 
 
@@ -83,7 +149,6 @@ export default class NewFavourComponent extends Component {
   };
 
   externalUserLabel() {
-    console.log("invoked!")
     return(this.state.owed ? "Email of user who owes you" : "Email of user you owe");
   } 
 
@@ -150,15 +215,32 @@ export default class NewFavourComponent extends Component {
               />
               <p> {this.state.errors.favourcontent} </p>
             </Form.Group>
+            <Form.Group>
+
+            </Form.Group>
             {this.state.favourname.length >= 3 &&
               this.state.favourcontent.length >= 3 && (
+                
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
+
               )}
           </Form>
+          <Button 
+              name="addreward"
+              variant="success"
+              onClick={this.addReward}
+              >+ Add a reward</Button>
+            {/*<NewReward onInputChange={this.handleRewardInputChange} onSubmit={this.handleSubmit}></NewReward>*/}
+            {
+              this.state.rewards.map((data) => (
+                <NewReward data={data} onInputChange={this.handleRewardInputChange} onSubmit={this.handleSubmit}></NewReward>
+                ))
+              }
         </Card>
       </div>
     );
   }
 }
+

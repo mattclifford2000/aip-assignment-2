@@ -30,6 +30,7 @@ function Requests(props) {
             <p>Request ID (TESTING): {request._id}</p>
             <p>Request userID (TESTING): {request.ownerID}</p>
             <Button variant="secondary" href={'/request/' + request._id}>View Request</Button>
+
             {/* Only show rewards that are entered. No blank rewards */}
             {/*See whether we want static items, or stored in an array in the future? */}
             {/*

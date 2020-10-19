@@ -16,6 +16,20 @@ function Request(props) {
     });
   }, []);
 
+  //DUPLICATE OF PROFILE CODE, TIDY UP
+  const handleDelete = (e) => {
+    //e.preventDefault();
+    console.log(localStorage.getItem('userID'));
+    
+    axios
+      .post("/request/delete", { requestID: e._id,
+                                 authToken: localStorage.getItem('authToken')
+      })
+      .then((res) => {
+        //setRequests(res.data);
+      });
+  }
+
   if (isLoading) {
     return <Spinner animation="border" role="status">
     <span className="sr-only">Loading...</span>
@@ -31,7 +45,7 @@ function Request(props) {
           {request.requestcontent}
         </Card.Text>
         {(localStorage.getItem('userID') === request.ownerID)? 
-        <Button linkTo="/" variant="danger">Delete</Button> : ""}
+        <Button onClick={handleDelete(request)} variant="danger">Delete</Button> : ""}
       </Card.Body>
     </Card>
   );

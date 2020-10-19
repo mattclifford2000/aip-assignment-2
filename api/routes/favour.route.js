@@ -4,7 +4,7 @@ const { verifyUser } = require("../helpers/verifyUser");
 const User = require("../models/User.model");
 const Favour = require("../models/Favour.model");
 
-router.post("/", async (req, res) => {
+router.post("/new", async (req, res) => {
   console.log(req.body);
   let verifiedUser = verifyUser(req.body.token);
   if (verifiedUser.status != "200") {
@@ -19,6 +19,7 @@ router.post("/", async (req, res) => {
     favourname: req.body.favourname,
     favourcontent: req.body.favourcontent,
     favourcompleted: false,
+    favourrewards: req.body.favourrewards
   });
 
   const savedFavour = await favour.save();

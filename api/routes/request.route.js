@@ -36,10 +36,7 @@ router.post("/delete", async (req, res) => {
 
 router.post("/new", async (req, res) => {
   let verifiedUser = verifyUser(req.body.token);
-  console.log("here");
-  console.log(req.body)
   if (verifiedUser.status != "200") {
-    console.log("failed");
     return res.send(verifiedUser.status);
   }
   const request = new Request({
@@ -53,7 +50,5 @@ router.post("/new", async (req, res) => {
   const savedRequest = await request.save();
   return res.status(200).send(savedRequest);
 });
-
-module.exports = router;
 
 module.exports = router;

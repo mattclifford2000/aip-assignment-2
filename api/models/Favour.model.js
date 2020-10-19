@@ -27,6 +27,12 @@ const FavourSchema = new Schema({
     unique: false,
     required: true,
   },
+  favourrewards: [{
+    type: Schema.Types.ObjectId,
+    unique: false,
+    ref: "Reward",
+    required: false,
+  }]
 });
 
 module.exports = mongoose.model("Favour", FavourSchema);

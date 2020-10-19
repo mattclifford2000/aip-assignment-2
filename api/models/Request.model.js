@@ -24,8 +24,12 @@ const RequestSchema = new Schema({
     unique: false,
     required: true,
   },
-  chocolates: Number,
-  muffins: Number
+  rewards: {
+    type: Array,
+    unique: false,
+    required: false,
+    //ref: "Reward",
+  }
 });
 
 module.exports = mongoose.model("Request", RequestSchema);
