@@ -22,7 +22,7 @@ class OperationModal extends React.Component {
 
         statusInfo(status) {
         if(status === 200) return("Action completed successfully.");
-        else return ("Please try again.");
+        else return ("Please try again. Error: " + status);
         }
 
 
