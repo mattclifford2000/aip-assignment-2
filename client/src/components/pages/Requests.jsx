@@ -31,17 +31,6 @@ function Requests(props) {
             <p>Request userID (TESTING): {request.ownerID}</p>
             <Button variant="secondary" href={'/request/' + request._id}>View Request</Button>
 
-            {/* Only show rewards that are entered. No blank rewards */}
-            {/*See whether we want static items, or stored in an array in the future? */}
-            {/*
-            {request.cupcakes > 0 && <p> Cupcakes: {request.cupcakes} </p>}
-            {request.chocolates > 0 && (
-              <p> Chocolates: {request.chocolates} </p>
-            )}
-            {request.mints > 0 && <p> Mints: {request.mints} </p>}
-            {request.coffees > 0 && <p> Coffees: {request.coffees} </p>}
-            {request.icecreams > 0 && <p> Icecreams: {request.icecreams} </p>}
-            */}
           </li>
         ))}
       </ol>

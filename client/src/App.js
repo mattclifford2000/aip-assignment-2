@@ -56,14 +56,14 @@ function App(props) {
           {/*Navbar when user is not logged in*/}
           {localStorage.getItem('loggedIn') == "false" &&
             <Navbar bg="light" expand="lg">
-              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
+              <Navbar.Brand href="/requests">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                  <Nav.Link href="/">Home</Nav.Link>
-                  <Nav.Link href="/requests" class="navbarText">Requests</Nav.Link>
+                  <Nav.Link href="/requests">Home</Nav.Link>
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
                   <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
+                  <Nav.Link href="/" class="navbarText">Leaderboard</Nav.Link>
                 </Nav>
                 <Nav inline>
                   <Nav.Link href="/register">Register</Nav.Link>
@@ -78,15 +78,15 @@ function App(props) {
           {/*Navbar when user is logged in*/}
           {localStorage.getItem('loggedIn') == "true" &&
             <Navbar bg="light" expand="lg" id="customNavbar">
-              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
+              <Navbar.Brand href="/requests">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                  <Nav.Link href="/">Home</Nav.Link>
-                  <Nav.Link href="/requests">Requests</Nav.Link>
+                  <Nav.Link href="/requests">Home</Nav.Link>
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
                   <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
                   <Nav.Link href="/newfavour">New Favour</Nav.Link>
+                  <Nav.Link href="/">Leaderboard</Nav.Link>
                   <Nav.Link href="/profile">Profile</Nav.Link>
                 </Nav>
                 <Nav inline>

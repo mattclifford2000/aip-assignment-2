@@ -14,7 +14,7 @@ router.post("/new", async (req, res) => {
   }
   const rewardIDs = await addRewards(req.body.rewards);
 
-  const externalUser = await User.findOne({email : req.body.externalemail});
+  const externalUser = await User.findOne({ email: req.body.externalemail });
 
   if (externalUser == null) {
     console.log("No User of that email exists")
@@ -34,5 +34,24 @@ router.post("/new", async (req, res) => {
   console.log(savedFavour);
   return res.status(200).send(savedFavour);
 });
+
+
+router.post("/myOwedFavours", async (req, res) => {
+  console.log(req.body.userID);
+  const userID = req.body.userID;
+  const favour = await Favour.find({ creditorID: userID });
+  res.json(favour);
+  console.log(favour);
+});
+
+
+router.post("/myOwingFavours", async (req, res) => {
+  console.log(req.body.userID);
+  const userID = req.body.userID;
+  const favour = await Favour.find({ debitorID: userID });
+  res.json(favour);
+  console.log(favour);
+});
+
 
 module.exports = router;
