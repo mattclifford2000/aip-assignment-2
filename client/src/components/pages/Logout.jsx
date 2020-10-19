@@ -8,7 +8,7 @@ import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
 
 function Logout(props) {
-
+  const history = useHistory();
 
 
   /*  note: still need to fix logout page. Logout button is currently a link styled as a button. */
@@ -20,6 +20,10 @@ function Logout(props) {
     localStorage.setItem('user', null);
     localStorage.setItem('loggedIn', false);
     localStorage.setItem('authToken', null);
+  }
+
+  function redirect() {
+    history.push("/");
   }
 
   return (

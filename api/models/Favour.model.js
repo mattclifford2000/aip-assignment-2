@@ -12,21 +12,27 @@ const FavourSchema = new Schema({
     unique: false,
     ref: "User",
   },
-  favourname: {
+  name: {
     type: String,
     unique: false,
     required: true,
   },
-  favourcontent: {
+  content: {
     type: String,
     unique: false,
     required: true,
   },
-  favourcompleted: {
+  completed: {
     type: Boolean,
     unique: false,
     required: true,
   },
+  rewardIDs: [{
+    type: Schema.Types.ObjectId,
+    unique: false,
+    ref: "Reward",
+    required: false,
+  }]
 });
 
 module.exports = mongoose.model("Favour", FavourSchema);
