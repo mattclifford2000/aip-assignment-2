@@ -29,12 +29,12 @@ function Profile(props) {
 
 
   useEffect(() => {
-    /*
+
     axios
       .post("/request/mine", { authToken: localStorage.getItem('authToken') })
       .then((res) => {
         setRequests(res.data);
-      }); */
+      });
 
     const owedUrl = "http://localhost:9000/favour/myOwedFavours";
     const owingUrl = "http://localhost:9000/favour/myOwingFavours";
