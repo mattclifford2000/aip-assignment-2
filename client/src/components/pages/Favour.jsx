@@ -4,31 +4,20 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { Card, Button, Spinner } from "react-bootstrap";
 
-function Request(props) {
+function Favour(props) {
   let { id } = useParams();
   const [isLoading, setLoading] = useState(true);
-  const [request, setRequest] = useState();
+  const [favour, setFavour] = useState();
+  const [rewards, setRewards] = useState();
 
   useEffect(() => {
-    axios.get("/request/request?id="+id).then(res => {
-      setRequest(res.data);
+    axios.get("/favour/favour?id="+id).then(res => {
+      setFavour(res.data.favour);
+      //console.log(res.data.rewards);
+      setRewards(res.data.rewards);
       setLoading(false);
     });
   }, []);
-
-  //DUPLICATE OF PROFILE CODE, TIDY UP
-  const handleDelete = (e) => {
-    //e.preventDefault();
-    console.log(localStorage.getItem('userID'));
-    
-    axios
-      .post("/request/delete", { requestID: e._id,
-                                 authToken: localStorage.getItem('authToken')
-      })
-      .then((res) => {
-        //setRequests(res.data);
-      });
-  }
 
   if (isLoading) {
     return <Spinner animation="border" role="status">
@@ -37,15 +26,22 @@ function Request(props) {
   }
 
   return (
-    <Card>
+    <Card width="50%">
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
-      <Card.Title>{request.name}</Card.Title>
+      <Card.Title>{favour.name}</Card.Title>
         <Card.Text>
-          {request.content}
+          {favour.content}
         </Card.Text>
-        {(localStorage.getItem('userID') === request.ownerID)? 
-        <Button onClick={handleDelete(request)} variant="danger">Delete</Button> : ""}
+        {
+            rewards.map((reward) => (    
+                <Card>
+                    <Card.Title>Reward: {reward.name}</Card.Title>
+                    <Card.Text>Description: {reward.content}</Card.Text>
+
+                </Card>
+            ))
+        }
       </Card.Body>
     </Card>
   );
@@ -55,7 +51,7 @@ export default function App() {
   return (
     <Router>
         <Switch>
-          <Route path="/request/:id" children={<Request />} />
+          <Route path="/favour/:id" children={<Favour />} />
         </Switch>
     </Router>
   );
