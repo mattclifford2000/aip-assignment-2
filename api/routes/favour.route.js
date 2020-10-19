@@ -13,8 +13,7 @@ router.post("/new", async (req, res) => {
     return res.send(verifiedUser.status);
   }
   const rewardIDs = await addRewards(req.body.rewards);
-  console.log("back in favour");
-  console.log(rewardIDs);
+
   const externalUser = await User.findOne({email : req.body.externalemail});
   const favour = new Favour({
     debitorID: ((req.body.owed) ? verifiedUser.user._id : externalUser.id),
