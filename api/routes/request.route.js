@@ -21,7 +21,6 @@ router.get("/", async (req, res) => {
 router.post("/searchRequest", async (req, res) => {
   console.log(req.body.query);
   const query = req.body.query;
-
   /* return results where name OR content contains the search query */
   const result = await Request.find({
     $or: [
@@ -32,6 +31,13 @@ router.post("/searchRequest", async (req, res) => {
 
   res.json(result);
   console.log(result)
+});
+
+
+router.post("/acceptRequest", async (req, res) => {
+  console.log(req.body._id);
+  const id = req.body._id
+  const request = await Request.deleteOne({ _id: id });
 });
 
 

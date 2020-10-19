@@ -44,4 +44,13 @@ router.get("/", async (req, res) => {
   res.json({ message: "This is the login route!" });
 });
 
+
+router.post("/findUser", async (req, res) => {
+  console.log(req.body.OwnerID)
+  const OwnerID = req.body.OwnerID;
+  const user = await User.findOne({ _id: OwnerID });
+  console.log(user)
+  res.json(user)
+});
+
 module.exports = router;
