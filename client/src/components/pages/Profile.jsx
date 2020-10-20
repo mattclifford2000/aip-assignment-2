@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Home.css";
-import RequestComp from "./functionalComponents/request.comp"
+import RequestComp from "../functionalComponents/request.comp"
 import { Button, Form, Card } from "react-bootstrap";
 
 
@@ -14,6 +14,10 @@ function Profile(props) {
   const [myRequests, setMyRequests] = useState([]);
 
   const [userID, setUserID] = useState(localStorage.getItem('userID'))
+
+  const requestURL = "/request/myRequests"
+  const owedURL = "/favour/myOwedFavours";
+  const owingURL = "/favour/myOwingFavours";
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -31,7 +35,7 @@ function Profile(props) {
 
 
   function handleComplete(favour) {
-    const favourDelete = "http://localhost:9000/favour/delete";
+    const favourDelete = "/favour/delete"; //we dont want to delete favours, we want to mark them complete in some cases
     axios
       .post(favourDelete, favour)
       .then((response) => {
@@ -43,39 +47,26 @@ function Profile(props) {
 
   useEffect(() => {
 
-
-    /*
     axios
-      .post("/request/mine", { authToken: localStorage.getItem('authToken') })
-      .then((res) => {
-        setRequests(res.data);
-      });
-*/
-
-
-    const requestUrl = "http://localhost:9000/request/myRequests"
-    const owedUrl = "http://localhost:9000/favour/myOwedFavours";
-    const owingUrl = "http://localhost:9000/favour/myOwingFavours";
-
-
-    axios
-      .post(requestUrl, { userID })
+      .post(requestURL, { userID })
       .then((response) => {
         setMyRequests(response.data)
       })
 
     axios
-      .post(owedUrl, { userID })
+      .post(owedURL, { userID })
       .then((response) => {
         setOwed(response.data)
       })
 
     axios
-      .post(owingUrl, { userID })
+      .post(owingURL, { userID })
       .then((response) => {
         setOwing(response.data)
       })
   }, [owed]);
+
+
 
   return (
     <div class="center">
@@ -85,8 +76,7 @@ function Profile(props) {
       <ul class="requestList">
         {myRequests.map((request) => (
           <li class="request">
-            <h2> {request.name} </h2>
-            <p>Request Description: {request.content}</p>
+            <RequestComp request={request} setRequests={setMyRequests} />
           </li>
         ))}
       </ul>

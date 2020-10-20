@@ -6,54 +6,39 @@ const RequestSchema = new Schema({
 
   ownerID: {
     type: Schema.Types.ObjectId,
-    unique: false,
-    ref: "User",
+    ref: "User"
   },
   name: {
     type: String,
-    unique: false,
-    required: true,
+    required: true
   },
   content: {
     type: String,
-    unique: false,
-    required: true,
+    required: true
   },
   completed: {
     type: Boolean,
-    unique: false,
-    required: true,
+    required: true
   },
   chocolates: {
     type: Number,
-    unique: false,
-    required: false,
+    required: false
   },
   mints: {
     type: Number,
-    unique: false,
-    required: false,
+    required: false
   },
   pizzas: {
     type: Number,
-    unique: false,
-    required: false,
+    required: false
   },
   coffees: {
     type: Number,
-    unique: false,
-    required: false,
+    required: false
   },
   candies: {
     type: Number,
-    unique: false,
-    required: false,
-  },
-  rewards: {
-    type: Array,
-    unique: false,
-    required: false,
-    //ref: "Reward",
+    required: false
   }
 });
 

@@ -6,11 +6,10 @@ import SearchRequests from "./components/pages/SearchRequests";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
-//import NewRequest from "./components/pages/NewRequest";
 import NewFavour from "./components/pages/NewFavour";
 import Request from "./components/pages/Request";
 
-import NewRequest2 from "./components/pages/NewRequest";
+import NewRequest from "./components/pages/NewRequest";
 
 import Favour from "./components/pages/Favour";
 
@@ -25,21 +24,6 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 import { Component } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 
-class DebugRouter extends BrowserRouter {
-  constructor(props) {
-    super(props);
-    console.log("initial history is: ", JSON.stringify(this.history, null, 2));
-    this.history.listen((location, action) => {
-      console.log(
-        `The current URL is ${location.pathname}${location.search}${location.hash}`
-      );
-      console.log(
-        `The last navigation action was ${action}`,
-        JSON.stringify(this.history, null, 2)
-      );
-    });
-  }
-}
 
 function App(props) {
   const existingTokens = JSON.parse(localStorage.getItem("tokens"));
@@ -52,7 +36,7 @@ function App(props) {
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-      <DebugRouter>
+      <Router>
         <div className="App">
 
 
@@ -61,19 +45,16 @@ function App(props) {
           {localStorage.getItem('loggedIn') == "false" &&
             <Navbar bg="light" expand="lg">
               <Navbar.Brand href="/requests">Favour Centre</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                  <Nav.Link href="/requests">Home</Nav.Link>
-                  <Nav.Link href="/newrequest">New Request</Nav.Link>
-                  <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
-                  <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
-                </Nav>
-                <Nav inline>
-                  <Nav.Link href="/register">Register</Nav.Link>
-                  <Nav.Link href="/login">Login</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
+              <Nav className="mr-auto">
+                <Nav.Link href="/requests">Home</Nav.Link>
+                <Nav.Link href="/newrequest">New Request</Nav.Link>
+                <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
+                <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
+              </Nav>
+              <Nav>
+                <Nav.Link href="/register">Register</Nav.Link>
+                <Nav.Link href="/login">Login</Nav.Link>
+              </Nav>
             </Navbar>
           }
 
@@ -83,21 +64,18 @@ function App(props) {
           {localStorage.getItem('loggedIn') == "true" &&
             <Navbar bg="light" expand="lg" id="customNavbar">
               <Navbar.Brand href="/requests">Favour Centre</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                  <Nav.Link href="/requests">Home</Nav.Link>
-                  <Nav.Link href="/newrequest">New Request</Nav.Link>
-                  <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
-                  <Nav.Link href="/newfavour">New Favour</Nav.Link>
-                  <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
-                  <Nav.Link href="/profile">Profile</Nav.Link>
-                </Nav>
-                <Nav inline>
-                  <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
-                  <Nav.Link href="/logout">Logout</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
+              <Nav className="mr-auto">
+                <Nav.Link href="/requests">Home</Nav.Link>
+                <Nav.Link href="/newrequest">New Request</Nav.Link>
+                <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
+                <Nav.Link href="/newfavour">New Favour</Nav.Link>
+                <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
+                <Nav.Link href="/profile">Profile</Nav.Link>
+              </Nav>
+              <Nav>
+                <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
+                <Nav.Link href="/logout">Logout</Nav.Link>
+              </Nav>
             </Navbar>
           }
 
@@ -111,11 +89,12 @@ function App(props) {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <Route exact path="/requests" component={Requests} />
+          {/* //there is a bug here in the code, when commented the two
+           lines below out, the GET /request stops */}
+          <Route exact path="/requests" component={Requests} /> 
           <Route exact path="/" component={Requests} />
           <Route exact path="/searchrequests" component={SearchRequests} />
-          <Route exact path="/newRequest" component={NewRequest2} />
-          {/*<PrivateRoute exact path="/newrequest" component={NewRequest} />*/}
+          <Route exact path="/newRequest" component={NewRequest} />
           <PrivateRoute exact path="/newfavour" component={NewFavour} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/request/:id" component={Request} />
@@ -123,7 +102,7 @@ function App(props) {
 
 
         </div>
-      </DebugRouter>
+      </Router>
     </AuthContext.Provider>
   );
 }

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Button, Form, Card } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 
-function SearchRequests(props) {
+function NewRequests(props) {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [userID, setUserID] = useState(localStorage.getItem("userID"));
@@ -28,10 +28,11 @@ function SearchRequests(props) {
       candies: candies
     };
 
+    console.log(request)
 
-    const url = "http://localhost:9000/request/newRequest";
+    const url = "/request/new";
     axios
-      .post(url, request)
+      .post(url, { request, authToken: localStorage.getItem('authToken') } )
       .then((response) => {
       })
 
@@ -80,7 +81,7 @@ function SearchRequests(props) {
                 placeholder={chocolates}
                 value={chocolates}
                 onChange={(e) => {
-                  setChocolates(e.target.value);
+                  setChocolates(parseInt(e.target.value));
                 }}
               />
             </Form.Group>
@@ -93,7 +94,7 @@ function SearchRequests(props) {
                 placeholder={mints}
                 value={mints}
                 onChange={(e) => {
-                  setMints(e.target.value);
+                  setMints(parseInt(e.target.value));
                 }}
               />
             </Form.Group>
@@ -106,7 +107,7 @@ function SearchRequests(props) {
                 placeholder={pizzas}
                 value={pizzas}
                 onChange={(e) => {
-                  setPizzas(e.target.value);
+                  setPizzas(parseInt(e.target.value));
                 }}
               />
             </Form.Group>
@@ -119,7 +120,7 @@ function SearchRequests(props) {
                 placeholder={coffees}
                 value={coffees}
                 onChange={(e) => {
-                  setCoffees(e.target.value);
+                  setCoffees(parseInt(e.target.value));
                 }}
               />
             </Form.Group>
@@ -132,7 +133,7 @@ function SearchRequests(props) {
                 placeholder={candies}
                 value={candies}
                 onChange={(e) => {
-                  setCandies(e.target.value);
+                  setCandies(parseInt(e.target.value));
                 }}
               />
             </Form.Group>
@@ -147,5 +148,5 @@ function SearchRequests(props) {
   );
 }
 
-export default SearchRequests;
+export default NewRequests;
 

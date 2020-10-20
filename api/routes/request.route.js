@@ -7,7 +7,6 @@ const { verifyUser } = require("../helpers/verifyUser");
 router.get("/request", async (req, res) => {
   const request = await Request.findOne({ _id: req.query.id });
   res.json(request);
-  console.log(request);
 });
 
 
@@ -69,43 +68,25 @@ router.post("/delete", async (req, res) => {
 });
 
 router.post("/new", async (req, res) => {
-  let verifiedUser = verifyUser(req.body.token);
+  const { request, authToken } = req.body;
+  let verifiedUser = verifyUser(authToken);
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  const request = new Request({
-    ownerID: verifiedUser.user._id,
-    name: req.body.name,
-    content: req.body.content,
-    completed: req.body.completed,
-    chocolates: req.body.chocolates,
-    muffins: req.body.muffins
+  const newRequest = new Request({
+    ownerID: request.ownerID,
+    name: request.name,
+    content: request.content,
+    completed: request.completed,
+    chocolates: request.chocolates,
+    mints: request.mints,
+    pizzas: request.pizzas,
+    coffees: request.coffees,
+    candies: request.candies
   });
-  const savedRequest = await request.save();
+  const savedRequest = await newRequest.save();
   return res.status(200).send(savedRequest);
 });
-
-
-router.post("/newRequest", async (req, res) => {
-
-  const request = new Request({
-    ownerID: req.body.ownerID,
-    name: req.body.name,
-    content: req.body.content,
-    completed: req.body.completed,
-    chocolates: req.body.chocolates,
-    mints: req.body.mints,
-    pizzas: req.body.pizzas,
-    coffees: req.body.coffees,
-    candies: req.body.candies,
-  })
-
-  const savedRequest = await request.save();
-
-});
-
-
-
 
 
 module.exports = router;

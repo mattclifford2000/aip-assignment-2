@@ -26,8 +26,10 @@ export default class NewFavourComponent extends Component {
       },
       status: null,
       showModal: false,
+      image: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChangeImg = this.onChangeImg.bind(this);
   }
   handleClose = () => this.setState({showModal: false})
 
@@ -45,6 +47,7 @@ export default class NewFavourComponent extends Component {
       content: this.state.content,
       completed: this.state.completed,
       rewards: validRewards,
+      image: this.state.image
     };
 
     const url = "http://localhost:9000/favour/new";
@@ -62,6 +65,13 @@ export default class NewFavourComponent extends Component {
         console.error(error);
       });
   };
+
+
+
+
+  onChangeImg(e) {
+    this.setState({ file: e.target.files });
+  }
 
   
   addReward = (e) => {
@@ -145,6 +155,9 @@ export default class NewFavourComponent extends Component {
     return (
       <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
+
+        
+
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
           <Form noValidate>
@@ -221,9 +234,10 @@ export default class NewFavourComponent extends Component {
               onClick={this.addReward}
               >+ Add a reward</Button>
             </Form.Group>
-            
             <Form.Group>
-
+                <input type="file" name="myImage" onChange={this.onChangeImg} />
+            </Form.Group>
+            <Form.Group>
             {this.state.name.length >= 3 &&
               this.state.content.length >= 3 && (
                 
@@ -233,8 +247,10 @@ export default class NewFavourComponent extends Component {
 
               )}
             </Form.Group>
+            
 
           </Form>
+
         </Card>
       </div>
     );
