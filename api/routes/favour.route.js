@@ -86,5 +86,10 @@ router.post("/myOwingFavours", async (req, res) => {
   res.json(favour);
 });
 
+router.post("/delete", async (req, res) => {
+  const id = req.body._id;
+  const deleteFavour = await Favour.deleteOne({ _id: id });
+});
+
 
 module.exports = router;

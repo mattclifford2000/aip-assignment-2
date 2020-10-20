@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from "axios"; import ReactDOM, { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useParams } from "react-router";
-import { Card, Button, Spinner } from "react-bootstrap";
+import { Card, Button, Spinner, Form } from "react-bootstrap";
 
 function Request(props) {
   let { id } = useParams();
@@ -42,7 +42,7 @@ function Request(props) {
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
 
-      <Card.Title>{request.name}</Card.Title>
+        <Card.Title>{request.name}</Card.Title>
 
         <Card.Text>
           {request.content}

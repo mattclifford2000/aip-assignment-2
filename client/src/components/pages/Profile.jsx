@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Home.css";
 import RequestComp from "./functionalComponents/request.comp"
-
+import { Button, Form, Card } from "react-bootstrap";
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
@@ -27,6 +27,17 @@ function Profile(props) {
         setRequests(res.data);
       });
   }
+
+
+  function handleComplete(favour) {
+    const favourDelete = "http://localhost:9000/favour/delete";
+    axios
+      .post(favourDelete, favour)
+      .then((response) => {
+      })
+  }
+
+
 
 
   useEffect(() => {
@@ -63,12 +74,13 @@ function Profile(props) {
       .then((response) => {
         setOwing(response.data)
       })
-  }, []);
+  }, [owed]);
 
   return (
     <div class="center">
       <h1>{localStorage.getItem('username')}</h1>
-      <h1> My Requests </h1>
+      <h2> My Requests </h2>
+      <p>  Public requests you've made </p>
       <ul class="requestList">
         {myRequests.map((request) => (
           <li class="request">
@@ -78,21 +90,25 @@ function Profile(props) {
         ))}
       </ul>
 
-      <h1> Favours that you owe to others </h1>
+      <h2> Owing favours </h2>
+      <p>  Favours that you owe others </p>
       <ol class="requestList">
         {owed.map((favour) => (
           <li class="request">
             <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
+            <Button onClick={() => handleComplete(favour)} >Complete</Button>
           </li>
         ))}
       </ol>
-      <h2> Favours that are owed to you </h2>
+      <h2> Owed Favours </h2>
+      <p>  Favours that others owe you </p>
       <ol class="requestList">
         {owing.map((favour) => (
           <li class="request">
             <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
+            <Button onClick={() => handleComplete(favour)} >Complete</Button>
           </li>
         ))}
       </ol>

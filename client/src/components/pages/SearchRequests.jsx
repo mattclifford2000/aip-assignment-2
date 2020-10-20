@@ -81,10 +81,13 @@ function SearchRequests(props) {
 
     return (
         <div>
+            <h1> Search requests </h1>
+            <p>  Search public requests </p>
             <div class="searchRequestForm">
                 <Card style={{ width: "18rem" }}>
                     <Form onSubmit={handleSubmit} noValidate >
                         <Form.Group controlId="searchRequests">
+
                             <Form.Control
                                 name="query"
                                 type="query"
@@ -105,17 +108,17 @@ function SearchRequests(props) {
             {/* Only show if a search query has been made */}
             {/* Single result */}
             {resultIndicator != undefined && requests.length == 1 &&
-                <div> <h1> Requests </h1>
+                <div>
                     <p> {requests.length} result for "{resultIndicator}" </p> </div>}
 
             {/* Multiple results */}
             {resultIndicator != undefined && requests.length > 1 &&
-                <div> <h1> Requests </h1>
+                <div>
                     <p> {requests.length} results for "{resultIndicator}" </p> </div>}
 
             {/* No results */}
             {resultIndicator != undefined && requests.length == 0 &&
-                <div> <h1> Requests </h1>
+                <div>
                     <p> No results for "{resultIndicator}" </p> </div>}
 
 
@@ -124,16 +127,14 @@ function SearchRequests(props) {
                 {requests.map((request) => (
                     <li class="request">
                         <h2> {request.name} </h2>
-                        <p>Request Description: {request.content}</p>
-                        <p>Request ID (TESTING): {request._id}</p>
-                        <p>Request userID (TESTING): {request.ownerID}</p>
 
+                        <p>Request Description: {request.content}</p>
                         {/*Do not show accept button if user created request or user is not logged in*/}
                         {localStorage.getItem("userID") != request.ownerID &&
                             (
                                 <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
                             )}
-                        <Button variant="secondary" href={'/request/' + request._id}>View Request</Button>
+
 
                     </li>
                 ))}

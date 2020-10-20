@@ -40,6 +40,7 @@ function SearchRequests(props) {
         <Card style={{ width: "18rem" }}>
           <Form onSubmit={handleSubmit} noValidate >
             <Form.Group controlId="searchRequests">
+              <Form.Label>Request name</Form.Label>
               <Form.Control
                 name="name"
                 type="query"
@@ -51,10 +52,11 @@ function SearchRequests(props) {
               />
             </Form.Group>
             <Form.Group controlId="searchRequests">
+              <Form.Label>Request Description</Form.Label>
               <Form.Control
                 name="content"
                 type="query"
-                placeholder="Request content"
+                placeholder="Request description"
                 value={content}
                 onChange={(e) => {
                   setContent(e.target.value);
