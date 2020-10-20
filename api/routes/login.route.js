@@ -62,5 +62,14 @@ router.post("/findUserOther", async (req, res) => {
   res.json(user)
 });
 
+router.post("/findUserMore", async (req, res) => {
+  console.log(req.body)
+  const userID = req.body;
+  const user = await User.findOne({ _id: userID });
+  console.log(user)
+  res.json(user)
+});
+
+
 
 module.exports = router;
