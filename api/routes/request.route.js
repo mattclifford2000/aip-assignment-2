@@ -78,4 +78,21 @@ router.post("/new", async (req, res) => {
   return res.status(200).send(savedRequest);
 });
 
+
+router.post("/newRequest", async (req, res) => {
+
+  const request = new Request({
+    ownerID: req.body.ownerID,
+    name: req.body.name,
+    content: req.body.content,
+    completed: req.body.completed,
+  })
+  const savedRequest = await request.save();
+
+});
+
+
+
+
+
 module.exports = router;
