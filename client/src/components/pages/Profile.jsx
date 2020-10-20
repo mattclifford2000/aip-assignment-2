@@ -30,14 +30,26 @@ function Profile(props) {
 
   useEffect(() => {
 
+
+    /*
     axios
       .post("/request/mine", { authToken: localStorage.getItem('authToken') })
       .then((res) => {
         setRequests(res.data);
       });
+*/
 
+
+    const requestUrl = "http://localhost:9000/favour/myRequests"
     const owedUrl = "http://localhost:9000/favour/myOwedFavours";
     const owingUrl = "http://localhost:9000/favour/myOwingFavours";
+
+
+    axios
+      .post(requestUrl, { userID })
+      .then((response) => {
+        setRequests(response.data)
+      })
 
     axios
       .post(owedUrl, { userID })

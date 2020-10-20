@@ -49,6 +49,13 @@ router.post("/mine", async (req, res) => {
   res.json(requests);
 });
 
+
+router.post("/myRequests", async (req, res) => {
+  const ownerID = req.body.userID
+  const requests = await Request.find({ ownerID: ownerID });
+  res.json(requests);
+});
+
 router.post("/delete", async (req, res) => {
   const { requestID, authToken } = req.body;
   const verifiedUser = verifyUser(authToken);
