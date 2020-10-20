@@ -17,37 +17,63 @@ function Requests(props) {
 
 
   function handleAccept(request) {
-    /*//get user for email address
+
     const urlUser = "http://localhost:9000/login/findUser";
-    const OwnerID = request.ownerID
+    const OwnerID = request.ownerID;
+    const owner = "";
+
+
+    const urlUserOther = "http://localhost:9000/login/findUserOther";
+    const debitorID = localStorage.getItem('userID')
+    const debitor = "";
+
+
+
+
+    //get request creator's email address for favour debitorID
     axios
       .post(urlUser, { OwnerID })
       .then((res) => {
-        setUser(res.data)
-        console.log(user)
+        const owner = res.data
+        console.log("owner email: " + owner.email)
+        //get my email
+        axios
+          .post(urlUserOther, { debitorID })
+          .then((res) => {
+            const debitor = res.data
+            console.log("debitor email: " + debitor.email)
+
+            //create favour
+            const favour = {
+              token: localStorage.getItem("authToken"),
+              creditorID: debitorID,
+              debitorID: OwnerID,
+              externalemail: owner.email,
+              owed: owner.email,
+              name: request.name,
+              content: request.content,
+              completed: false,
+              rewards: "da",
+            };
+
+
+
+            const urlFavour = "http://localhost:9000/favour/new";
+            axios
+              .post(urlFavour, favour)
+              .then((response) => {
+                console.log(response);
+              })
+          })
       })
-*/
-
-    //create favour
-    const favour = {
-      token: localStorage.getItem("authToken"),
-      externalemail: "testemail@email.com",
-      owed: "testemail@email.com",
-      name: request.name,
-      content: request.content,
-      completed: false,
-      rewards: "da",
-    };
-    const urlFavour = "http://localhost:9000/favour/new";
-    axios
-      .post(urlFavour, favour)
-      .then((response) => {
-        console.log(response);
-      })
 
 
 
 
+
+
+    /*
+ 
     //delete request from database
     const url = "http://localhost:9000/request/acceptRequest";
     const _id = request._id
@@ -56,14 +82,14 @@ function Requests(props) {
       .then((response) => {
         //setRequests(response.data)
       })
-
+*/
   }
 
   useEffect(() => {
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })
-  }, [requests]);
+  }, []);
 
   return (
     <div>

@@ -53,4 +53,14 @@ router.post("/findUser", async (req, res) => {
   res.json(user)
 });
 
+
+router.post("/findUserOther", async (req, res) => {
+  console.log(req.body.debitorID)
+  const debitorID = req.body.debitorID;
+  const user = await User.findOne({ _id: debitorID });
+  console.log(user)
+  res.json(user)
+});
+
+
 module.exports = router;
