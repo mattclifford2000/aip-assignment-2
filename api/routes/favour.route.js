@@ -10,8 +10,8 @@ const Favour = require("../models/Favour.model");
 router.get("/favour", async (req, res) => {
   const favour = await Favour.findOne({ _id: req.query.id });
   let rewards = [];
-  for(const rewardID of favour.rewardIDs){
-    rewards = rewards.concat(await Reward.findOne({_id: rewardID}));
+  for (const rewardID of favour.rewardIDs) {
+    rewards = rewards.concat(await Reward.findOne({ _id: rewardID }));
   }
   console.log(rewards);
   res.json(
@@ -76,7 +76,6 @@ router.post("/myOwedFavours", async (req, res) => {
   const userID = req.body.userID;
   const favour = await Favour.find({ creditorID: userID });
   res.json(favour);
-  console.log(favour);
 });
 
 
@@ -85,7 +84,6 @@ router.post("/myOwingFavours", async (req, res) => {
   const userID = req.body.userID;
   const favour = await Favour.find({ debitorID: userID });
   res.json(favour);
-  console.log(favour);
 });
 
 

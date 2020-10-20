@@ -10,6 +10,7 @@ function Profile(props) {
 
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
+  const [myRequests, setMyRequests] = useState([]);
 
   const [userID, setUserID] = useState(localStorage.getItem('userID'))
 
@@ -40,7 +41,7 @@ function Profile(props) {
 */
 
 
-    const requestUrl = "http://localhost:9000/favour/myRequests"
+    const requestUrl = "http://localhost:9000/request/myRequests"
     const owedUrl = "http://localhost:9000/favour/myOwedFavours";
     const owingUrl = "http://localhost:9000/favour/myOwingFavours";
 
@@ -48,7 +49,7 @@ function Profile(props) {
     axios
       .post(requestUrl, { userID })
       .then((response) => {
-        setRequests(response.data)
+        setMyRequests(response.data)
       })
 
     axios
@@ -67,11 +68,12 @@ function Profile(props) {
   return (
     <div class="center">
       <h1>{localStorage.getItem('username')}</h1>
-      <h1> Requests </h1>
+      <h1> My Requests </h1>
       <ul class="requestList">
-        {requests.map((request) => (
+        {myRequests.map((request) => (
           <li class="request">
-            <RequestComp request={request} setRequests={setRequests} />
+            <h1> {request.name} </h1>
+            <p>Request Description: {request.content}</p>
           </li>
         ))}
       </ul>
