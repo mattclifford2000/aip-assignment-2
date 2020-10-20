@@ -129,6 +129,32 @@ function SearchRequests(props) {
                         <h2> {request.name} </h2>
 
                         <p>Request Description: {request.content}</p>
+
+                        <h3> Rewards </h3>
+                        {request.chocolates != 0 && request.chocolates != null &&
+                            (
+                                <p> Chocolates: {request.chocolates} </p>
+                            )}
+
+                        {request.mints != 0 && request.mints != null &&
+                            (
+                                <p> Mints: {request.mints} </p>
+                            )}
+
+                        {request.pizzas != 0 && request.pizzas != null &&
+                            (
+                                <p> Pizzas: {request.pizzas} </p>
+                            )}
+
+                        {request.coffees != 0 && request.coffees != null &&
+                            (
+                                <p> Coffees: {request.coffees} </p>
+                            )}
+
+                        {request.candies != 0 && request.candies != null &&
+                            (
+                                <p> Candies: {request.candies} </p>
+                            )}
                         {/*Do not show accept button if user created request or user is not logged in*/}
                         {localStorage.getItem("userID") != request.ownerID &&
                             (
