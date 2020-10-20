@@ -88,11 +88,33 @@ function Requests(props) {
           <li class="request">
             <h2> {request.name} </h2>
             <p> {request.content}</p>
-            <p> Chocolates: {request.chocolates} </p>
-            <p> Mints: {request.mints} </p>
-            <p> Pizzas: {request.pizzas} </p>
-            <p> Coffees: {request.coffees} </p>
-            <p> Candies: {request.candies} </p>
+
+            <h3> Rewards: </h3>
+            {request.chocolates != 0 &&
+              (
+                <p> Chocolates: {request.chocolates} </p>
+              )}
+
+            {request.mints != 0 &&
+              (
+                <p> Mints: {request.mints} </p>
+              )}
+
+            {request.pizzas != 0 &&
+              (
+                <p> Pizzas: {request.pizzas} </p>
+              )}
+
+            {request.coffees != 0 &&
+              (
+                <p> Coffees: {request.coffees} </p>
+              )}
+
+            {request.candies != 0 &&
+              (
+                <p> Candies: {request.candies} </p>
+              )}
+
             {/*Do not show accept button if user created request*/}
             {localStorage.getItem("userID") != request.ownerID &&
               (
