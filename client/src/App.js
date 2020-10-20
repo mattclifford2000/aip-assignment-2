@@ -9,7 +9,11 @@ import Register from "./components/pages/Register";
 //import NewRequest from "./components/pages/NewRequest";
 import NewFavour from "./components/pages/NewFavour";
 import Request from "./components/pages/Request";
+
 import NewRequest2 from "./components/pages/NewRequest";
+
+import Favour from "./components/pages/Favour";
+
 import "./styles/Navbar.css";
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
@@ -113,6 +117,8 @@ function App(props) {
           <PrivateRoute exact path="/newfavour" component={NewFavour} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/request/:id" component={Request} />
+          <PrivateRoute exact path="/favour/:id" component={Favour} />
+
 
         </div>
       </DebugRouter>

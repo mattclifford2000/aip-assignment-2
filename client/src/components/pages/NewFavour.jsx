@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
 import NewReward from "../shared/NewReward"
+import OperationModal from "../shared/OperationModal"
+
 import { isValidElement } from "react";
 
 export default class NewFavourComponent extends Component {
@@ -22,10 +24,12 @@ export default class NewFavourComponent extends Component {
         favourcontent: "",
         favourcompleted: "",
       },
+      status: null,
+      showModal: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+  handleClose = () => this.setState({showModal: false})
 
    handleSubmit = async (e) => {
     let validRewards = [];
@@ -48,7 +52,11 @@ export default class NewFavourComponent extends Component {
     await axios
       .post(url, favour)
       .then((response) => {
-        console.log(response);
+        //console.log(response.status);
+        this.setState({status: response.status,
+          showModal: true,
+        })
+
       })
       .catch((error) => {
         console.error(error);
@@ -137,6 +145,7 @@ export default class NewFavourComponent extends Component {
     return (
       <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
+        <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
           <Form noValidate>
             <ButtonGroup aria-label="Favour Choice">

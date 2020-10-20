@@ -41,9 +41,11 @@ function Request(props) {
     <Card>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
-        <Card.Title>{request.requestname}</Card.Title>
+
+      <Card.Title>{request.name}</Card.Title>
+
         <Card.Text>
-          {request.requestcontent}
+          {request.content}
         </Card.Text>
 
         {(localStorage.getItem('userID') === request.ownerID) ?
