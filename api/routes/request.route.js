@@ -49,6 +49,13 @@ router.post("/mine", async (req, res) => {
   res.json(requests);
 });
 
+
+router.post("/myRequests", async (req, res) => {
+  const ownerID = req.body.userID
+  const requests = await Request.find({ ownerID: ownerID });
+  res.json(requests);
+});
+
 router.post("/delete", async (req, res) => {
   const { requestID, authToken } = req.body;
   const verifiedUser = verifyUser(authToken);
@@ -77,5 +84,22 @@ router.post("/new", async (req, res) => {
   const savedRequest = await request.save();
   return res.status(200).send(savedRequest);
 });
+
+
+router.post("/newRequest", async (req, res) => {
+
+  const request = new Request({
+    ownerID: req.body.ownerID,
+    name: req.body.name,
+    content: req.body.content,
+    completed: req.body.completed,
+  })
+  const savedRequest = await request.save();
+
+});
+
+
+
+
 
 module.exports = router;

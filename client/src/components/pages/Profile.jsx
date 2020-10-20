@@ -30,14 +30,26 @@ function Profile(props) {
 
   useEffect(() => {
 
+
+    /*
     axios
       .post("/request/mine", { authToken: localStorage.getItem('authToken') })
       .then((res) => {
         setRequests(res.data);
       });
+*/
 
+
+    const requestUrl = "http://localhost:9000/favour/myRequests"
     const owedUrl = "http://localhost:9000/favour/myOwedFavours";
     const owingUrl = "http://localhost:9000/favour/myOwingFavours";
+
+
+    axios
+      .post(requestUrl, { userID })
+      .then((response) => {
+        setRequests(response.data)
+      })
 
     axios
       .post(owedUrl, { userID })
@@ -54,7 +66,7 @@ function Profile(props) {
 
   return (
     <div class="center">
-      <p>Hello {localStorage.getItem('username')}!</p>
+      <h1>{localStorage.getItem('username')}</h1>
       <h1> Requests </h1>
       <ul class="requestList">
         {requests.map((request) => (
@@ -64,7 +76,7 @@ function Profile(props) {
         ))}
       </ul>
 
-      <h1> Owing </h1>
+      <h1> Favours that you owe to others </h1>
       <ol class="requestList">
         {owed.map((favour) => (
           <li class="request">
@@ -74,7 +86,7 @@ function Profile(props) {
           </li>
         ))}
       </ol>
-      <h1> Owed </h1>
+      <h1> Favours that are owed to you </h1>
       <ol class="requestList">
         {owing.map((favour) => (
           <li class="request">

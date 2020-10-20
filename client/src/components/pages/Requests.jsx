@@ -27,16 +27,12 @@ function Requests(props) {
     const debitorID = localStorage.getItem('userID')
     const debitor = "";
 
-
-
-
     //get request creator's email address for favour debitorID
     axios
       .post(urlUser, { OwnerID })
       .then((res) => {
         const owner = res.data
         console.log("owner email: " + owner.email)
-
 
         //get my email
         axios
@@ -45,11 +41,11 @@ function Requests(props) {
             const debitor = res.data
             console.log("debitor email: " + debitor.email)
 
-            //create favour
+            //turn request into a favour that I owe to the request creator
             const favour = {
               token: localStorage.getItem("authToken"),
-              creditorID: debitorID,
-              debitorID: OwnerID,
+              creditorID: OwnerID, // request creator email
+              debitorID: debitorID, //my email
               externalemail: owner.email,
               owed: owner.email,
               name: request.name,
@@ -58,7 +54,7 @@ function Requests(props) {
               rewards: "da",
             };
 
-            const urlFavour = "http://localhost:9000/favour/new";
+            const urlFavour = "http://localhost:9000/favour/requestToFavour";
             axios
               .post(urlFavour, favour)
               .then((response) => {
@@ -93,7 +89,7 @@ function Requests(props) {
             <p>Request Description: {request.content}</p>
             <p>Request ID (TESTING): {request._id}</p>
             <p>Request userID (TESTING): {request.ownerID}</p>
-            <Button onClick={() => handleAccept(request)}>Accept</Button>
+            <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
             <Button variant="secondary" href={'/request/' + request._id}>View Request</Button>
 
           </li>
