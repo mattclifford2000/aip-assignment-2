@@ -88,6 +88,11 @@ function Requests(props) {
           <li class="request">
             <h2> {request.name} </h2>
             <p> {request.content}</p>
+            <p> Chocolates: {request.chocolates} </p>
+            <p> Mints: {request.mints} </p>
+            <p> Pizzas: {request.pizzas} </p>
+            <p> Coffees: {request.coffees} </p>
+            <p> Candies: {request.candies} </p>
             {/*Do not show accept button if user created request*/}
             {localStorage.getItem("userID") != request.ownerID &&
               (

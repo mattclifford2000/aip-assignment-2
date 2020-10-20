@@ -93,7 +93,13 @@ router.post("/newRequest", async (req, res) => {
     name: req.body.name,
     content: req.body.content,
     completed: req.body.completed,
+    chocolates: req.body.chocolates,
+    mints: req.body.mints,
+    pizzas: req.body.pizzas,
+    coffees: req.body.coffees,
+    candies: req.body.candies,
   })
+
   const savedRequest = await request.save();
 
 });
