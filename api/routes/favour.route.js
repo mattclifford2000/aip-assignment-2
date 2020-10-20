@@ -60,6 +60,11 @@ router.post("/requestToFavour", async (req, res) => {
     name: req.body.name,
     content: req.body.content,
     completed: false,
+    chocolates: req.body.chocolates,
+    mints: req.body.mints,
+    pizzas: req.body.pizzas,
+    coffees: req.body.coffees,
+    candies: req.body.candies,
     rewardIDs: rewardIDs
   });
 

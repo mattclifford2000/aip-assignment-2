@@ -71,7 +71,7 @@ function SearchRequests(props) {
                 }}
               />
             </Form.Group>
-
+            <h3> Rewards: </h3>
             <Form.Group controlId="searchRequests">
               <Form.Label>Chocolates</Form.Label>
               <Form.Control

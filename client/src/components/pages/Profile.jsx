@@ -98,7 +98,31 @@ function Profile(props) {
           <li class="request">
             <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
+            <h3> Rewards: </h3>
+            {favour.chocolates != 0 && favour.chocolates != null &&
+              (
+                <p> Chocolates: {favour.chocolates} </p>
+              )}
 
+            {favour.mints != 0 && favour.mints != null &&
+              (
+                <p> Mints: {favour.mints} </p>
+              )}
+
+            {favour.pizzas != 0 && favour.pizzas != null &&
+              (
+                <p> Pizzas: {favour.pizzas} </p>
+              )}
+
+            {favour.coffees != 0 && favour.coffees != null &&
+              (
+                <p> Coffees: {favour.coffees} </p>
+              )}
+
+            {favour.candies != 0 && favour.candies != null &&
+              (
+                <p> Candies: {favour.candies} </p>
+              )}
             <Button onClick={() => handleComplete(favour)} >Complete</Button>
 
           </li>

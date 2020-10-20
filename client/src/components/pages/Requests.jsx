@@ -50,6 +50,11 @@ function Requests(props) {
               owed: owner.email,
               name: request.name,
               content: request.content,
+              chocolates: request.chocolates,
+              mints: request.mints,
+              pizzas: request.pizzas,
+              coffees: request.coffees,
+              candies: request.candies,
               completed: false,
               rewards: "da",
             };
@@ -90,27 +95,27 @@ function Requests(props) {
             <p> {request.content}</p>
 
             <h3> Rewards: </h3>
-            {request.chocolates != 0 &&
+            {request.chocolates != 0 && request.chocolates != null &&
               (
                 <p> Chocolates: {request.chocolates} </p>
               )}
 
-            {request.mints != 0 &&
+            {request.mints != 0 && request.mints != null &&
               (
                 <p> Mints: {request.mints} </p>
               )}
 
-            {request.pizzas != 0 &&
+            {request.pizzas != 0 && request.pizzas != null &&
               (
                 <p> Pizzas: {request.pizzas} </p>
               )}
 
-            {request.coffees != 0 &&
+            {request.coffees != 0 && request.coffees != null &&
               (
                 <p> Coffees: {request.coffees} </p>
               )}
 
-            {request.candies != 0 &&
+            {request.candies != 0 && request.candies != null &&
               (
                 <p> Candies: {request.candies} </p>
               )}
