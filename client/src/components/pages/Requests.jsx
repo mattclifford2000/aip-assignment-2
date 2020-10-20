@@ -36,6 +36,8 @@ function Requests(props) {
       .then((res) => {
         const owner = res.data
         console.log("owner email: " + owner.email)
+
+
         //get my email
         axios
           .post(urlUserOther, { debitorID })
@@ -56,40 +58,30 @@ function Requests(props) {
               rewards: "da",
             };
 
-
-
             const urlFavour = "http://localhost:9000/favour/new";
             axios
               .post(urlFavour, favour)
               .then((response) => {
                 console.log(response);
+
+                //delete request from database
+                const url = "http://localhost:9000/request/acceptRequest";
+                const _id = request._id
+                axios
+                  .post(url, { _id })
+                  .then((response) => {
+                  })
               })
           })
       })
 
-
-
-
-
-
-    /*
- 
-    //delete request from database
-    const url = "http://localhost:9000/request/acceptRequest";
-    const _id = request._id
-    axios
-      .post(url, { _id })
-      .then((response) => {
-        //setRequests(response.data)
-      })
-*/
   }
 
   useEffect(() => {
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })
-  }, []);
+  });
 
   return (
     <div>
