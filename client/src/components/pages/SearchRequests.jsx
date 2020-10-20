@@ -21,12 +21,73 @@ function SearchRequests(props) {
         setResultIndicator(query)
     }
 
+
+    function handleAccept(request) {
+
+        const urlUser = "http://localhost:9000/login/findUser";
+        const OwnerID = request.ownerID;
+        const owner = "";
+
+
+        const urlUserOther = "http://localhost:9000/login/findUserOther";
+        const debitorID = localStorage.getItem('userID')
+        const debitor = "";
+
+        //get request creator's email address for favour debitorID
+        axios
+            .post(urlUser, { OwnerID })
+            .then((res) => {
+                const owner = res.data
+                console.log("owner email: " + owner.email)
+
+                //get my email
+                axios
+                    .post(urlUserOther, { debitorID })
+                    .then((res) => {
+                        const debitor = res.data
+                        console.log("debitor email: " + debitor.email)
+
+                        //turn request into a favour that I owe to the request creator
+                        const favour = {
+                            token: localStorage.getItem("authToken"),
+                            creditorID: OwnerID, // request creator email
+                            debitorID: debitorID, //my email
+                            externalemail: owner.email,
+                            owed: owner.email,
+                            name: request.name,
+                            content: request.content,
+                            completed: false,
+                            rewards: "da",
+                        };
+
+                        const urlFavour = "http://localhost:9000/favour/requestToFavour";
+                        axios
+                            .post(urlFavour, favour)
+                            .then((response) => {
+                                console.log(response);
+
+                                //delete request from database
+                                const url = "http://localhost:9000/request/acceptRequest";
+                                const _id = request._id
+                                axios
+                                    .post(url, { _id })
+                                    .then((response) => {
+                                    })
+                            })
+                    })
+            })
+
+    }
+
     return (
         <div>
+            <h1> Search requests </h1>
+            <p>  Search public requests </p>
             <div class="searchRequestForm">
                 <Card style={{ width: "18rem" }}>
                     <Form onSubmit={handleSubmit} noValidate >
                         <Form.Group controlId="searchRequests">
+
                             <Form.Control
                                 name="query"
                                 type="query"
@@ -47,17 +108,17 @@ function SearchRequests(props) {
             {/* Only show if a search query has been made */}
             {/* Single result */}
             {resultIndicator != undefined && requests.length == 1 &&
-                <div> <h1> Requests </h1>
+                <div>
                     <p> {requests.length} result for "{resultIndicator}" </p> </div>}
 
             {/* Multiple results */}
             {resultIndicator != undefined && requests.length > 1 &&
-                <div> <h1> Requests </h1>
+                <div>
                     <p> {requests.length} results for "{resultIndicator}" </p> </div>}
 
             {/* No results */}
             {resultIndicator != undefined && requests.length == 0 &&
-                <div> <h1> Requests </h1>
+                <div>
                     <p> No results for "{resultIndicator}" </p> </div>}
 
 
@@ -65,10 +126,16 @@ function SearchRequests(props) {
             <ol class="requestList">
                 {requests.map((request) => (
                     <li class="request">
-                        <h1> {request.name} </h1>
+                        <h2> {request.name} </h2>
+
                         <p>Request Description: {request.content}</p>
-                        <p>Request ID (TESTING): {request._id}</p>
-                        <p>Request userID (TESTING): {request.ownerID}</p>
+                        {/*Do not show accept button if user created request or user is not logged in*/}
+                        {localStorage.getItem("userID") != request.ownerID &&
+                            (
+                                <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
+                            )}
+
+
                     </li>
                 ))}
             </ol>

@@ -7,7 +7,7 @@ import "../../styles/searchRequests.css";
 function SearchRequests(props) {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
-
+  const [userID, setUserID] = useState(localStorage.getItem("userID"));
 
   function handleSubmit(e) {
 
@@ -19,14 +19,10 @@ function SearchRequests(props) {
     };
 
 
-
-
-
     const url = "http://localhost:9000/request/newRequest";
     axios
       .post(url, request)
       .then((response) => {
-
       })
 
   }
@@ -35,11 +31,13 @@ function SearchRequests(props) {
   return (
     <div>
       <h1> Submit a Request</h1>
+      <p>{userID} </p>
       <div class="searchRequestForm">
 
         <Card style={{ width: "18rem" }}>
           <Form onSubmit={handleSubmit} noValidate >
             <Form.Group controlId="searchRequests">
+              <Form.Label>Request name</Form.Label>
               <Form.Control
                 name="name"
                 type="query"
@@ -51,10 +49,11 @@ function SearchRequests(props) {
               />
             </Form.Group>
             <Form.Group controlId="searchRequests">
+              <Form.Label>Request Description</Form.Label>
               <Form.Control
                 name="content"
                 type="query"
-                placeholder="Request content"
+                placeholder="Request description"
                 value={content}
                 onChange={(e) => {
                   setContent(e.target.value);

@@ -2,7 +2,8 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Home.css";
 import RequestComp from "./functionalComponents/request.comp"
-import { Button } from "react-bootstrap"
+import { Button, Form, Card } from "react-bootstrap";
+
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
@@ -10,6 +11,7 @@ function Profile(props) {
 
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
+  const [myRequests, setMyRequests] = useState([]);
 
   const [userID, setUserID] = useState(localStorage.getItem('userID'))
 
@@ -28,6 +30,17 @@ function Profile(props) {
   }
 
 
+  function handleComplete(favour) {
+    const favourDelete = "http://localhost:9000/favour/delete";
+    axios
+      .post(favourDelete, favour)
+      .then((response) => {
+      })
+  }
+
+
+
+
   useEffect(() => {
 
 
@@ -40,7 +53,7 @@ function Profile(props) {
 */
 
 
-    const requestUrl = "http://localhost:9000/favour/myRequests"
+    const requestUrl = "http://localhost:9000/request/myRequests"
     const owedUrl = "http://localhost:9000/favour/myOwedFavours";
     const owingUrl = "http://localhost:9000/favour/myOwingFavours";
 
@@ -48,7 +61,7 @@ function Profile(props) {
     axios
       .post(requestUrl, { userID })
       .then((response) => {
-        setRequests(response.data)
+        setMyRequests(response.data)
       })
 
     axios
@@ -62,37 +75,44 @@ function Profile(props) {
       .then((response) => {
         setOwing(response.data)
       })
-  }, []);
+  }, [owed]);
 
   return (
     <div class="center">
       <h1>{localStorage.getItem('username')}</h1>
-      <h1> Requests </h1>
+      <h2> My Requests </h2>
+      <p>  Public requests you've made </p>
       <ul class="requestList">
-        {requests.map((request) => (
+        {myRequests.map((request) => (
           <li class="request">
-            <RequestComp request={request} setRequests={setRequests} />
+            <h2> {request.name} </h2>
+            <p>Request Description: {request.content}</p>
           </li>
         ))}
       </ul>
 
-      <h1> Favours that you owe to others </h1>
+      <h2> Owing favours </h2>
+      <p>  Favours that you owe others </p>
       <ol class="requestList">
         {owed.map((favour) => (
           <li class="request">
-            <h1> {favour.name} </h1>
+            <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
-            <Button href={"/favour/" + favour._id} variant="secondary"> View Favour</Button>
+
+            <Button onClick={() => handleComplete(favour)} >Complete</Button>
+
           </li>
         ))}
       </ol>
-      <h1> Favours that are owed to you </h1>
+      <h2> Owed Favours </h2>
+      <p>  Favours that others owe you </p>
       <ol class="requestList">
         {owing.map((favour) => (
           <li class="request">
-            <h1> {favour.name} </h1>
+            <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
-            <Button href={"/favour/" + favour._id} variant="secondary"> View Favour</Button>
+            <Button onClick={() => handleComplete(favour)} >Complete</Button>
+
           </li>
         ))}
       </ol>

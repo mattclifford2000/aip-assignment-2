@@ -82,16 +82,17 @@ function Requests(props) {
   return (
     <div>
       <h1> Requests</h1>
+      <p>  These are public requests made by others </p>
       <ol class="requestList">
         {requests.map((request) => (
           <li class="request">
-            <h1> {request.name} </h1>
-            <p>Request Description: {request.content}</p>
-            <p>Request ID (TESTING): {request._id}</p>
-            <p>Request userID (TESTING): {request.ownerID}</p>
-            <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
-            <Button variant="secondary" href={'/request/' + request._id}>View Request</Button>
-
+            <h2> {request.name} </h2>
+            <p> {request.content}</p>
+            {/*Do not show accept button if user created request*/}
+            {localStorage.getItem("userID") != request.ownerID &&
+              (
+                <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
+              )}
           </li>
         ))}
       </ol>

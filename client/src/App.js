@@ -67,7 +67,7 @@ function App(props) {
                   <Nav.Link href="/requests">Home</Nav.Link>
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
                   <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
-                  <Nav.Link href="/" class="navbarText">Leaderboard</Nav.Link>
+                  <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
                 </Nav>
                 <Nav inline>
                   <Nav.Link href="/register">Register</Nav.Link>
@@ -90,7 +90,7 @@ function App(props) {
                   <Nav.Link href="/newrequest">New Request</Nav.Link>
                   <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
                   <Nav.Link href="/newfavour">New Favour</Nav.Link>
-                  <Nav.Link href="/">Leaderboard</Nav.Link>
+                  <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
                   <Nav.Link href="/profile">Profile</Nav.Link>
                 </Nav>
                 <Nav inline>
@@ -106,11 +106,13 @@ function App(props) {
 
 
 
-          <Route exact path="/" component={Home} />
+          <Route exact path="/leaderboard" component={Home} />
+
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/requests" component={Requests} />
+          <Route exact path="/" component={Requests} />
           <Route exact path="/searchrequests" component={SearchRequests} />
           <Route exact path="/newRequest" component={NewRequest2} />
           {/*<PrivateRoute exact path="/newrequest" component={NewRequest} />*/}
