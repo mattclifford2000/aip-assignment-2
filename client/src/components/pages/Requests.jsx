@@ -94,7 +94,7 @@ function Requests(props) {
             <h2> {request.name} </h2>
             <p> {request.content}</p>
 
-            <h3> Rewards: </h3>
+
             {request.chocolates != 0 && request.chocolates != null &&
               (
                 <p> Chocolates: {request.chocolates} </p>
