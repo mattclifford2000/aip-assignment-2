@@ -4,6 +4,7 @@ import "./../../styles/Home.css";
 import RequestComp from "./functionalComponents/request.comp"
 import { Button, Form, Card } from "react-bootstrap";
 
+
 function Profile(props) {
   const [requests, setRequests] = useState([]);
 
@@ -97,7 +98,9 @@ function Profile(props) {
           <li class="request">
             <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
+
             <Button onClick={() => handleComplete(favour)} >Complete</Button>
+
           </li>
         ))}
       </ol>
@@ -109,6 +112,7 @@ function Profile(props) {
             <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
             <Button onClick={() => handleComplete(favour)} >Complete</Button>
+
           </li>
         ))}
       </ol>
