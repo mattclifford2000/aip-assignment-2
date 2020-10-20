@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import axios from "axios";import ReactDOM, { render } from "react-dom";
+import axios from "axios"; import ReactDOM, { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { Card, Button, Spinner } from "react-bootstrap";
@@ -10,7 +10,7 @@ function Request(props) {
   const [request, setRequest] = useState();
 
   useEffect(() => {
-    axios.get("/request/request?id="+id).then(res => {
+    axios.get("/request/request?id=" + id).then(res => {
       setRequest(res.data);
       setLoading(false);
     });
@@ -20,10 +20,11 @@ function Request(props) {
   const handleDelete = (e) => {
     //e.preventDefault();
     console.log(localStorage.getItem('userID'));
-    
+
     axios
-      .post("/request/delete", { requestID: e._id,
-                                 authToken: localStorage.getItem('authToken')
+      .post("/request/delete", {
+        requestID: e._id,
+        authToken: localStorage.getItem('authToken')
       })
       .then((res) => {
         //setRequests(res.data);
@@ -32,20 +33,24 @@ function Request(props) {
 
   if (isLoading) {
     return <Spinner animation="border" role="status">
-    <span className="sr-only">Loading...</span>
-  </Spinner>;
+      <span className="sr-only">Loading...</span>
+    </Spinner>;
   }
 
   return (
     <Card>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
+
       <Card.Title>{request.name}</Card.Title>
+
         <Card.Text>
           {request.content}
         </Card.Text>
-        {(localStorage.getItem('userID') === request.ownerID)? 
-        <Button onClick={handleDelete(request)} variant="danger">Delete</Button> : ""}
+
+        {(localStorage.getItem('userID') === request.ownerID) ?
+
+          <Button onClick={handleDelete(request)} variant="danger">Delete</Button> : ""}
       </Card.Body>
     </Card>
   );
@@ -54,9 +59,9 @@ function Request(props) {
 export default function App() {
   return (
     <Router>
-        <Switch>
-          <Route path="/request/:id" children={<Request />} />
-        </Switch>
+      <Switch>
+        <Route path="/request/:id" children={<Request />} />
+      </Switch>
     </Router>
   );
 }
