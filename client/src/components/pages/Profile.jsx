@@ -72,7 +72,7 @@ function Profile(props) {
       <ul class="requestList">
         {myRequests.map((request) => (
           <li class="request">
-            <h1> {request.name} </h1>
+            <h2> {request.name} </h2>
             <p>Request Description: {request.content}</p>
           </li>
         ))}
@@ -82,16 +82,16 @@ function Profile(props) {
       <ol class="requestList">
         {owed.map((favour) => (
           <li class="request">
-            <h1> {favour.name} </h1>
+            <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
           </li>
         ))}
       </ol>
-      <h1> Favours that are owed to you </h1>
+      <h2> Favours that are owed to you </h2>
       <ol class="requestList">
         {owing.map((favour) => (
           <li class="request">
-            <h1> {favour.name} </h1>
+            <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
           </li>
         ))}
