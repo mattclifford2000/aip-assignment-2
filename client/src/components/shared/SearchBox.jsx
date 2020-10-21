@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Jumbotron, Row, Button, InputGroup, Form, Col, Dropdown, DropdownButton } from 'react-bootstrap'; 
+import { Redirect } from "react-router-dom";
 
 class SearchBox extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class SearchBox extends React.Component {
           searchType: "requests",
           searchLabel: "Search for requests",
           query: "",
+          redirectURL: null,
         }
       }
 
@@ -16,6 +18,15 @@ class SearchBox extends React.Component {
         e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
       };
+
+      onFormSubmit = (e) => {
+        e.preventDefault();
+        /*
+        let URL = "/search" + this.state.searchType + "/" + this.state.query;
+        this.setState({
+          redirectURL: URL
+        })*/
+      }
 
       changeSearchType = (type) => {
         let label;
@@ -38,8 +49,14 @@ class SearchBox extends React.Component {
 
     
     render() {
+      if(this.state.redirectURL != null){
+        return (
+          <Redirect to={this.state.redirectURL}/>
+          
+        )
+      }
       return(
-      <Form>
+      <Form onSubmit={this.onFormSubmit}>
       <Row>
         <Col md={3} sm={0}></Col>
         <Col md={6} sm={12}>
