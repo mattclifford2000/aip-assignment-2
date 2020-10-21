@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import axios from "axios";
-import { Card, Button, Spinner, Form } from "react-bootstrap";
+import React from 'react';
+import { Button, Card, Form } from "react-bootstrap";
 
 class NewReward extends React.Component {
     constructor(props) {

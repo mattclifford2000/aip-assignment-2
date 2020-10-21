@@ -1,8 +1,8 @@
-import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Button } from "react-bootstrap";
+import RequestComp from "../functionalComponents/request.comp";
 import "./../../styles/Home.css";
-import RequestComp from "../functionalComponents/request.comp"
-import { Button, Form, Card } from "react-bootstrap";
 
 
 function Profile(props) {
