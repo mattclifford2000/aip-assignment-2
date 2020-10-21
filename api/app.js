@@ -15,7 +15,7 @@ require("dotenv").config();
 const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
-const ListRoute = require("./routes/lists.route");
+const ListRoute = require("./routes/Lists.route");
 const RequestRoute = require("./routes/request.route");
 /*const NewRequestRoute = require("./routes/newrequest.route");*/
 const FavourRoute = require("./routes/favour.route");
