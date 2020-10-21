@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
-import axios from "axios";
-import { Card, Button, Spinner, Form, Col } from "react-bootstrap";
-import PlaceholderImage from "../img/placeholder.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Button, Card, Col } from "react-bootstrap";
+import PlaceholderImage from "../img/placeholder.png";
 
 class RewardCard extends React.Component {
     constructor(props) {

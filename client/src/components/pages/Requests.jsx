@@ -1,8 +1,8 @@
-import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
-import "./../../styles/Requests.scss";
-import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { Row } from "react-bootstrap";
 import RequestCard from "../shared/RequestCard";
+import "./../../styles/Requests.scss";
 
 
 function Requests(props) {

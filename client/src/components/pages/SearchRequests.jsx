@@ -1,13 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
-import "./../../styles/Home.css";
 import axios from "axios";
-import { Button, Form, Card, Spinner, Row } from "react-bootstrap";
-import "../../styles/searchRequests.css";
+import React, { useEffect, useState } from 'react';
+import { Row, Spinner } from "react-bootstrap";
+import ReactDOM from "react-dom";
 import { useParams } from "react-router";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import ReactDOM, { render } from "react-dom";
-import SearchBox from "../shared/SearchBox";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "../../styles/searchRequests.css";
 import RequestCard from "../shared/RequestCard";
+import SearchBox from "../shared/SearchBox";
+import "./../../styles/Home.css";
 
 
 

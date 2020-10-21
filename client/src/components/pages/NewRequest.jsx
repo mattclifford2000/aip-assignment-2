@@ -1,8 +1,8 @@
-import React, { Component, useState, useEffect } from 'react';
-import "./../../styles/Home.css";
 import axios from "axios";
-import { Button, Form, Card } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Button, Card, Form } from "react-bootstrap";
 import "../../styles/searchRequests.css";
+import "./../../styles/Home.css";
 
 function NewRequests(props) {
   const [name, setName] = useState("");

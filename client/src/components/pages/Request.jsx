@@ -1,10 +1,11 @@
-import React, { Component, useState, useEffect } from 'react';
-import axios from "axios"; import ReactDOM, { render } from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useParams } from "react-router";
-import { Card, Button, Spinner, Col, Row } from "react-bootstrap";
-import PlaceholderImage from "../img/placeholder.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
+import ReactDOM from "react-dom";
+import { useParams } from "react-router";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PlaceholderImage from "../img/placeholder.png";
 
 function Request(props) {
   let { id } = useParams();
