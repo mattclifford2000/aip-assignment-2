@@ -48,7 +48,7 @@ function App(props) {
 
 
           {/*Navbar when user is not logged in*/}
-          {localStorage.getItem('loggedIn') == "false" &&
+          {localStorage.getItem('loggedIn') != "true" &&
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />

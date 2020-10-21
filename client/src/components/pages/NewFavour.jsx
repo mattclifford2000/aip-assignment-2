@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
 import { Button, Form, Card, ButtonGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
 import NewReward from "../shared/NewReward"
@@ -31,7 +31,17 @@ export default class NewFavourComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
   }
-  handleClose = () => this.setState({showModal: false})
+  handleClose = () => {
+    this.setState({showModal: false});
+    console.log("modal success")
+
+    if(this.state.status === 200){
+      console.log("status success")
+      return(
+      <Redirect to='/profile'/>
+      )
+    }
+  };
 
    handleSubmit = async (e) => {
     let validRewards = [];
