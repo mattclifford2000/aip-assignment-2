@@ -1,12 +1,13 @@
 import React, { Component, useState, useEffect } from 'react';
 import "./../../styles/Home.css";
 import axios from "axios";
-import { Button, Form, Card, Spinner } from "react-bootstrap";
+import { Button, Form, Card, Spinner, Row } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ReactDOM, { render } from "react-dom";
 import SearchBox from "../shared/SearchBox";
+import RequestCard from "../shared/RequestCard";
 
 
 
@@ -100,29 +101,6 @@ function SearchRequests(props) {
             <h1> Search requests </h1>
             <p>  Search public requests </p>
             <SearchBox initType="requests"></SearchBox>
-            {/*
-            <div class="searchRequestForm">
-                <Card style={{ width: "18rem" }}>
-                    <Form onSubmit={handleSubmit} noValidate >
-                        <Form.Group controlId="searchRequests">
-
-                            <Form.Control
-                                name="query"
-                                type="query"
-                                placeholder="Search for requests"
-                                value={query}
-                                onChange={(e) => {
-                                    setQuery(e.target.value);
-                                }}
-                            />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Search
-                         </Button>
-                    </Form>
-                </Card>
-            </div>
-                            */}
 
             {/* Only show if a search query has been made */}
             {/* Single result */}
@@ -142,48 +120,11 @@ function SearchRequests(props) {
 
 
 
-            <ol class="requestList">
+        <Row>
                 {requests.map((request) => (
-                    <li class="request">
-                        <h2> {request.name} </h2>
-
-                        <p>Request Description: {request.content}</p>
-
-                        <h3> Rewards </h3>
-                        {request.chocolates != 0 && request.chocolates != null &&
-                            (
-                                <p> Chocolates: {request.chocolates} </p>
-                            )}
-
-                        {request.mints != 0 && request.mints != null &&
-                            (
-                                <p> Mints: {request.mints} </p>
-                            )}
-
-                        {request.pizzas != 0 && request.pizzas != null &&
-                            (
-                                <p> Pizzas: {request.pizzas} </p>
-                            )}
-
-                        {request.coffees != 0 && request.coffees != null &&
-                            (
-                                <p> Coffees: {request.coffees} </p>
-                            )}
-
-                        {request.candies != 0 && request.candies != null &&
-                            (
-                                <p> Candies: {request.candies} </p>
-                            )}
-                        {/*Do not show accept button if user created request or user is not logged in*/}
-                        {localStorage.getItem("userID") != request.ownerID &&
-                            (
-                                <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
-                            )}
-
-
-                    </li>
-                ))}
-            </ol>
+         <RequestCard request={request} onAccept={()=> {this.handleAccept(request)}}></RequestCard> //onaccept add
+         ))}
+                </Row>
         </div>
     );
 }
