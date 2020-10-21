@@ -17,7 +17,7 @@ function Logout(props) {
 
 
   function handleLogout(e) {
-    localStorage.setItem('user', null);
+    localStorage.setItem('userID', null);
     localStorage.setItem('loggedIn', false);
     localStorage.setItem('authToken', null);
   }
