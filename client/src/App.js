@@ -49,31 +49,36 @@ function App(props) {
 
           {/*Navbar when user is not logged in*/}
           {localStorage.getItem('loggedIn') == "false" &&
-            <Navbar bg="dark" variant="dark" expand="lg">
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
-              <Nav className="mr-auto">
-                <Nav.Link href="/">Home</Nav.Link>
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <Navbar.Collapse id="responsive-navbar-nav">
+    <Nav className="mr-auto">
+    <Nav.Link href="/">Home</Nav.Link>
                 <NavDropdown title="Requests" id="requests-dropdown">
                     <NavDropdown.Item href="/newrequest">New Request</NavDropdown.Item>
                     <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
-              </Nav>
-              <Nav>
-                <Nav.Link href="/register">Register</Nav.Link>
+    </Nav>
+    <Nav>
+    <Nav.Link href="/register">Register</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
-              </Nav>
-            </Navbar>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
           }
 
 
 
           {/*Navbar when user is logged in*/}
           {localStorage.getItem('loggedIn') == "true" &&
-            <Navbar bg="dark" variant="dark" expand="lg" id="customNavbar">
-              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
-              <Nav className="mr-auto">
-                <Nav.Link href="/">Home</Nav.Link>
+                      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                      <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+            <Nav.Link href="/">Home</Nav.Link>
                 <NavDropdown title="Requests" id="requests-dropdown">
                     <NavDropdown.Item href="/newrequest">New Request</NavDropdown.Item>
                     <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
@@ -82,12 +87,14 @@ function App(props) {
                     <NavDropdown.Item href="/newfavour">New Favour</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
-              </Nav>
-              <Nav>
-                <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
+            </Nav>
+            <Nav>
+            <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
                 <Nav.Link href="/logout">Logout</Nav.Link>
-              </Nav>
-            </Navbar>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
           }
 
 
