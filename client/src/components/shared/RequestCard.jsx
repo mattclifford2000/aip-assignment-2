@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import { Card, Button, Spinner, Form, Col } from "react-bootstrap";
 import PlaceholderImage from "../img/placeholder.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RewardCard extends React.Component {
     constructor(props) {
@@ -67,9 +67,9 @@ class RewardCard extends React.Component {
   <Card.Footer>
         {localStorage.getItem("userID") != request.ownerID &&
           (
-            <Button onClick={() => this.handleAccept(request)} variant="success">Accept</Button>
+            <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
           )}
-            <Button href={"/request/" + request._id} variant="info">View</Button>
+            <Button href={"/request/" + request._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
 
           </Card.Footer>
           </Card>
