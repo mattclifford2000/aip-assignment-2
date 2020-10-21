@@ -17,7 +17,7 @@ import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthContext } from "./components/context/auth";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 
 import { Component } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
@@ -53,8 +53,10 @@ function App(props) {
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
               <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/newrequest">New Request</Nav.Link>
-                <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
+                <NavDropdown title="Requests" id="requests-dropdown">
+                    <NavDropdown.Item href="/newrequest">New Request</NavDropdown.Item>
+                    <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
+                </NavDropdown>
                 <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
               </Nav>
               <Nav>
@@ -72,11 +74,14 @@ function App(props) {
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
               <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/newrequest">New Request</Nav.Link>
-                <Nav.Link href="/searchrequests">Search Requests</Nav.Link>
-                <Nav.Link href="/newfavour">New Favour</Nav.Link>
+                <NavDropdown title="Requests" id="requests-dropdown">
+                    <NavDropdown.Item href="/newrequest">New Request</NavDropdown.Item>
+                    <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown title="Favours" id="requests-dropdown">
+                    <NavDropdown.Item href="/newfavour">New Favour</NavDropdown.Item>
+                </NavDropdown>
                 <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
-                <Nav.Link href="/profile">Profile</Nav.Link>
               </Nav>
               <Nav>
                 <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
