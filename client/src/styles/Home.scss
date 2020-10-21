@@ -1,0 +1,18 @@
+.showcase {
+  background-image: url("../components/img/home.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+  height: 20rem;
+  margin-bottom: 0;
+}
+
+.showcase h1 {
+  color: white;
+  font-size: 5rem;
+}
+
+.dropdown button {
+  border-radius: 0;
+}
