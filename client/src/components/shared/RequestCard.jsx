@@ -1,49 +1,33 @@
 import React, { Component, useState, useEffect } from 'react';
-import axios from "axios"; import ReactDOM, { render } from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useParams } from "react-router";
-import { Card, Button, Spinner, Col, Row } from "react-bootstrap";
+import axios from "axios";
+import { Card, Button, Spinner, Form, Col } from "react-bootstrap";
 import PlaceholderImage from "../img/placeholder.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Request(props) {
-  let { id } = useParams();
-  const [isLoading, setLoading] = useState(true);
-  const [request, setRequest] = useState();
+class RewardCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleAccept = this.handleAccept.bind(this);
+        //this.handleDelete = this.handleDelete.bind(this);*/
 
-  useEffect(() => {
-    axios.get("/request/request?id=" + id).then(res => {
-      setRequest(res.data);
-      setLoading(false);
-    });
-  }, []);
+      }
+      handleAccept(e) {
+          this.props.onAccept(e);
+      }
+    /*  handleInputChange(e) {
+        this.props.onInputChange(e);
+      }
 
-  //DUPLICATE OF PROFILE CODE, TIDY UP
-  const handleDelete = (request) => {
-    //e.preventDefault();
-    console.log(localStorage.getItem('userID'));
-
-    axios
-      .post("/request/delete", {
-        requestID: request._id,
-        authToken: localStorage.getItem('authToken')
-      })
-      .then((res) => {
-        //setRequests(res.data);
-      });
-  }
-
-  if (isLoading) {
-    return <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>;
-  }
-
-  return (
-    <Row className="singlerequest">
-    <Col md={2} sm={0} lg={2}></Col>
-    <Col md={8} sm={12} lg={8}>
-    <Card className="request-card">
+      handleDelete(e){
+        this.props.onDelete(e);
+      }*/
+    
+    render() {
+      const request = this.props.request;
+      if(request != null) {
+      return (
+        <Col sm={12} md={4} lg={3} className="request-card-container">
+        <Card className="request-card">
         <Card.Img variant="top" className="card-img" style={{backgroundImage: `url(${PlaceholderImage})` }}/>
         <Card.Body>
          <Card.Title> <h2>{request.name}</h2> </Card.Title>
@@ -85,25 +69,17 @@ function Request(props) {
           (
             <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
           )}
-            {(localStorage.getItem('userID') === request.ownerID) ?
+            <Button href={"/request/" + request._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
 
-<Button onClick={() => handleDelete(request)} variant="danger">Delete</Button> : ""}
           </Card.Footer>
           </Card>
-          </Col>
-</Row>
-  );
-}
+      </Col>
+            );
+    }
+    else return null;
+  }
+  
+  }
 
-export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/request/:id" children={<Request />} />
-      </Switch>
-    </Router>
-  );
-}
+  export default RewardCard;
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);

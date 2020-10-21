@@ -36,6 +36,7 @@ router.post("/", async (req, res) => {
     console.log("Incorrect password");
     return res.status(400).send("Incorrect Password");
   }
+  user.password = null;
   const authToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
   return res.send({ name: user.name, authToken, id: user._id, user });
 });
