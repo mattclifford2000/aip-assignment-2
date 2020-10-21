@@ -1,25 +1,31 @@
 import React, { Component, useState, useEffect } from 'react';
 import "./../../styles/Home.css";
 import axios from "axios";
-import { Button, Form, Card } from "react-bootstrap";
+import { Button, Form, Card, Spinner } from "react-bootstrap";
 import "../../styles/searchRequests.css";
+import { useParams } from "react-router";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import ReactDOM, { render } from "react-dom";
+import SearchBox from "../shared/SearchBox";
+
+
 
 function SearchRequests(props) {
     const [requests, setRequests] = useState([]); //search results
-    const [query, setQuery] = useState(); //search query
+    let { query } = useParams();
+    const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log(e.target.value);
+    useEffect(() => {
         const url = "http://localhost:9000/request/searchRequest";
         axios
             .post(url, { query })
             .then((response) => {
-                setRequests(response.data)
+                setRequests(response.data);
+                setLoading(false);
             })
         setResultIndicator(query)
-    }
+    }, []);
 
 
     function handleAccept(request) {
@@ -79,10 +85,19 @@ function SearchRequests(props) {
 
     }
 
+
+  if (isLoading) {
+    return <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>;
+  }
+
     return (
         <div>
             <h1> Search requests </h1>
             <p>  Search public requests </p>
+            <SearchBox initType="requests"></SearchBox>
+            {/*
             <div class="searchRequestForm">
                 <Card style={{ width: "18rem" }}>
                     <Form onSubmit={handleSubmit} noValidate >
@@ -104,6 +119,7 @@ function SearchRequests(props) {
                     </Form>
                 </Card>
             </div>
+                            */}
 
             {/* Only show if a search query has been made */}
             {/* Single result */}
@@ -169,5 +185,17 @@ function SearchRequests(props) {
     );
 }
 
-export default SearchRequests;
+//export default SearchRequests;
+export default function App() {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/searchrequests/:query" children={<SearchRequests />} />
+        </Switch>
+      </Router>
+    );
+  }
+  
+  const rootElement = document.getElementById("root");
+  ReactDOM.render(<App />, rootElement);
 

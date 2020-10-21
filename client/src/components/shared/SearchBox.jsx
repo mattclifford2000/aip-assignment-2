@@ -21,6 +21,13 @@ class SearchBox extends React.Component {
         this.setState({ searchType: type });
       };
 
+      componentDidMount() {
+        let initType = this.props.initType;
+        if(initType){
+          this.changeSearchType(initType);
+        }
+      }
+
     
     render() {
       return(
@@ -36,7 +43,7 @@ class SearchBox extends React.Component {
               <Dropdown.Item active={(this.state.searchType === "favours")} onClick={() => {this.changeSearchType("favours")}}>Favours</Dropdown.Item>
               <Dropdown.Item active={(this.state.searchType === "requests")} onClick={() => {this.changeSearchType("requests")}}>Requests</Dropdown.Item>
             </DropdownButton>
-            <Button variant="primary" size="lg" href={"search" + this.state.searchType + "/" + this.state.query}><FontAwesomeIcon icon="search" /> </Button>
+            <Button variant="primary" size="lg" href={"/search" + this.state.searchType + "/" + this.state.query}><FontAwesomeIcon icon="search" /> </Button>
 
             </InputGroup.Append>
           </InputGroup>
