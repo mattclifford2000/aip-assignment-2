@@ -1,7 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
-import "./../../styles/Request.css";
-import { Button, Form, Card } from "react-bootstrap";
+import "./../../styles/Requests.scss";
+import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import PlaceholderImage from "../img/placeholder.png";
 
 
 function Requests(props) {
@@ -85,16 +86,18 @@ function Requests(props) {
   });
 
   return (
-    <div>
-      <h1> Requests</h1>
+<div id="requests">
+<h1> Requests</h1>
       <p>  These are public requests made by others </p>
-      <ol class="requestList">
+        <Row max-width="100%">
         {requests.map((request) => (
-          <li class="request">
-            <h2> {request.name} </h2>
-            <p> {request.content}</p>
-
-
+          <Col sm={12} md={4} lg={3} className="request-card-container">
+            <Card className="request-card">
+            <Card.Img variant="top" className="card-img" style={{backgroundImage: `url(${PlaceholderImage})` }}/>
+            <Card.Body>
+             <Card.Title> {request.name} </Card.Title>
+            <Card.Text>
+            {request.content}
             {request.chocolates != 0 && request.chocolates != null &&
               (
                 <p> Chocolates: {request.chocolates} </p>
@@ -119,16 +122,20 @@ function Requests(props) {
               (
                 <p> Candies: {request.candies} </p>
               )}
+      </Card.Text>
+      </Card.Body>
 
-            {/*Do not show accept button if user created request*/}
+      <Card.Footer>
             {localStorage.getItem("userID") != request.ownerID &&
               (
                 <Button onClick={() => handleAccept(request)} variant="success">Accept</Button>
               )}
-          </li>
+              </Card.Footer>
+              </Card>
+          </Col>
         ))}
-      </ol>
-    </div>
+        </Row>
+        </div>
   );
 }
 
