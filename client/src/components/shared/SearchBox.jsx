@@ -6,8 +6,8 @@ class SearchBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          searchType: "favours",
-          searchLabel: "Search for favours",
+          searchType: "requests",
+          searchLabel: "Search for requests",
           query: "",
         }
       }
@@ -18,7 +18,15 @@ class SearchBox extends React.Component {
       };
 
       changeSearchType = (type) => {
-        this.setState({ searchType: type });
+        let label;
+        if(type === "favours"){
+          label = "Search for favours"
+        }
+        if(type === "requests") {
+          label = "Search for requests"
+        }
+        this.setState({ searchType: type,
+        searchLabel: label });
       };
 
       componentDidMount() {
@@ -36,7 +44,7 @@ class SearchBox extends React.Component {
         <Col md={3} sm={0}></Col>
         <Col md={6} sm={12}>
           <InputGroup className="">
-            <Form.Control size="lg" type="text" placeholder="Search for favours" name="query" value={this.state.query} onChange={this.handleInputChange}>
+            <Form.Control size="lg" type="text" placeholder={this.state.searchLabel} name="query" value={this.state.query} onChange={this.handleInputChange}>
             </Form.Control>
             <InputGroup.Append>
             <DropdownButton alignRight variant="light" size="lg" id="dropdown-basic-button" title={<FontAwesomeIcon icon="sliders-h" />}>

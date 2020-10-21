@@ -17,15 +17,18 @@ function SearchRequests(props) {
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
 
     useEffect(() => {
+        if(query){
         const url = "http://localhost:9000/request/searchRequest";
         axios
             .post(url, { query })
             .then((response) => {
                 setRequests(response.data);
-                setLoading(false);
             })
-        setResultIndicator(query)
-    }, []);
+        setResultIndicator(query);
+    }
+    setLoading(false);
+
+}, []);
 
 
     function handleAccept(request) {
@@ -191,6 +194,8 @@ export default function App() {
       <Router>
         <Switch>
           <Route path="/searchrequests/:query" children={<SearchRequests />} />
+          <Route path="/searchrequests/" children={<SearchRequests />} />
+
         </Switch>
       </Router>
     );

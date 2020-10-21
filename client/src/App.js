@@ -100,6 +100,7 @@ function App(props) {
           <Route exact path="/requests" component={Requests} /> 
           <Route exact path="/" component={Home} />
           <Route exact path="/searchrequests/:query" component={SearchRequests} />
+          <Route exact path="/searchrequests" component={SearchRequests} />
           <Route exact path="/newRequest" component={NewRequest} />
           <PrivateRoute exact path="/newfavour" component={NewFavour} />
           <PrivateRoute exact path="/profile" component={Profile} />
