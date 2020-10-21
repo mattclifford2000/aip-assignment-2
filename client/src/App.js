@@ -25,8 +25,8 @@ import { BrowserRouter, Switch } from "react-router-dom";
 //Font Awesome Initialisation
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faStroopwafel, faSearch, faSlidersH, faPizzaSlice, faCookie, faCoffee, faCandyCane, faLeaf } from '@fortawesome/free-solid-svg-icons'
-library.add(faStroopwafel, faSearch, faSlidersH, faPizzaSlice, faCookie, faCoffee, faCandyCane, faLeaf);
+import { faStroopwafel, faSearch, faSlidersH, faPizzaSlice, faCookie, faCoffee, faCandyCane, faLeaf, faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons'
+library.add(faStroopwafel, faSearch, faSlidersH, faPizzaSlice, faCookie, faCoffee, faCandyCane, faLeaf, faArrowRight, faCheck);
 
 
 
