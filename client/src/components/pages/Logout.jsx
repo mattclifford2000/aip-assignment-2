@@ -26,7 +26,7 @@ function Logout(props) {
   }
 
 
-  if (localStorage.getItem("loggedIn") === "false") {
+  if (localStorage.getItem("loggedIn") === "false" || localStorage.getItem("loggedIn") === null || localStorage.getItem("loggedIn") === false) {
     return <Redirect to="/login" />;
   }
 

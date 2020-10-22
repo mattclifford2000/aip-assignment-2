@@ -65,7 +65,7 @@ function Register(props) {
     }
   }
 
-  if (localStorage.getItem("loggedIn") === true) {
+  if (localStorage.getItem("loggedIn") === "true" || localStorage.getItem("loggedIn") === true) {
     return <Redirect to="/" />;
   }
 
