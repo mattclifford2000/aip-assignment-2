@@ -58,7 +58,7 @@ export default class NewFavourComponent extends Component {
       image: this.state.image
     };
 
-    const url = "http://localhost:9000/favour/new";
+    const url = "/favour/new";
 
     await axios
       .post(url, favour)

@@ -25,7 +25,7 @@ function Register(props) {
 
 
   function handleSubmit(e) {
-    if(email.length < 6 || name.length < 6 || password.length < 8){
+    if(!validateEmail(email)|| name.length < 6 || password.length < 8){
       setStatus(400);
       setShowModal(true);
       return;
@@ -45,7 +45,7 @@ function Register(props) {
     console.log(user);
     console.log({user});
 
-    const url = "http://localhost:9000/register";
+    const url = "/register";
     axios
       .post(url, user)
       .then((response) => {

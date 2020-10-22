@@ -57,14 +57,14 @@ function Requests(props) {
               rewards: "da",
             };
 
-            const urlFavour = "http://localhost:9000/favour/requestToFavour";
+            const urlFavour = "/favour/requestToFavour";
             axios
               .post(urlFavour, favour)
               .then((response) => {
                 console.log(response);
 
                 //delete request from database
-                const url = "http://localhost:9000/request/acceptRequest";
+                const url = "/request/acceptRequest";
                 const _id = request._id
                 axios
                   .post(url, { _id })
