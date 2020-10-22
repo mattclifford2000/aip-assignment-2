@@ -67,31 +67,28 @@ router.post("/new", async (req, res) => {
   if (verifiedUser.status != "200") {
     return res.status(verifiedUser.status).send(verifiedUser.status);
   }
+
+
+  const newRequest = new Request({
+    ownerID: request.ownerID,
+    ownerName: request.ownerName,
+    name: request.name,
+    content: request.content,
+    completed: request.completed,
+    chocolates: request.chocolates,
+    mints: request.mints,
+    pizzas: request.pizzas,
+    coffees: request.coffees,
+    candies: request.candies,
+  });
   try {
-    const newRequest = new Request({
-      ownerID: request.ownerID,
-      ownerName: request.ownerName,
-      name: request.name,
-      content: request.content,
-      completed: request.completed,
-      chocolates: request.chocolates,
-      mints: request.mints,
-      pizzas: request.pizzas,
-      coffees: request.coffees,
-      candies: request.candies,
-    });
-    try {
-      const { error } = verifyRequest(newRequest);
-      if (error) {
-        console.log("Does not meet schema");
-        return res.status(400).send(error.details[0].message);
-      }
-    } catch (err) {
-      console.error(err.message);
+    const { error } = verifyRequest(newRequest);
+    if (error) {
+      console.log("Does not meet schema");
+      return res.status(400).send(error.details[0].message);
     }
-  } catch (error) {
-    console.log("Does not meet schema");
-    return res.status(400).send(error.details[0].message);
+  } catch (err) {
+    console.error(err.message);
   }
 
   const savedRequest = newRequest.save();
