@@ -61,7 +61,7 @@ function Register(props) {
       .catch((e) => {
         console.log(e);
       });
-
+      setShowModal(true);
   }
 
   function handleClose () {
