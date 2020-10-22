@@ -76,7 +76,7 @@ router.post("/requestToFavour", async (req, res) => {
 router.post("/myOwedFavours", async (req, res) => {
   console.log(req.body.userID);
   const userID = req.body.userID;
-  const favour = await Favour.find({ creditorID: userID });
+  const favour = await Favour.find({ creditorID: userID, completed: false });
   res.json(favour);
 });
 
@@ -84,13 +84,22 @@ router.post("/myOwedFavours", async (req, res) => {
 router.post("/myOwingFavours", async (req, res) => {
   console.log(req.body.userID);
   const userID = req.body.userID;
-  const favour = await Favour.find({ debitorID: userID });
+  const favour = await Favour.find({ debitorID: userID, completed: false });
+  res.json(favour);
+});
+
+
+
+router.post("/myCompletedFavours", async (req, res) => {
+  console.log(req.body.userID);
+  const userID = req.body.userID;
+  const favour = await Favour.find({ debitorID: userID, completed: true });
   res.json(favour);
 });
 
 router.post("/delete", async (req, res) => {
   const id = req.body._id;
-  const deleteFavour = await Favour.deleteOne({ _id: id });
+  Favour.updateOne({ _id: id }, { $set: { completed: true } });
 });
 
 
