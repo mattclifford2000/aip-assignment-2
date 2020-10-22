@@ -26,21 +26,20 @@ export default class NewFavourComponent extends Component {
       },
       status: null,
       showModal: false,
-      image: null
+      image: null,
+      URL: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
   }
   handleClose = () => {
-    this.setState({showModal: false});
-    console.log("modal success")
-
+    this.setState({
+      showModal: false
+    });
     if(this.state.status === 200){
-      console.log("status success")
-      return(
-      <Redirect to='/profile'/>
-      )
+      this.setState({URL: "/profile"})
     }
+    
   };
 
    handleSubmit = async (e) => {
@@ -162,11 +161,12 @@ export default class NewFavourComponent extends Component {
 
 
   render() {
+    if(this.state.URL !== null){
+      return(<Redirect to={this.state.URL}></Redirect>)
+    }
     return (
       <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
-
-        
 
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <Card style={{ width: "18rem" }}>

@@ -28,7 +28,7 @@ function Logout(props) {
 
   return (
     <div>
-      <a href="/" onClick={handleLogout}> Logout </a>
+      <Button variant="info" size="lg" href="/" onClick={handleLogout}> Logout </Button>
     </div>
   )
 }

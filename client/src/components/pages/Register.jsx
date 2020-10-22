@@ -1,12 +1,14 @@
 
 import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, Alert } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import "../../styles/Login.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
+import OperationModal from "../shared/OperationModal"
+
 
 function Register(props) {
   const [email, setEmail] = useState("");
@@ -14,12 +16,16 @@ function Register(props) {
   const [name, setName] = useState("");
   const [dob, setDOB] = useState(new Date(0));
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isError, setIsError] = useState(false);
   const { setAuthTokens } = useAuth();
+  //const [errors, setErrors] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [URL, setURL] = useState(null);
+  const [status, setStatus] = useState(null);
+
+
 
   function handleSubmit(e) {
     e.preventDefault();
-
     const user = {
       name: name,
       email: email,
@@ -38,24 +44,38 @@ function Register(props) {
     axios
       .post(url, user)
       .then((response) => {
-        if (response.status === 200) {
+        setStatus(response.status);
+        if (status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
         } else {
-          setIsError(true);
         }
       })
       .catch((e) => {
-        setIsError(true);
+        console.log(e);
       });
+      setShowModal(true);
   }
+
+  function handleClose () {
+    setShowModal(false);
+    if(status === 200){
+      setURL("/profile");
+    }
+  };
 
   if (localStorage.getItem('loggedIn') === true) {
     return <Redirect to="/" />;
   }
 
+  if(URL !== null){
+    return(<Redirect to={URL}></Redirect>)
+  }
+
   return (
+    
     <div className="registerform">
+    <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
       <Card style={{ width: "18rem" }}>
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group controlId="email">
@@ -67,9 +87,9 @@ function Register(props) {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                console.log(email);
               }}
             />
+            {(email.length < 6) && <Form.Text>Please enter a valid email</Form.Text>}
           </Form.Group>
 
           <Form.Group controlId="name">
@@ -83,6 +103,8 @@ function Register(props) {
                 setName(e.target.value);
               }}
             />
+            {(name.length < 6) && <Form.Text>Please enter a name greater than 6 characters</Form.Text>}
+
           </Form.Group>
           
           <Form.Group controlId="password">
@@ -96,6 +118,8 @@ function Register(props) {
                 setPassword(e.target.value);
               }}
             />
+                        {(password.length < 6) && <Form.Text>Please enter a password greater than 8 characters</Form.Text>}
+
           </Form.Group>
          
           <Form.Group controlId="dateofbirth">
@@ -109,14 +133,15 @@ function Register(props) {
               }}
               placeholder="Date of Birth"
             />
-          </Form.Group>          
+                        {<Form.Text>Please choose a valid DOB</Form.Text>}
+
+          </Form.Group>       
               <Button variant="primary" type="submit">
                 Submit
               </Button>
+              <br></br>
+
           <Link to="/login">Already have an account?</Link>
-          {isError && (
-          <Error>You have provided one or more invalid details. Please try again.</Error>
-        )}
         </Form>
       </Card>
     </div>

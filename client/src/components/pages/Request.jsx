@@ -52,6 +52,7 @@ function Request(props) {
         {request.content}
         <br></br>
         <br></br>
+        <h5>Rewards:</h5>
         <span display="inline">
         {request.chocolates != 0 && request.chocolates != null &&
           (
