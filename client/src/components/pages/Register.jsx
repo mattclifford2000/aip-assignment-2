@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
 import { Button, Card, Form, Alert } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import "../../styles/Login.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
@@ -162,18 +162,6 @@ function Register(props) {
       </Card>
 
 
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body> You successfully registered an account with Favour Center
-          <Button href="/login"> Login </Button>
-        </Modal.Body>
-        <br></br>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal>
 
     </div>
   );
