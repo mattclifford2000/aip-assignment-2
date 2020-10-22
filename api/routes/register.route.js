@@ -16,15 +16,16 @@ router.post("/", async (req, res) => {
         console.log(body);
         const { error } = verifyRegisterUser(body);
         if (error) {
-            console.log("Broke")
-            return res.status(200).send(error.details[0].message);
+            return res.status(400).send(error.details[0].message);
         }
     } catch (err) {
         console.error(err.message);
+        return res.status(500).send(err.message);
+
     }
     const emailExists = await User.exists({ email: body.email });
     if (emailExists)
-        return res.status(200).send("A user exists with this email.");
+        return res.status(409).send("A user exists with this email.");
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(body.password, salt);
     var newRole = "user";

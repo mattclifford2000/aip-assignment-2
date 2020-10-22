@@ -19,7 +19,7 @@ function SearchRequests(props) {
 
     useEffect(() => {
         if(query){
-        const url = "http://localhost:9000/request/searchRequest";
+        const url = "/request/searchRequest";
         axios
             .post(url, { query })
             .then((response) => {
@@ -34,12 +34,12 @@ function SearchRequests(props) {
 
     function handleAccept(request) {
 
-        const urlUser = "http://localhost:9000/login/findUser";
+        const urlUser = "/login/findUser";
         const OwnerID = request.ownerID;
         const owner = "";
 
 
-        const urlUserOther = "http://localhost:9000/login/findUserOther";
+        const urlUserOther = "/login/findUserOther";
         const debitorID = localStorage.getItem('userID')
         const debitor = "";
 
@@ -70,14 +70,14 @@ function SearchRequests(props) {
                             rewards: "da",
                         };
 
-                        const urlFavour = "http://localhost:9000/favour/requestToFavour";
+                        const urlFavour = "/favour/requestToFavour";
                         axios
                             .post(urlFavour, favour)
                             .then((response) => {
                                 console.log(response);
 
                                 //delete request from database
-                                const url = "http://localhost:9000/request/acceptRequest";
+                                const url = "/request/acceptRequest";
                                 const _id = request._id
                                 axios
                                     .post(url, { _id })

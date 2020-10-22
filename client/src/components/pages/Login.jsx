@@ -21,7 +21,7 @@ function Login(props) {
       email: email,
       password: password,
     };
-    const url = "http://localhost:9000/login";
+    const url = "/login";
 
     axios
       .post(url, { login })
@@ -52,6 +52,8 @@ function Login(props) {
     <div>
       <div className="loginform" id="login">
         <Card style={{ width: "18rem" }}>
+        <Card.Header>Login</Card.Header>
+        <br></br>
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group controlId="id">
               <Form.Label>Email address</Form.Label>
@@ -80,6 +82,7 @@ function Login(props) {
             <Button variant="primary" type="submit">
               Submit
           </Button>
+          <br></br>
             <Link to="/register">Don't have an account?</Link>
           </Form>
           {isError && (
