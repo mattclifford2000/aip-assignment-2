@@ -19,6 +19,7 @@ function Leaderboard(props) {
   return (
     <div id="leaderboard">
       <h1> Leaderboard</h1>
+      <p>  Complete favours to owe points </p>
       <table>
         <tr>
           <th> Rank </th>

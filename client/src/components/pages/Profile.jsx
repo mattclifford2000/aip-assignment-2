@@ -1,8 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Card, Row } from "react-bootstrap";
 import RequestComp from "../functionalComponents/request.comp";
 import "./../../styles/Home.css";
+import "./../../styles/Profile.css";
+import RequestCard from "../shared/RequestCard";
+import OwedFavourCard from "../shared/OwedFavourCard";
+import OwingFavourCard from "../shared/OwingFavourCard";
 
 
 function Profile(props) {
@@ -102,76 +106,46 @@ function Profile(props) {
 
   return (
     <div class="center">
-      <h1>{localStorage.getItem('username')}</h1>
-      <p> Score: {users.score} </p>
-      <p> Requests: {owed.length} </p>
-      <p> Owing favours: {owed.length} </p>
-      <p> Owed favours: {owing.length} </p>
 
 
+      <Card style={{ width: '18rem' }} id="profile">
+        <Card.Header as="h5" >      <h1>{localStorage.getItem('username')}</h1></Card.Header>
+        <Card.Body>
+          <p> Score: {users.score} </p>
+          <p> Requests: {myRequests.length} </p>
+          <p> Owing favours: {owed.length} </p>
+          <p> Owed favours: {owing.length} </p>
+        </Card.Body>
+      </Card>
 
 
-      <h2> Requests ({requests.length})  </h2>
+      <h2> Requests ({myRequests.length})  </h2>
       <p>  Public requests you've made </p>
-      <ul class="requestList">
+
+      <Row max-width="100%">
         {myRequests.map((request) => (
-          <li class="request">
-            <RequestComp request={request} setRequests={setMyRequests} />
-          </li>
+          <RequestCard request={request} onAccept={() => { handleComplete(request) }}></RequestCard> //onaccept add
         ))}
-      </ul>
+      </Row>
+
+
 
       <h2> Owing favours ({owed.length}) </h2>
       <p>  Favours that you owe others </p>
-      <ol class="requestList">
+      <Row max-width="100%">
         {owed.map((favour) => (
-          <li class="request">
-            <h2> {favour.name} </h2>
-            <p>Request Description: {favour.content}</p>
-            <p> Owed to: {favour.creditorName}</p>
-            <h3> Rewards: </h3>
-            {favour.chocolates != 0 && favour.chocolates != null &&
-              (
-                <p> Chocolates: {favour.chocolates} </p>
-              )}
-
-            {favour.mints != 0 && favour.mints != null &&
-              (
-                <p> Mints: {favour.mints} </p>
-              )}
-
-            {favour.pizzas != 0 && favour.pizzas != null &&
-              (
-                <p> Pizzas: {favour.pizzas} </p>
-              )}
-
-            {favour.coffees != 0 && favour.coffees != null &&
-              (
-                <p> Coffees: {favour.coffees} </p>
-              )}
-
-            {favour.candies != 0 && favour.candies != null &&
-              (
-                <p> Candies: {favour.candies} </p>
-              )}
-            <Button onClick={() => handleComplete(favour)} >Complete</Button>
-
-          </li>
+          <OwedFavourCard favour={favour} onAccept={() => { handleComplete(favour) }}></OwedFavourCard> //onaccept add
         ))}
-      </ol>
+      </Row>
+
+
       <h2> Owed Favours ({owing.length}) </h2>
       <p>  Favours that others owe you  </p>
-      <ol class="requestList">
+      <Row max-width="100%">
         {owing.map((favour) => (
-          <li class="request">
-            <h2> {favour.name} </h2>
-            <p>Request Description: {favour.content}</p>
-            <Button onClick={() => handleComplete(favour)} >Complete</Button>
-
-          </li>
+          <OwingFavourCard favour={favour} onAccept={() => { handleComplete(favour) }}></OwingFavourCard> //onaccept add
         ))}
-      </ol>
-
+      </Row>
 
 
 

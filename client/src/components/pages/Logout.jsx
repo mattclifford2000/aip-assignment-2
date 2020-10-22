@@ -3,6 +3,7 @@ import { Link, Redirect, History, useHistory } from "react-router-dom";
 import { Button, Form, Card, Navbar, Nav } from "react-bootstrap";
 import axios from "axios";
 import "../../styles/Login.css";
+import "../../styles/Logout.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
@@ -30,8 +31,8 @@ function Logout(props) {
     <div>
       <h1> Are you sure you want to logout? </h1>
 
-      <Button variant="info" size="lg" href="/" onClick={handleLogout}> Logout </Button>
-      <Button variant="danger" size="lg" href="/" > No </Button>
+      <Button variant="success" size="lg" href="/" onClick={handleLogout} id="button"> Yes </Button>
+      <Button variant="danger" size="lg" href="/" id="button" > No </Button>
     </div>
   )
 }
