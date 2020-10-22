@@ -39,7 +39,6 @@ export default class NewFavourComponent extends Component {
     if(this.state.status === 200){
       this.setState({URL: "/profile"})
     }
-    
   };
 
    handleSubmit = async (e) => {

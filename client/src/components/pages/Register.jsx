@@ -25,6 +25,11 @@ function Register(props) {
 
 
   function handleSubmit(e) {
+    if(email.length < 6 || name.length < 6 || password.length < 8){
+      setStatus(400);
+      setShowModal(true);
+      return;
+    }
     e.preventDefault();
     const user = {
       name: name,
@@ -72,11 +77,18 @@ function Register(props) {
     return(<Redirect to={URL}></Redirect>)
   }
 
+  function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return (re.test(String(email).toLowerCase()) && email.length > 6);
+}
+
   return (
     
     <div className="registerform">
     <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
       <Card style={{ width: "18rem" }}>
+        <Card.Header>Register</Card.Header>
+        <br></br>
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>
@@ -89,7 +101,8 @@ function Register(props) {
                 setEmail(e.target.value);
               }}
             />
-            {(email.length < 6) && <Form.Text>Please enter a valid email</Form.Text>}
+            {(!validateEmail(email)) && <Form.Text>Please enter a valid email</Form.Text>}
+            
           </Form.Group>
 
           <Form.Group controlId="name">
@@ -136,7 +149,7 @@ function Register(props) {
                         {<Form.Text>Please choose a valid DOB</Form.Text>}
 
           </Form.Group>       
-              <Button variant="primary" type="submit">
+              <Button variant="primary" onClick={(e) => {handleSubmit(e)}}>
                 Submit
               </Button>
               <br></br>

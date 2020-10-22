@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Alert } from "react-bootstrap";
 
 class OperationModal extends React.Component {
     constructor(props) {
@@ -21,8 +21,8 @@ class OperationModal extends React.Component {
       }
 
         statusInfo(status) {
-        if(status === 200) return("Action completed successfully.");
-        else return ("Please try again. Error: " + status);
+        if(status === 200) return("Action completed successfully. Click close to continue.");
+        else return ("Please check inputs and try again.");
         }
 
 
@@ -35,7 +35,12 @@ class OperationModal extends React.Component {
         <Modal.Header closeButton>
       <Modal.Title>{this.statusTitle(status)}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{this.statusInfo(status)}</Modal.Body>
+        <Modal.Body>
+        <Alert variant={(status === 200) ? "success" : "danger"}>
+  <Alert.Heading>          {this.statusInfo(status)}</Alert.Heading>
+</Alert>
+
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={this.handleClose}>
             Close
