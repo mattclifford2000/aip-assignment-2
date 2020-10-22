@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
@@ -8,15 +8,14 @@ function NewRequests(props) {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [userID, setUserID] = useState(localStorage.getItem("userID"));
-  const [chocolates, setChocolates] = useState(0)
-  const [mints, setMints] = useState(0)
-  const [pizzas, setPizzas] = useState(0)
-  const [coffees, setCoffees] = useState(0)
-  const [candies, setCandies] = useState(0)
-  const [show, setShow] = useState(false)
+  const [chocolates, setChocolates] = useState(0);
+  const [mints, setMints] = useState(0);
+  const [pizzas, setPizzas] = useState(0);
+  const [coffees, setCoffees] = useState(0);
+  const [candies, setCandies] = useState(0);
+  const [show, setShow] = useState(false);
 
   function handleSubmit(e) {
-
     const request = {
       ownerID: localStorage.getItem("userID"),
       ownerName: localStorage.getItem("username"),
@@ -27,36 +26,29 @@ function NewRequests(props) {
       mints: mints,
       pizzas: pizzas,
       coffees: coffees,
-      candies: candies
+      candies: candies,
     };
 
-    console.log(request)
+    console.log(request);
 
     const url = "/request/new";
     axios
-      .post(url, { request, authToken: localStorage.getItem('authToken') })
-      .then((response) => {
+      .post(url, { request, authToken: localStorage.getItem("authToken") })
+      .then((response) => {});
 
-      })
-
-
-    setShow(true)
+    setShow(true);
   }
-
-
 
   function handleClose(e) {
-    setShow(false)
+    setShow(false);
   }
-
 
   return (
     <div>
       <h1> Submit a Request</h1>
       <div class="searchRequestForm">
-
         <Card style={{ width: "18rem" }}>
-          <Form onSubmit={handleSubmit} noValidate >
+          <Form onSubmit={handleSubmit} noValidate>
             <Form.Group controlId="searchRequests">
               <Form.Label>Request name</Form.Label>
               <Form.Control
@@ -152,24 +144,17 @@ function NewRequests(props) {
           </Form>
         </Card>
 
-
-
         <Modal show={show} onHide={handleClose}>
-          <Modal.Body> New request created successfully
-        </Modal.Body>
+          <Modal.Body> New request created successfully</Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={handleClose}>
               Ok
-          </Button>
+            </Button>
           </Modal.Footer>
         </Modal>
-
-
       </div>
-
     </div>
   );
 }
 
 export default NewRequests;
-
