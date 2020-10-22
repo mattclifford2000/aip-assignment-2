@@ -66,13 +66,11 @@ router.post("/findUserOther", async (req, res) => { //bad route name, will fix l
 
 
 router.post("/addScore", async (req, res) => {
-
-  Request.updateOne({ _id: "5f8e9bf83b2448446c205fdc" }, { $set: { name: "ff" } })
-
-
-  console.log("update success")
-
+  const userID = req.body.userID
+  const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
+  console.log("done")
 });
+
 
 
 module.exports = router;

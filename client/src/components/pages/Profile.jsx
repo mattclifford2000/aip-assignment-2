@@ -39,6 +39,15 @@ function Profile(props) {
   }
 
 
+
+  const updateField = (e) => {
+    axios
+      .post("/login/addScore", {
+      })
+      .then((res) => {
+      });
+  }
+
   const handleClose = (e) => {
     setShow(false)
   }
@@ -56,13 +65,13 @@ function Profile(props) {
       .then((response) => {
       })
 
-    /*
-        const userAddScore = "/login/addScore"; //on login route for now. Will create a new route for user editing later 
-        axios
-          .post(userAddScore, { userID })
-          .then((response) => {
-          })
-    */
+
+    const userAddScore = "/login/addScore"; //on login route for now. Will create a new route for user editing later 
+    axios
+      .post(userAddScore, { userID })
+      .then((response) => {
+      })
+
     setShow(true)
   }
 
@@ -95,6 +104,7 @@ function Profile(props) {
   return (
     <div class="center">
       <h1>{localStorage.getItem('username')}</h1>
+      <button onClick={updateField}> update </button>
       <h2> My Requests </h2>
       <p>  Public requests you've made </p>
       <ul class="requestList">
@@ -160,7 +170,7 @@ function Profile(props) {
 
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Body> Congratulations! Favour completed successfully
+        <Modal.Body> Congratulations! Favour completed successfully. You have earned 1 point
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
