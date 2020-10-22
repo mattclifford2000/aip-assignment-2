@@ -41,7 +41,7 @@ class RewardCard extends React.Component {
               <Card.Title> <h2>{favour.name}</h2> </Card.Title>
               <Card.Text>
                 <p> {favour.content} </p>
-
+                <p> Completed by: {favour.debitorName} </p>
                 <br></br>
                 <br></br>
                 <span display="inline">

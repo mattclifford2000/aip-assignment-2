@@ -172,7 +172,7 @@ function Profile(props) {
 
 
       <h2> Completed ({completed.length}) </h2>
-      <p>  Completed  </p>
+      <p>  Favours that others owed you and have completed  </p>
       <Row max-width="100%">
         {completed.map((favour) => (
           <CompletedCard favour={favour} onAccept={() => { handleComplete(favour) }}></CompletedCard> //onaccept add

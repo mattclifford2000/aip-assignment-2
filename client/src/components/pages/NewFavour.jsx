@@ -42,13 +42,13 @@ export default class NewFavourComponent extends Component {
   };
 
   handleErrorClose = () => {
-    this.setState({showErrorModal: false})
+    this.setState({ showErrorModal: false })
   }
 
   handleSubmit = async (e) => {
 
 
-    if (this.state.owed && this.state.image === null){
+    if (this.state.owed && this.state.image === null) {
       console.log("You need an image");
       this.setState({
         showErrorModal: true
@@ -106,7 +106,7 @@ export default class NewFavourComponent extends Component {
           })
           console.error(error);
         });
-      }
+    }
   };
 
 
@@ -163,7 +163,7 @@ export default class NewFavourComponent extends Component {
     return (
       <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
-
+        <h1> New Favour </h1>
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <OperationModal status={this.state.status} show={this.state.showErrorModal} onHandleClose={this.handleErrorClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
@@ -174,12 +174,13 @@ export default class NewFavourComponent extends Component {
                 name="owebutton"
                 variant="info"
                 onClick={this.handleInputChange}
+                id="oweButton"
               >I owe</Button>
               <Button
                 name="owedbutton"
                 variant="info"
                 onClick={this.handleInputChange}
-
+                id="oweButton"
               >I am owed</Button>
             </ButtonGroup>
             <Form.Group controlId="token">
@@ -288,6 +289,8 @@ export default class NewFavourComponent extends Component {
                 />
               </Form.Group>
               {/* END DUMP */}
+
+              <h3> Image: </h3>
               <Form.Group>
                 <input type="file" name="myImage" onChange={this.onChangeImg} />
               </Form.Group>

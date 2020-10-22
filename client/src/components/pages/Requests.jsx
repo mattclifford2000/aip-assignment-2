@@ -9,7 +9,7 @@ function Requests(props) {
   const [requests, setRequests] = useState([]);
   const [user, setUser] = useState();
   const [show, setShow] = useState(false);
-
+  const [deleteShow, setDeleteShow] = useState(false)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +18,7 @@ function Requests(props) {
 
   function handleClose(e) {
     setShow(false)
+    setDeleteShow(false)
   }
 
 
@@ -33,7 +34,7 @@ function Requests(props) {
       .then((res) => {
         setRequests(res.data);
       });
-
+    setDeleteShow(true)
   }
 
 
@@ -136,6 +137,15 @@ function Requests(props) {
         </Modal.Footer>
       </Modal>
 
+
+      <Modal show={deleteShow} onHide={handleClose}>
+        <Modal.Body>You successfully deleted a request.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
     </div>
   );

@@ -13,13 +13,13 @@ class RewardCard extends React.Component {
   handleAccept(e) {
     this.props.onAccept(e);
   }
-    handleInputChange(e) {
-      this.props.onInputChange(e);
-    }
+  handleInputChange(e) {
+    this.props.onInputChange(e);
+  }
 
-    handleDelete(request){
-      this.props.onDelete(request);
-    }
+  handleDelete(request) {
+    this.props.onDelete(request);
+  }
 
 
   render() {
@@ -74,8 +74,8 @@ class RewardCard extends React.Component {
               {cardFooterAccept}
               <Button href={"/request/" + request._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
               {(request.ownerID === localStorage.getItem("userID")) &&
-              <Button onClick={() => {this.handleDelete(request)}} variant="danger"> Delete</Button>
-}
+                <Button onClick={() => { this.handleDelete(request) }} variant="danger"> Delete</Button>
+              }
             </Card.Footer>
           </Card>
         </Col>

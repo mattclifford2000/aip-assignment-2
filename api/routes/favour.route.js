@@ -99,7 +99,8 @@ router.post("/myCompletedFavours", async (req, res) => {
 
 router.post("/delete", async (req, res) => {
   const id = req.body._id;
-  Favour.updateOne({ _id: id }, { $set: { completed: true } });
+  const favour = await Favour.updateOne({ _id: id }, { $set: { completed: true } });
+  console.log(favour)
 });
 
 
