@@ -72,7 +72,7 @@ router.post("/new", async (req, res) => {
   const { request, authToken } = req.body;
   let verifiedUser = verifyUser(authToken);
   if (verifiedUser.status != "200") {
-    return res.send(verifiedUser.status);
+    return res.status(verifiedUser.status).send(verifiedUser.status);
   }
   const newRequest = new Request({
     ownerID: request.ownerID,
@@ -87,6 +87,7 @@ router.post("/new", async (req, res) => {
     candies: request.candies
   });
   const savedRequest = newRequest.save();
+  console.log(savedRequest);
   return res.status(200).send(savedRequest);
 });
 

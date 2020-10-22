@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
+import OperationModal from "../shared/OperationModal"
+import { Link, Redirect, withRouter } from "react-router-dom";
+
 
 function NewRequests(props) {
   const [name, setName] = useState("");
@@ -14,8 +17,11 @@ function NewRequests(props) {
   const [coffees, setCoffees] = useState(0)
   const [candies, setCandies] = useState(0)
   const [show, setShow] = useState(false)
-
-  function handleSubmit(e) {
+  const [showModal, setShowModal] = useState(false);
+  const [URL, setURL] = useState(null);
+  const [status, setStatus] = useState(null);
+  
+  function handleSubmit() {
 
     const request = {
       ownerID: localStorage.getItem("userID"),
@@ -36,22 +42,28 @@ function NewRequests(props) {
     axios
       .post(url, { request, authToken: localStorage.getItem('authToken') })
       .then((response) => {
-
+          setStatus(response.status);
       })
+      setShowModal(true);
+  }
 
+  function handleClose () {
+    setShowModal(false);
+    if(status === 200){
+      //setURL("/profile");
+    }
+  };
 
-    setShow(true)
+  if(URL !== null){
+    return(<Redirect to={URL}></Redirect>)
   }
 
 
-
-  function handleClose(e) {
-    setShow(false)
-  }
 
 
   return (
     <div>
+          <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
       <h1> Submit a Request</h1>
       <div class="searchRequestForm">
 
@@ -146,23 +158,11 @@ function NewRequests(props) {
                 }}
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" onClick={()=> {handleSubmit()}}>
               Submit
             </Button>
           </Form>
         </Card>
-
-
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Body> New request created successfully
-        </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Ok
-          </Button>
-          </Modal.Footer>
-        </Modal>
 
 
       </div>
