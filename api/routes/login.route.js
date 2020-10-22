@@ -42,6 +42,7 @@ router.post("/", async (req, res) => {
   return res.send({ name: user.name, authToken, id: user._id, user });
 });
 
+//Testing purposes
 router.get("/", async (req, res) => {
   res.json({ message: "This is the login route!" });
 });

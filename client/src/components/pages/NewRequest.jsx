@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
@@ -23,6 +23,7 @@ function NewRequests(props) {
   
   function handleSubmit() {
 
+
     const request = {
       ownerID: localStorage.getItem("userID"),
       ownerName: localStorage.getItem("username"),
@@ -33,10 +34,10 @@ function NewRequests(props) {
       mints: mints,
       pizzas: pizzas,
       coffees: coffees,
-      candies: candies
+      candies: candies,
     };
 
-    console.log(request)
+    console.log(request);
 
     const url = "/request/new";
     axios
@@ -61,14 +62,14 @@ function NewRequests(props) {
 
 
 
+
   return (
     <div>
           <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
       <h1> Submit a Request</h1>
       <div class="searchRequestForm">
-
         <Card style={{ width: "18rem" }}>
-          <Form onSubmit={handleSubmit} noValidate >
+          <Form onSubmit={handleSubmit} noValidate>
             <Form.Group controlId="searchRequests">
               <Form.Label>Request name</Form.Label>
               <Form.Control
@@ -164,12 +165,9 @@ function NewRequests(props) {
           </Form>
         </Card>
 
-
       </div>
-
     </div>
   );
 }
 
 export default NewRequests;
-
