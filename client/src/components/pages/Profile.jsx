@@ -130,12 +130,12 @@ function Profile(props) {
 
       <Row max-width="100%">
         {myRequests.map((request) => (
-          <RequestCard request={request} onAccept={() => { handleComplete(request) }} onDelete={() => { handleDelete(request)}}></RequestCard> //onaccept add
+          <RequestCard request={request} onAccept={() => { handleComplete(request) }} onDelete={() => { handleDelete(request) }}></RequestCard> //onaccept add
         ))}
       </Row>
       {myRequests.length == 0 &&
         <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
-          No requests! Create a reques to see something here
+          No requests! Create a request to see something here
 </div>}
 
 
