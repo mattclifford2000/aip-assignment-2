@@ -148,7 +148,7 @@ function Register(props) {
               }}
               placeholder="Date of Birth"
             />
-                        {<Form.Text>Please choose a valid DOB</Form.Text>}
+                        {(dob <= new Date()) && <Form.Text>Please choose a valid DOB</Form.Text>}
 
           </Form.Group>       
               <Button variant="primary" onClick={(e) => {handleSubmit(e)}}>

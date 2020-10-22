@@ -48,6 +48,7 @@ router.post("/", async (req, res) => {
     return res.status(200).send(savedUser);
 });
 
+//For testing API purposes
 router.get("/", async (req, res) => {
     res.json({ message: "This is the register route!" });
 });
