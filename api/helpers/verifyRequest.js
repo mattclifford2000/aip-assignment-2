@@ -1,5 +1,5 @@
 const Joi = require("@hapi/joi");
-Joi.objectId = require("joi-objectid")(Joi);
+Joi.objectId = require('joi-objectid')(Joi);
 
 const verifyRequest = (request) => {
   console.log("Request: ");
