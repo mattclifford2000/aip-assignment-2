@@ -27,26 +27,49 @@ export default class NewFavourComponent extends Component {
       status: null,
       showModal: false,
       image: null,
-      URL: null,
+      imageURL: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
   }
+
   handleClose = () => {
     this.setState({
       showModal: false
     });
-    if(this.state.status === 200){
-      this.setState({URL: "/profile"})
+    if (this.state.status === 200) {
+      this.setState({ URL: "/profile" })
     }
   };
 
-   handleSubmit = async (e) => {
-    let validRewards = [];
-    for (const reward of this.state.rewards){
-      if(reward != null) validRewards = validRewards.concat(reward)
+  handleSubmit = async (e) => {
+
+
+    console.log(this.state.image == null);
+    if (this.state.image !== null) {
+      const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
+      const imgPreset = 'w58gpgxt';
+      const formData = new FormData();
+      formData.append('file', this.state.image);
+      formData.append('upload_preset', imgPreset);
+      try {
+        const res = await axios.post(imgUploadURL, formData);
+        this.state.imageURL = res.data.secure_url;
+      } catch (err) {
+        this.state.imageURL = "https://kr4m.com/wp-content/uploads/2019/05/Webp.net-compress-image-3.jpg"
+        console.error(err);
+      }
+      console.log(this.state.imageURL);
     }
-    
+
+
+
+
+    let validRewards = [];
+    for (const reward of this.state.rewards) {
+      if (reward != null) validRewards = validRewards.concat(reward)
+    }
+
     const favour = {
       token: localStorage.getItem("authToken"),
       externalemail: this.state.externalemail,
@@ -64,7 +87,8 @@ export default class NewFavourComponent extends Component {
       .post(url, favour)
       .then((response) => {
         //console.log(response.status);
-        this.setState({status: response.status,
+        this.setState({
+          status: response.status,
           showModal: true,
         })
 
@@ -78,10 +102,10 @@ export default class NewFavourComponent extends Component {
 
 
   onChangeImg(e) {
-    this.setState({ file: e.target.files });
+    this.setState({ image: e.target.files[0] });
   }
 
-  
+
   addReward = (e) => {
     const reward = {
       key: this.state.rewards.length,
@@ -93,18 +117,18 @@ export default class NewFavourComponent extends Component {
     });
   }
 
- //ROUGH IMPLEMENTATION PASSING REWARD KEY THROUGH EVENT ID, IMPROVE 
-  handleRewardInputChange = (e) => {    
+  //ROUGH IMPLEMENTATION PASSING REWARD KEY THROUGH EVENT ID, IMPROVE 
+  handleRewardInputChange = (e) => {
     const { name, value, id } = e.target;
-    switch(name){
+    switch (name) {
       case "name":
-      this.state.rewards[id].name = value;
-      break;
+        this.state.rewards[id].name = value;
+        break;
       case "content":
-      this.state.rewards[id].content = value;
-      break;
+        this.state.rewards[id].content = value;
+        break;
       default:
-      break;
+        break;
     };
     this.setState({
       rewards: this.state.rewards
@@ -155,13 +179,13 @@ export default class NewFavourComponent extends Component {
 
   externalUserLabel() {
 
-    return(this.state.owed ? "Email of user who owes you" : "Email of user you owe");
-  } 
+    return (this.state.owed ? "Email of user who owes you" : "Email of user you owe");
+  }
 
 
   render() {
-    if(this.state.URL !== null){
-      return(<Redirect to={this.state.URL}></Redirect>)
+    if (this.state.URL !== null) {
+      //return (<Redirect to={this.state.URL}></Redirect>)
     }
     return (
       <div className="registerform" id="registerform">
@@ -172,15 +196,15 @@ export default class NewFavourComponent extends Component {
           <Form noValidate>
             <ButtonGroup aria-label="Favour Choice">
 
-              <Button 
-              name="owebutton"
-              variant="info"
-              onClick={this.handleInputChange}
+              <Button
+                name="owebutton"
+                variant="info"
+                onClick={this.handleInputChange}
               >I owe</Button>
-              <Button 
-              name="owedbutton"
-              variant="info"
-              onClick={this.handleInputChange}
+              <Button
+                name="owedbutton"
+                variant="info"
+                onClick={this.handleInputChange}
 
               >I am owed</Button>            </ButtonGroup>
             <Form.Group controlId="token">
@@ -199,7 +223,7 @@ export default class NewFavourComponent extends Component {
             </Form.Group>
 
             <Form.Group controlId="externalemail">
-            <Form.Label>{this.externalUserLabel()}</Form.Label>
+              <Form.Label>{this.externalUserLabel()}</Form.Label>
 
               <Form.Control
                 type="email"
@@ -234,29 +258,29 @@ export default class NewFavourComponent extends Component {
             {
               this.state.rewards.map((data) => (
                 <NewReward data={data} onInputChange={this.handleRewardInputChange} onDelete={this.handleRewardDelete}></NewReward>
-                ))
-              }
+              ))
+            }
             <Form.Group>
-            <Button 
-              name="addreward"
-              variant="success"
-              onClick={this.addReward}
+              <Button
+                name="addreward"
+                variant="success"
+                onClick={this.addReward}
               >+ Add a reward</Button>
             </Form.Group>
             <Form.Group>
-                <input type="file" name="myImage" onChange={this.onChangeImg} />
+              <input type="file" name="myImage" onChange={this.onChangeImg} />
             </Form.Group>
             <Form.Group>
-            {this.state.name.length >= 3 &&
-              this.state.content.length >= 3 && (
-                
-                <Button variant="primary" onClick={this.handleSubmit}>
-                  Submit
-                </Button>
+              {this.state.name.length >= 3 &&
+                this.state.content.length >= 3 && (
 
-              )}
+                  <Button variant="primary" onClick={this.handleSubmit}>
+                    Submit
+                  </Button>
+
+                )}
             </Form.Group>
-            
+
 
           </Form>
 
