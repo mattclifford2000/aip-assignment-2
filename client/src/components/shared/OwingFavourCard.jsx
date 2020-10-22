@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Button, Card, Col } from "react-bootstrap";
+import { Button, Card, Col, Form } from "react-bootstrap";
 import PlaceholderImage from "../img/placeholder.png";
 
 class RewardCard extends React.Component {
@@ -8,8 +8,13 @@ class RewardCard extends React.Component {
     super(props);
     this.handleComplete = this.handleComplete.bind(this);
     //this.handleDelete = this.handleDelete.bind(this);*/
-
+    this.state = {
+      uploaded: false,
+      img: null
+    };
   }
+
+
   handleComplete(e) {
     this.props.onAccept(e);
   }
@@ -21,6 +26,16 @@ class RewardCard extends React.Component {
       this.props.onDelete(e);
     }*/
 
+
+  handleSubmit = () => {
+
+    this.setState({ uploaded: true })
+  }
+
+
+  onChangeImg = () => {
+    this.setState({ img: "ok" })
+  }
 
   render() {
     const favour = this.props.favour;
@@ -74,13 +89,26 @@ class RewardCard extends React.Component {
 
             <Card.Footer>
               {cardFooterAccept}
-              <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
+
               {/* <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button> */}
+              <Form>
+
+                <input type="file" name="myImage" onChange={this.onChangeImg} />
+
+                {this.state.img != null &&
+                  (
+
+                    <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
+
+                  )}
+
+
+              </Form>
 
 
             </Card.Footer>
           </Card>
-        </Col>
+        </Col >
       );
     }
     else return null;
