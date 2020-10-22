@@ -25,6 +25,14 @@
   height: 15rem;
 }
 
+.large-img {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+  height: 30rem;
+}
+
 .navbar img {
   border-radius: 50%;
   width: 36px;

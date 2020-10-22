@@ -24,24 +24,23 @@ class RewardCard extends React.Component {
 
   render() {
     const favour = this.props.favour;
+    let imageURL = PlaceholderImage;
+    if(favour.imageURL){
+      imageURL = favour.imageURL;
+    };
+
     let cardFooterAccept = <p></p>;
-    console.log("!")
-    console.log(localStorage.getItem("userID"));
-    console.log(localStorage.getItem("loggedIn") == "true");
-    console.log(localStorage.getItem("userID") != favour.creditorID);
-    console.log(localStorage.getItem("userID") != favour.creditorID && localStorage.getItem("loggedIn"))
-    console.log(!localStorage.getItem("loggedIn"));
 
     if (favour != null) {
       return (
         <Col sm={12} md={4} lg={3} className="request-card-container">
           <Card className="request-card">
-            <Card.Img variant="top" className="card-img" style={{ backgroundImage: `url(${PlaceholderImage})` }} />
+            <Card.Img variant="top" className="card-img" style={{ backgroundImage: `url(${imageURL})` }} />
             <Card.Body>
               <Card.Title> <h2>{favour.name}</h2> </Card.Title>
               <Card.Text>
                 <p> {favour.content} </p>
-                <p> Owed To: {favour.creditorName} </p>
+                <p> Owed to: {favour.creditorName} </p>
                 <br></br>
                 <br></br>
                 <span display="inline">
@@ -76,7 +75,8 @@ class RewardCard extends React.Component {
             <Card.Footer>
               {cardFooterAccept}
               <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
-              <Button href={"/request/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
+              <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
+
 
             </Card.Footer>
           </Card>

@@ -25,12 +25,7 @@ class RewardCard extends React.Component {
   render() {
     const request = this.props.request;
     let cardFooterAccept = <p></p>;
-    console.log("!")
-    console.log(localStorage.getItem("userID"));
-    console.log(localStorage.getItem("loggedIn") == "true");
-    console.log(localStorage.getItem("userID") != request.ownerID);
-    console.log(localStorage.getItem("userID") != request.ownerID && localStorage.getItem("loggedIn"))
-    console.log(!localStorage.getItem("loggedIn"));
+
     if (localStorage.getItem("userID") != request.ownerID && localStorage.getItem("loggedIn") == "true") {
       cardFooterAccept = <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>;
     }

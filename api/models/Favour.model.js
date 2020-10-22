@@ -16,6 +16,10 @@ const FavourSchema = new Schema({
     type: String,
     unique: false,
   },
+  debitorName: {
+    type: String,
+    unique: false,
+  },
   name: {
     type: String,
     unique: false,

@@ -53,7 +53,7 @@ export default class NewFavourComponent extends Component {
       try {
         const res = await axios.post(imgUploadURL, formData);
         this.setState({
-          imageURL : res.data.secure_url
+          imageURL: res.data.secure_url
         })
       } catch (err) {
         this.state.imageURL = "https://kr4m.com/wp-content/uploads/2019/05/Webp.net-compress-image-3.jpg"
@@ -65,6 +65,7 @@ export default class NewFavourComponent extends Component {
     const favour = {
       token: localStorage.getItem("authToken"),
       externalemail: this.state.externalemail,
+      myname: localStorage.getItem("username"),
       owed: this.state.owed,
       name: this.state.name,
       content: this.state.content,
@@ -167,8 +168,8 @@ export default class NewFavourComponent extends Component {
                 variant="info"
                 onClick={this.handleInputChange}
 
-              >I am owed</Button>            
-              </ButtonGroup>
+              >I am owed</Button>
+            </ButtonGroup>
             <Form.Group controlId="token">
               <Form.Control
                 type="hidden"
@@ -214,80 +215,80 @@ export default class NewFavourComponent extends Component {
                 value={this.state.content}
                 onChange={this.handleInputChange}
               />
-<br></br>
+              <br></br>
               {/* DUMPED FROM NEW REQUEST*/}
               <h3> Rewards: </h3>
-            <Form.Group controlId="chocolates">
-              <Form.Label>Chocolates</Form.Label>
-              <Form.Control
-                name="chocolates"
-                type="number"
-                placeholder={this.state.chocolates}
-                value={this.state.chocolates}
-                onChange={this.handleInputChange}
-              />
-            </Form.Group>
+              <Form.Group controlId="chocolates">
+                <Form.Label>Chocolates</Form.Label>
+                <Form.Control
+                  name="chocolates"
+                  type="number"
+                  placeholder={this.state.chocolates}
+                  value={this.state.chocolates}
+                  onChange={this.handleInputChange}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="mints">
-              <Form.Label>Mints</Form.Label>
-              <Form.Control
-                name="mints"
-                type="number"
-                placeholder={this.state.mints}
-                value={this.state.mints}
-                onChange={this.handleInputChange}
-              />
-            </Form.Group>
+              <Form.Group controlId="mints">
+                <Form.Label>Mints</Form.Label>
+                <Form.Control
+                  name="mints"
+                  type="number"
+                  placeholder={this.state.mints}
+                  value={this.state.mints}
+                  onChange={this.handleInputChange}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="pizzas">
-              <Form.Label>Pizzas</Form.Label>
-              <Form.Control
-                name="pizzas"
-                type="number"
-                placeholder={this.state.pizzas}
-                value={this.state.pizzas}
-                onChange={this.handleInputChange}
+              <Form.Group controlId="pizzas">
+                <Form.Label>Pizzas</Form.Label>
+                <Form.Control
+                  name="pizzas"
+                  type="number"
+                  placeholder={this.state.pizzas}
+                  value={this.state.pizzas}
+                  onChange={this.handleInputChange}
 
-              />
-            </Form.Group>
+                />
+              </Form.Group>
 
-            <Form.Group controlId="coffees">
-              <Form.Label>Coffees</Form.Label>
-              <Form.Control
-                name="coffees"
-                type="number"
-                placeholder={this.state.coffees}
-                value={this.state.coffees}
-                onChange={this.handleInputChange}
+              <Form.Group controlId="coffees">
+                <Form.Label>Coffees</Form.Label>
+                <Form.Control
+                  name="coffees"
+                  type="number"
+                  placeholder={this.state.coffees}
+                  value={this.state.coffees}
+                  onChange={this.handleInputChange}
 
-              />
-            </Form.Group>
+                />
+              </Form.Group>
 
-            <Form.Group controlId="candies">
-              <Form.Label>Candies</Form.Label>
-              <Form.Control
-                name="candies"
-                type="number"
-                placeholder={this.state.candies}
-                value={this.state.candies}
-                onChange={this.handleInputChange}
+              <Form.Group controlId="candies">
+                <Form.Label>Candies</Form.Label>
+                <Form.Control
+                  name="candies"
+                  type="number"
+                  placeholder={this.state.candies}
+                  value={this.state.candies}
+                  onChange={this.handleInputChange}
 
-              />
-            </Form.Group>
-            {/* END DUMP */}
-            <Form.Group>
-              <input type="file" name="myImage" onChange={this.onChangeImg} />
-            </Form.Group>
-            <Form.Group>
-              {this.state.name.length >= 3 &&
-                this.state.content.length >= 3 && (
+                />
+              </Form.Group>
+              {/* END DUMP */}
+              <Form.Group>
+                <input type="file" name="myImage" onChange={this.onChangeImg} />
+              </Form.Group>
+              <Form.Group>
+                {this.state.name.length >= 3 &&
+                  this.state.content.length >= 3 && (
 
-                  <Button variant="primary" onClick={this.handleSubmit}>
-                    Submit
-                  </Button>
+                    <Button variant="primary" onClick={this.handleSubmit}>
+                      Submit
+                    </Button>
 
-                )}
-            </Form.Group>
+                  )}
+              </Form.Group>
             </Form.Group>
 
 

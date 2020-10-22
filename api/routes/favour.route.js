@@ -8,19 +8,9 @@ const Reward = require("../models/Reward.model");
 const Favour = require("../models/Favour.model");
 
 router.get("/favour", async (req, res) => {
+  console.log(req.query.id);
   const favour = await Favour.findOne({ _id: req.query.id });
-  /*let rewards = [];
-  for (const rewardID of favour.rewardIDs) {
-    rewards = rewards.concat(await Reward.findOne({ _id: rewardID }));
-  }
-  console.log(rewards);*/
-  res.json(
-    {
-      favour: favour,
-      //rewards: rewards
-    }
-  );
-  //console.log(favour, rewards);
+  res.json(favour);
 });
 
 router.post("/new", async (req, res) => {
@@ -41,6 +31,8 @@ router.post("/new", async (req, res) => {
   const favour = new Favour({
     debitorID: ((req.body.owed) ? verifiedUser.user._id : externalUser.id),
     creditorID: (!(req.body.owed) ? verifiedUser.user._id : externalUser.id),
+    debitorName: req.body.myname,
+    creditorName: req.body.externalemail,
     name: req.body.name,
     content: req.body.content,
     completed: false,
@@ -78,7 +70,6 @@ router.post("/requestToFavour", async (req, res) => {
   console.log(savedFavour);
   return res.status(200).send(savedFavour);
 });
-
 
 
 
