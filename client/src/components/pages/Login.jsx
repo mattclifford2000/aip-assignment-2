@@ -44,16 +44,15 @@ function Login(props) {
       });
   }
 
-  if (localStorage.getItem('loggedIn') == "true") {
+  if (localStorage.getItem("loggedIn") === "true" || localStorage.getItem("loggedIn") === true) {
     return <Redirect to="/" />;
   }
-
   return (
     <div>
       <div className="loginform" id="login">
         <Card style={{ width: "18rem" }}>
-        <Card.Header>Login</Card.Header>
-        <br></br>
+          <Card.Header>Login</Card.Header>
+          <br></br>
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group controlId="id">
               <Form.Label>Email address</Form.Label>
@@ -82,7 +81,7 @@ function Login(props) {
             <Button variant="primary" type="submit">
               Submit
           </Button>
-          <br></br>
+            <br></br>
             <Link to="/register">Don't have an account?</Link>
           </Form>
           {isError && (
