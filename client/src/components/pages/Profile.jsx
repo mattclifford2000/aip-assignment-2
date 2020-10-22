@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import RequestComp from "../functionalComponents/request.comp";
 import "./../../styles/Home.css";
 
@@ -12,6 +12,9 @@ function Profile(props) {
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showRequest, setShowRequest] = useState(false);
+
 
   const [userID, setUserID] = useState(localStorage.getItem('userID'))
 
@@ -31,6 +34,18 @@ function Profile(props) {
       .then((res) => {
         setRequests(res.data);
       });
+
+    setShowRequest(true)
+  }
+
+
+  const handleClose = (e) => {
+    setShow(false)
+  }
+
+
+  const handleRequestClose = (e) => {
+    setShowRequest(false)
   }
 
 
@@ -40,6 +55,15 @@ function Profile(props) {
       .post(favourDelete, favour)
       .then((response) => {
       })
+
+    /*
+        const userAddScore = "/login/addScore"; //on login route for now. Will create a new route for user editing later 
+        axios
+          .post(userAddScore, { userID })
+          .then((response) => {
+          })
+    */
+    setShow(true)
   }
 
 
@@ -130,6 +154,33 @@ function Profile(props) {
           </li>
         ))}
       </ol>
+
+
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body> Congratulations! Favour completed successfully
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+      <Modal show={showRequest} onHide={handleRequestClose}>
+        <Modal.Body> Request successfully deleted
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleRequestClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
 
     </div>
   );

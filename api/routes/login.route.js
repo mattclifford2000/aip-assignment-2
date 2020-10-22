@@ -3,6 +3,7 @@ var router = express.Router();
 const { verifyLoginUser, verifyRegisterUser } = require("../helpers/validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
+const Request = require("../models/Request.model");
 const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
@@ -55,7 +56,7 @@ router.post("/findUser", async (req, res) => {
 });
 
 
-router.post("/findUserOther", async (req, res) => {
+router.post("/findUserOther", async (req, res) => { //bad route name, will fix later
   console.log(req.body.debitorID)
   const debitorID = req.body.debitorID;
   const user = await User.findOne({ _id: debitorID });
@@ -64,6 +65,14 @@ router.post("/findUserOther", async (req, res) => {
 });
 
 
+router.post("/addScore", async (req, res) => {
+
+  Request.updateOne({ _id: "5f8e9bf83b2448446c205fdc" }, { $set: { name: "ff" } })
+
+
+  console.log("update success")
+
+});
 
 
 module.exports = router;

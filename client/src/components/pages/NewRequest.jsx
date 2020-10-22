@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from 'react';
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, Modal } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
 
@@ -13,6 +13,7 @@ function NewRequests(props) {
   const [pizzas, setPizzas] = useState(0)
   const [coffees, setCoffees] = useState(0)
   const [candies, setCandies] = useState(0)
+  const [show, setShow] = useState(false)
 
   function handleSubmit(e) {
 
@@ -32,13 +33,19 @@ function NewRequests(props) {
 
     const url = "/request/new";
     axios
-      .post(url, { request, authToken: localStorage.getItem('authToken') } )
+      .post(url, { request, authToken: localStorage.getItem('authToken') })
       .then((response) => {
       })
 
+
+    setShow(true)
   }
 
 
+
+  function handleClose(e) {
+    setShow(false)
+  }
 
 
   return (
@@ -142,6 +149,20 @@ function NewRequests(props) {
             </Button>
           </Form>
         </Card>
+
+
+
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Body> New request created successfully
+        </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Ok
+          </Button>
+          </Modal.Footer>
+        </Modal>
+
+
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, Modal } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import "../../styles/Login.css";
 import "../context/auth.jsx";
@@ -16,6 +16,13 @@ function Register(props) {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const { setAuthTokens } = useAuth();
+  const [show, setShow] = useState(false);
+
+
+  function handleClose(e) {
+    setShow(false);
+  }
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -32,7 +39,7 @@ function Register(props) {
       requests: [],
     };
     console.log(user);
-    console.log({user});
+    console.log({ user });
 
     const url = "http://localhost:9000/register";
     axios
@@ -48,6 +55,9 @@ function Register(props) {
       .catch((e) => {
         setIsError(true);
       });
+
+
+    setShow(true)
   }
 
   if (localStorage.getItem('loggedIn') === true) {
@@ -84,7 +94,7 @@ function Register(props) {
               }}
             />
           </Form.Group>
-          
+
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -97,7 +107,7 @@ function Register(props) {
               }}
             />
           </Form.Group>
-         
+
           <Form.Group controlId="dateofbirth">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
@@ -109,16 +119,31 @@ function Register(props) {
               }}
               placeholder="Date of Birth"
             />
-          </Form.Group>          
-              <Button variant="primary" type="submit">
-                Submit
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
               </Button>
           <Link to="/login">Already have an account?</Link>
           {isError && (
-          <Error>You have provided one or more invalid details. Please try again.</Error>
-        )}
+            <Error>You have provided one or more invalid details. Please try again.</Error>
+          )}
         </Form>
       </Card>
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body> You successfully registered an account with Favour Center
+          <Button href="/login"> Login </Button>
+        </Modal.Body>
+        <br></br>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 }

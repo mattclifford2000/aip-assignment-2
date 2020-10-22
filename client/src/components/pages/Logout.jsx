@@ -28,7 +28,14 @@ function Logout(props) {
 
   return (
     <div>
-      <a href="/" onClick={handleLogout}> Logout </a>
+      <h1> Are you sure you want to logout? </h1>
+      <Button>
+        <a href="/" onClick={handleLogout}> Yes </a>
+      </Button>
+
+      <Button variant="danger">
+        <a href="/requests" > No </a>
+      </Button>
     </div>
   )
 }
