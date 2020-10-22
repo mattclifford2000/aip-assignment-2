@@ -6,6 +6,7 @@ import "./../../styles/Home.css";
 import "./../../styles/Profile.css";
 import RequestCard from "../shared/RequestCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
+import CompletedCard from "../shared/CompletedCard";
 import OwingFavourCard from "../shared/OwingFavourCard";
 import { Link, Redirect } from "react-router-dom";
 
@@ -19,12 +20,14 @@ function Profile(props) {
   const [show, setShow] = useState(false);
   const [showRequest, setShowRequest] = useState(false);
   const [users, setUsers] = useState([])
-
+  const [completed, setCompleted] = useState([])
   const [userID, setUserID] = useState(localStorage.getItem('userID'))
 
   const requestURL = "/request/myRequests"
   const owedURL = "/favour/myOwedFavours";
   const owingURL = "/favour/myOwingFavours";
+  const completedURL = "/favour/myCompletedFavours";
+
 
   useEffect(() => {
 
@@ -44,6 +47,13 @@ function Profile(props) {
       .post(owingURL, { userID })
       .then((response) => {
         setOwing(response.data)
+      })
+
+
+    axios
+      .post(completedURL, { userID })
+      .then((response) => {
+        setCompleted(response.data)
       })
 
 
@@ -156,6 +166,16 @@ function Profile(props) {
       <Row max-width="100%">
         {owing.map((favour) => (
           <OwingFavourCard favour={favour} onAccept={() => { handleComplete(favour) }}></OwingFavourCard> //onaccept add
+        ))}
+      </Row>
+
+
+
+      <h2> Completed ({completed.length}) </h2>
+      <p>  Completed  </p>
+      <Row max-width="100%">
+        {completed.map((favour) => (
+          <CompletedCard favour={favour} onAccept={() => { handleComplete(favour) }}></CompletedCard> //onaccept add
         ))}
       </Row>
 
