@@ -90,6 +90,7 @@ function Profile(props) {
 
   const handleClose = (e) => {
     setShow(false)
+    setShowRequest(false)
   }
 
 
@@ -131,6 +132,7 @@ function Profile(props) {
           <p> Requests: {myRequests.length} </p>
           <p> Owing favours: {owed.length} </p>
           <p> Owed favours: {owing.length} </p>
+          <p> Completed: {completed.length} </p>
         </Card.Body>
       </Card>
 
@@ -200,11 +202,10 @@ function Profile(props) {
       </Modal>
 
 
-      <Modal show={showRequest} onHide={handleRequestClose}>
-        <Modal.Body> Request successfully deleted
-        </Modal.Body>
+      <Modal show={showRequest} onHide={handleClose}>
+        <Modal.Body>You successfully deleted a request.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleRequestClose}>
+          <Button variant="primary" onClick={handleClose}>
             Ok
           </Button>
         </Modal.Footer>

@@ -25,7 +25,7 @@ class RewardCard extends React.Component {
   render() {
     const favour = this.props.favour;
     let imageURL = PlaceholderImage;
-    if(favour.imageURL){
+    if (favour.imageURL) {
       imageURL = favour.imageURL;
     };
 
@@ -75,7 +75,7 @@ class RewardCard extends React.Component {
             <Card.Footer>
               {cardFooterAccept}
               <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
-              <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
+              {/* <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button> */}
 
 
             </Card.Footer>
