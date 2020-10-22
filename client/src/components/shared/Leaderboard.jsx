@@ -29,7 +29,7 @@ function Leaderboard(props) {
           {users.map((user, index) => (
             <tr>
               <td> {index + 1} </td>
-              <td > {user.name} </td>
+              <td> {user.name} </td>
               <td> {user.score} </td>
             </tr>
           ))}

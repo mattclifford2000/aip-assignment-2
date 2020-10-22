@@ -29,12 +29,12 @@ function Logout(props) {
   return (
     <div>
       <h1> Are you sure you want to logout? </h1>
-      <Button>
-        <a href="/" onClick={handleLogout}> Yes </a>
+      <Button href="/" onClick={handleLogout}>
+        Yes
       </Button>
 
-      <Button variant="danger">
-        <a href="/requests" > No </a>
+      <Button variant="danger" href="/requests">
+        No
       </Button>
     </div>
   )

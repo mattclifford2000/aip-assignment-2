@@ -85,7 +85,7 @@ router.post("/new", async (req, res) => {
     coffees: request.coffees,
     candies: request.candies
   });
-  const savedRequest = await newRequest.save();
+  const savedRequest = newRequest.save();
   return res.status(200).send(savedRequest);
 });
 

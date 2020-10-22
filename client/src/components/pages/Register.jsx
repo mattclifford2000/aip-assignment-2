@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
 import { Button, Card, Form, Modal } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import "../../styles/Login.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
@@ -48,6 +48,7 @@ function Register(props) {
         if (response.status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
+
         } else {
           setIsError(true);
         }
@@ -57,7 +58,10 @@ function Register(props) {
       });
 
 
-    setShow(true)
+    //uncomment this to enable modal
+    // setShow(true)
+
+
   }
 
   if (localStorage.getItem('loggedIn') === true) {
@@ -148,4 +152,4 @@ function Register(props) {
   );
 }
 
-export default Register;
+export default withRouter(Register);
