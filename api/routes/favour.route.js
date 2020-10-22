@@ -31,6 +31,8 @@ router.post("/new", async (req, res) => {
   const favour = new Favour({
     debitorID: ((req.body.owed) ? verifiedUser.user._id : externalUser.id),
     creditorID: (!(req.body.owed) ? verifiedUser.user._id : externalUser.id),
+    debitorName: req.body.myname,
+    creditorName: req.body.externalemail,
     name: req.body.name,
     content: req.body.content,
     completed: false,

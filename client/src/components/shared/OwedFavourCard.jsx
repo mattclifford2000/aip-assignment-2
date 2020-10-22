@@ -18,11 +18,11 @@ class RewardCard extends React.Component {
       this.props.onInputChange(e);
     }
 */
-/*
-    handleDelete(favour){
-      this.props.onDelete(favour);
-    }
-*/
+  /*
+      handleDelete(favour){
+        this.props.onDelete(favour);
+      }
+  */
 
   render() {
     const favour = this.props.favour;
@@ -41,7 +41,7 @@ class RewardCard extends React.Component {
               <Card.Title> <h2>{favour.name}</h2> </Card.Title>
               <Card.Text>
                 <p> {favour.content} </p>
-                <p> Owed To: {favour.creditorName} </p>
+                <p> Owes you: {favour.creditorName} </p>
                 <br></br>
                 <br></br>
                 <span display="inline">

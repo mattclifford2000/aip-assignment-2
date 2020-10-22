@@ -40,7 +40,7 @@ class RewardCard extends React.Component {
               <Card.Title> <h2>{favour.name}</h2> </Card.Title>
               <Card.Text>
                 <p> {favour.content} </p>
-                <p> Owed To: {favour.creditorName} </p>
+                <p> Owed to: {favour.creditorName} </p>
                 <br></br>
                 <br></br>
                 <span display="inline">
@@ -76,6 +76,7 @@ class RewardCard extends React.Component {
               {cardFooterAccept}
               <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
               <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
+
 
             </Card.Footer>
           </Card>
