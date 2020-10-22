@@ -20,6 +20,24 @@ function Requests(props) {
     setShow(false)
   }
 
+
+  const handleDelete = (request) => {
+    //e.preventDefault();
+    console.log(localStorage.getItem('userID'));
+
+    axios
+      .post("/request/delete", {
+        requestID: request._id,
+        authToken: localStorage.getItem('authToken')
+      })
+      .then((res) => {
+        setRequests(res.data);
+      });
+
+  }
+
+
+
   function handleAccept(request) {
 
     const urlUser = "http://localhost:9000/login/findUser";
@@ -28,7 +46,7 @@ function Requests(props) {
 
 
     const urlUserOther = "http://localhost:9000/login/findUserOther";
-    const debitorID = localStorage.getItem('userID')
+    const debitorID = localStorage.getItem('userID');
     const debitor = "";
 
     //get request creator's email address for favour debitorID
@@ -103,7 +121,7 @@ function Requests(props) {
 
       <Row max-width="100%">
         {requests.map((request) => (
-          <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add
+          <RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard> //onaccept add
         ))}
       </Row>
 
