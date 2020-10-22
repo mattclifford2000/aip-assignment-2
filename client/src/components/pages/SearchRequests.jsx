@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row, Spinner } from "react-bootstrap";
+import { Row, Spinner, Button, Modal } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -16,6 +16,8 @@ function SearchRequests(props) {
     let { query } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
         if (query) {
@@ -31,7 +33,9 @@ function SearchRequests(props) {
 
     }, []);
 
-
+    function handleClose() {
+        setShow(false)
+    }
     function handleAccept(request) {
 
         const urlUser = "/login/findUser";
@@ -87,7 +91,7 @@ function SearchRequests(props) {
                             })
                     })
             })
-
+        setShow(true)
     }
 
 
@@ -126,6 +130,17 @@ function SearchRequests(props) {
                     <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add
                 ))}
             </Row>
+
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Ok
+          </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
