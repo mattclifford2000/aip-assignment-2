@@ -9,32 +9,33 @@ const Favour = require("../models/Favour.model");
 
 router.get("/favour", async (req, res) => {
   const favour = await Favour.findOne({ _id: req.query.id });
-  let rewards = [];
+  /*let rewards = [];
   for (const rewardID of favour.rewardIDs) {
     rewards = rewards.concat(await Reward.findOne({ _id: rewardID }));
   }
-  console.log(rewards);
+  console.log(rewards);*/
   res.json(
     {
       favour: favour,
-      rewards: rewards
+      //rewards: rewards
     }
   );
   //console.log(favour, rewards);
 });
 
 router.post("/new", async (req, res) => {
+  console.log(req.body);
   let verifiedUser = verifyUser(req.body.token);
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  const rewardIDs = await addRewards(req.body.rewards);
+  //const rewardIDs = await addRewards(req.body.rewards);
 
   const externalUser = await User.findOne({ email: req.body.externalemail });
 
   if (externalUser == null) {
     console.log("No User of that email exists")
-    return res.status(404).send("No User of that email exists");
+    return res.status(404).send("No user of that email exists");
   }
 
   const favour = new Favour({
@@ -43,7 +44,12 @@ router.post("/new", async (req, res) => {
     name: req.body.name,
     content: req.body.content,
     completed: false,
-    rewardIDs: rewardIDs
+    chocolates: req.body.chocolates,
+    mints: req.body.mints,
+    pizzas: req.body.pizzas,
+    coffees: req.body.coffees,
+    candies: req.body.candies,
+    imageURL: req.body.imageURL
   });
 
   const savedFavour = await favour.save();
@@ -66,7 +72,6 @@ router.post("/requestToFavour", async (req, res) => {
     pizzas: req.body.pizzas,
     coffees: req.body.coffees,
     candies: req.body.candies,
-    rewardIDs: rewardIDs
   });
 
   const savedFavour = await favour.save();

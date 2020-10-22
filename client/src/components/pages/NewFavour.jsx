@@ -3,7 +3,6 @@ import { Button, Form, Card, ButtonGroup } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
-import NewReward from "../shared/NewReward"
 import OperationModal from "../shared/OperationModal"
 
 import { isValidElement } from "react";
@@ -18,12 +17,11 @@ export default class NewFavourComponent extends Component {
       name: "",
       content: "",
       completed: false,
-      rewards: Array(),
-      errors: {
-        favourname: "",
-        favourcontent: "",
-        favourcompleted: "",
-      },
+      chocolates: 0,
+      mints: 0,
+      pizzas: 0,
+      coffees: 0,
+      candies: 0,
       status: null,
       showModal: false,
       image: null,
@@ -54,20 +52,14 @@ export default class NewFavourComponent extends Component {
       formData.append('upload_preset', imgPreset);
       try {
         const res = await axios.post(imgUploadURL, formData);
-        this.state.imageURL = res.data.secure_url;
+        this.setState({
+          imageURL : res.data.secure_url
+        })
       } catch (err) {
         this.state.imageURL = "https://kr4m.com/wp-content/uploads/2019/05/Webp.net-compress-image-3.jpg"
         console.error(err);
       }
       console.log(this.state.imageURL);
-    }
-
-
-
-
-    let validRewards = [];
-    for (const reward of this.state.rewards) {
-      if (reward != null) validRewards = validRewards.concat(reward)
     }
 
     const favour = {
@@ -77,8 +69,12 @@ export default class NewFavourComponent extends Component {
       name: this.state.name,
       content: this.state.content,
       completed: this.state.completed,
-      rewards: validRewards,
-      image: this.state.image
+      chocolates: this.state.chocolates,
+      mints: this.state.mints,
+      pizzas: this.state.pizzas,
+      coffees: this.state.coffees,
+      candies: this.state.candies,
+      imageURL: this.state.imageURL
     };
 
     const url = "/favour/new";
@@ -86,7 +82,6 @@ export default class NewFavourComponent extends Component {
     await axios
       .post(url, favour)
       .then((response) => {
-        //console.log(response.status);
         this.setState({
           status: response.status,
           showModal: true,
@@ -94,6 +89,10 @@ export default class NewFavourComponent extends Component {
 
       })
       .catch((error) => {
+        this.setState({
+          status: error,
+          showModal: true,
+        })
         console.error(error);
       });
   };
@@ -117,33 +116,7 @@ export default class NewFavourComponent extends Component {
     });
   }
 
-  //ROUGH IMPLEMENTATION PASSING REWARD KEY THROUGH EVENT ID, IMPROVE 
-  handleRewardInputChange = (e) => {
-    const { name, value, id } = e.target;
-    switch (name) {
-      case "name":
-        this.state.rewards[id].name = value;
-        break;
-      case "content":
-        this.state.rewards[id].content = value;
-        break;
-      default:
-        break;
-    };
-    this.setState({
-      rewards: this.state.rewards
-    });
-  };
 
-  handleRewardDelete = (e) => {
-    console.log(e.target);
-    const { id } = e.target;
-    let updatedRewards = this.state.rewards;
-    updatedRewards[id] = null;
-    this.setState({
-      rewards: updatedRewards
-    })
-  }
 
 
   handleInputChange = (e) => {
@@ -153,18 +126,6 @@ export default class NewFavourComponent extends Component {
     const { name, value } = e.target;
     let errors = this.state.errors;
     switch (name) {
-      case "name":
-        errors.favourname =
-          value.length < 3 || value.length > 1024
-            ? "Your favour name must be 3 characters or longer."
-            : "";
-        break;
-      case "content":
-        errors.favourcontent =
-          value.length < 3 || value.length > 1024
-            ? "Your favour description must be 3 characters or longer."
-            : "";
-        break;
       case "owebutton":
         this.setState({ owed: false });
         break;
@@ -206,7 +167,8 @@ export default class NewFavourComponent extends Component {
                 variant="info"
                 onClick={this.handleInputChange}
 
-              >I am owed</Button>            </ButtonGroup>
+              >I am owed</Button>            
+              </ButtonGroup>
             <Form.Group controlId="token">
               <Form.Control
                 type="hidden"
@@ -239,10 +201,9 @@ export default class NewFavourComponent extends Component {
                 type="string"
                 name="name"
                 placeholder="Enter favour name"
-                value={this.state.favourname}
+                value={this.state.name}
                 onChange={this.handleInputChange}
               />
-              <p> {this.state.errors.favourname} </p>
             </Form.Group>
             <Form.Group controlId="content">
               <Form.Label>Favour Description</Form.Label>
@@ -250,23 +211,70 @@ export default class NewFavourComponent extends Component {
                 type="string"
                 name="content"
                 placeholder="Enter a description of the favour"
-                value={this.state.favourcontent}
+                value={this.state.content}
                 onChange={this.handleInputChange}
               />
-              <p> {this.state.errors.favourcontent} </p>
+<br></br>
+              {/* DUMPED FROM NEW REQUEST*/}
+              <h3> Rewards: </h3>
+            <Form.Group controlId="chocolates">
+              <Form.Label>Chocolates</Form.Label>
+              <Form.Control
+                name="chocolates"
+                type="number"
+                placeholder={this.state.chocolates}
+                value={this.state.chocolates}
+                onChange={this.handleInputChange}
+              />
             </Form.Group>
-            {
-              this.state.rewards.map((data) => (
-                <NewReward data={data} onInputChange={this.handleRewardInputChange} onDelete={this.handleRewardDelete}></NewReward>
-              ))
-            }
-            <Form.Group>
-              <Button
-                name="addreward"
-                variant="success"
-                onClick={this.addReward}
-              >+ Add a reward</Button>
+
+            <Form.Group controlId="mints">
+              <Form.Label>Mints</Form.Label>
+              <Form.Control
+                name="mints"
+                type="number"
+                placeholder={this.state.mints}
+                value={this.state.mints}
+                onChange={this.handleInputChange}
+              />
             </Form.Group>
+
+            <Form.Group controlId="pizzas">
+              <Form.Label>Pizzas</Form.Label>
+              <Form.Control
+                name="pizzas"
+                type="number"
+                placeholder={this.state.pizzas}
+                value={this.state.pizzas}
+                onChange={this.handleInputChange}
+
+              />
+            </Form.Group>
+
+            <Form.Group controlId="coffees">
+              <Form.Label>Coffees</Form.Label>
+              <Form.Control
+                name="coffees"
+                type="number"
+                placeholder={this.state.coffees}
+                value={this.state.coffees}
+                onChange={this.handleInputChange}
+
+              />
+            </Form.Group>
+
+            <Form.Group controlId="candies">
+              <Form.Label>Candies</Form.Label>
+              <Form.Control
+                name="candies"
+                type="number"
+                placeholder={this.state.candies}
+                value={this.state.candies}
+                onChange={this.handleInputChange}
+
+              />
+            </Form.Group>
+            {/* END DUMP */}
             <Form.Group>
               <input type="file" name="myImage" onChange={this.onChangeImg} />
             </Form.Group>
@@ -279,6 +287,7 @@ export default class NewFavourComponent extends Component {
                   </Button>
 
                 )}
+            </Form.Group>
             </Form.Group>
 
 

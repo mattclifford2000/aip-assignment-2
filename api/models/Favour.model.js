@@ -56,13 +56,9 @@ const FavourSchema = new Schema({
     unique: false,
     required: false,
   },
-  imageURL: String,
-  rewardIDs: [{
-    type: Schema.Types.ObjectId,
-    unique: false,
-    ref: "Reward",
-    required: false,
-  }]
+  imageURL: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Favour", FavourSchema);
