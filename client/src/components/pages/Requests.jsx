@@ -49,6 +49,7 @@ function Requests(props) {
             const favour = {
               token: localStorage.getItem("authToken"),
               creditorID: OwnerID, // request creator email
+              creditorName: request.ownerName,
               debitorID: debitorID, //my email
               externalemail: owner.email,
               owed: owner.email,
@@ -92,6 +93,14 @@ function Requests(props) {
     <div id="requests">
       <h1> Requests</h1>
       <p>  These are public requests made by others </p>
+
+      {localStorage.getItem('loggedIn') == null || localStorage.getItem('loggedIn') == "false" &&
+        (
+          <p>  Log in to start accepting requests </p>
+        )}
+
+
+
       <Row max-width="100%">
         {requests.map((request) => (
           <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add

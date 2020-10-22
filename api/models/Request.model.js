@@ -8,6 +8,10 @@ const RequestSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  ownerName: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true

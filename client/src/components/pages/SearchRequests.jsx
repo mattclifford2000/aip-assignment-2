@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row, Spinner } from "react-bootstrap";
+import { Row, Spinner, Modal, Button } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -16,20 +16,27 @@ function SearchRequests(props) {
     let { query } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
-        if(query){
-        const url = "/request/searchRequest";
-        axios
-            .post(url, { query })
-            .then((response) => {
-                setRequests(response.data);
-            })
-        setResultIndicator(query);
-    }
-    setLoading(false);
 
-}, []);
+        if (query) {
+        const url = "/request/searchRequest";
+            axios
+                .post(url, { query })
+                .then((response) => {
+                    setRequests(response.data);
+                })
+            setResultIndicator(query);
+        }
+        setLoading(false);
+
+    }, []);
+
+    function handleClose() {
+        setShow(false)
+
 
 
     function handleAccept(request) {
@@ -63,6 +70,7 @@ function SearchRequests(props) {
                             creditorID: OwnerID, // request creator email
                             debitorID: debitorID, //my email
                             externalemail: owner.email,
+                            creditorName: request.ownerName,
                             owed: owner.email,
                             name: request.name,
                             content: request.content,
@@ -86,15 +94,15 @@ function SearchRequests(props) {
                             })
                     })
             })
-
+        setShow(true)
     }
 
 
-  if (isLoading) {
-    return <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>;
-  }
+    if (isLoading) {
+        return <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+        </Spinner>;
+    }
 
     return (
         <div>
@@ -120,11 +128,24 @@ function SearchRequests(props) {
 
 
 
-        <Row>
+            <Row>
                 {requests.map((request) => (
-         <RequestCard request={request} onAccept={()=> {this.handleAccept(request)}}></RequestCard> //onaccept add
-         ))}
-                </Row>
+                    <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add
+                ))}
+            </Row>
+
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Ok
+          </Button>
+                </Modal.Footer>
+            </Modal>
+
+
         </div>
     );
 }
@@ -132,16 +153,16 @@ function SearchRequests(props) {
 //export default SearchRequests;
 export default function App() {
     return (
-      <Router>
-        <Switch>
-          <Route path="/searchrequests/:query" children={<SearchRequests />} />
-          <Route path="/searchrequests/" children={<SearchRequests />} />
+        <Router>
+            <Switch>
+                <Route path="/searchrequests/:query" children={<SearchRequests />} />
+                <Route path="/searchrequests/" children={<SearchRequests />} />
 
-        </Switch>
-      </Router>
+            </Switch>
+        </Router>
     );
-  }
-  
-  const rootElement = document.getElementById("root");
-  ReactDOM.render(<App />, rootElement);
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 

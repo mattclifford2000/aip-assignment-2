@@ -128,6 +128,7 @@ function Profile(props) {
           <li class="request">
             <h2> {favour.name} </h2>
             <p>Request Description: {favour.content}</p>
+            <p> Owed to: {favour.creditorName}</p>
             <h3> Rewards: </h3>
             {favour.chocolates != 0 && favour.chocolates != null &&
               (

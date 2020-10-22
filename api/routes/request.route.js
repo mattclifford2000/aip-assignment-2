@@ -76,6 +76,7 @@ router.post("/new", async (req, res) => {
   }
   const newRequest = new Request({
     ownerID: request.ownerID,
+    ownerName: request.ownerName,
     name: request.name,
     content: request.content,
     completed: request.completed,

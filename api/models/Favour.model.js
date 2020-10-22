@@ -12,6 +12,10 @@ const FavourSchema = new Schema({
     unique: false,
     ref: "User",
   },
+  creditorName: {
+    type: String,
+    unique: false,
+  },
   name: {
     type: String,
     unique: false,

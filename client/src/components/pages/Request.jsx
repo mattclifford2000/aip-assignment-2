@@ -49,6 +49,7 @@ function Request(props) {
         <Card.Body>
          <Card.Title> <h2>{request.name}</h2> </Card.Title>
         <Card.Text>
+                        <p> Requested by: {request.ownerName} </p>
         {request.content}
         <br></br>
         <br></br>
@@ -87,6 +88,7 @@ function Request(props) {
           (
             <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
           )}
+
 
             {(localStorage.getItem('userID') === request.ownerID) ?
 
