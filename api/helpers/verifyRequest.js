@@ -1,15 +1,15 @@
 const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
-export const verifyRequest = (request) => {
+const verifyRequest = (request) => {
   console.log("Request: ");
   console.log(request);
   const schema = Joi.object({
     ownerID: Joi.objectId(),
-    ownerName: Joi.string().min(6).max(36),
+    ownerName: Joi.string(),
     name: Joi.string().min(6),
     content: Joi.string().min(6),
-    completed: Joi.boolean().invalid(true),
+    completed: Joi.boolean(),
     chocolates: Joi.number(),
     mints: Joi.number(),
     pizzas: Joi.number(),
@@ -19,3 +19,5 @@ export const verifyRequest = (request) => {
   console.log(schema.validate(request));
   return schema.validate(request);
 };
+
+module.exports.verifyRequest = verifyRequest;

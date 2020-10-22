@@ -41,6 +41,9 @@ function NewRequests(props) {
       .post(url, { request, authToken: localStorage.getItem("authToken") })
       .then((response) => {
         setStatus(response.status);
+      })
+      .catch((e) => {
+        console.log(e);
       });
     setShowModal(true);
   }

@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
 import { Button, Card, Form, Alert } from "react-bootstrap";
@@ -7,8 +6,7 @@ import "../../styles/Login.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
-import OperationModal from "../shared/OperationModal"
-
+import OperationModal from "../shared/OperationModal";
 
 function Register(props) {
   const [email, setEmail] = useState("");
@@ -22,11 +20,8 @@ function Register(props) {
   const [URL, setURL] = useState(null);
   const [status, setStatus] = useState(null);
 
-
-
-
   function handleSubmit(e) {
-    if(!validateEmail(email)|| name.length < 6 || password.length < 8){
+    if (!validateEmail(email) || name.length < 6 || password.length < 8) {
       setStatus(400);
       setShowModal(true);
       return;
@@ -54,40 +49,44 @@ function Register(props) {
         if (status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
-
         } else {
         }
       })
       .catch((e) => {
         console.log(e);
       });
-      setShowModal(true);
+    setShowModal(true);
   }
 
-  function handleClose () {
+  function handleClose() {
     setShowModal(false);
-    if(status === 200){
+    if (status === 200) {
       setURL("/profile");
     }
-  };
+  }
 
-  if (localStorage.getItem('loggedIn') === true) {
+  if (localStorage.getItem("loggedIn") === true) {
     return <Redirect to="/" />;
   }
 
-  if(URL !== null){
-    return(<Redirect to={URL}></Redirect>)
+  if (URL !== null) {
+    return <Redirect to={URL}></Redirect>;
   }
 
   function validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return (re.test(String(email).toLowerCase()) && email.length > 6);
-}
+    return re.test(String(email).toLowerCase()) && email.length > 6;
+  }
 
   return (
-    
     <div className="registerform">
-    <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
+      <OperationModal
+        status={status}
+        show={showModal}
+        onHandleClose={() => {
+          handleClose();
+        }}
+      ></OperationModal>
       <Card style={{ width: "18rem" }}>
         <Card.Header>Register</Card.Header>
         <br></br>
@@ -103,8 +102,9 @@ function Register(props) {
                 setEmail(e.target.value);
               }}
             />
-            {(!validateEmail(email)) && <Form.Text>Please enter a valid email</Form.Text>}
-            
+            {!validateEmail(email) && (
+              <Form.Text>Please enter a valid email</Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group controlId="name">
@@ -118,8 +118,11 @@ function Register(props) {
                 setName(e.target.value);
               }}
             />
-            {(name.length < 6) && <Form.Text>Please enter a name greater than 6 characters</Form.Text>}
-
+            {name.length < 6 && (
+              <Form.Text>
+                Please enter a name greater than 6 characters
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group controlId="password">
@@ -133,8 +136,11 @@ function Register(props) {
                 setPassword(e.target.value);
               }}
             />
-                        {(password.length < 6) && <Form.Text>Please enter a password greater than 8 characters</Form.Text>}
-
+            {password.length < 6 && (
+              <Form.Text>
+                Please enter a password greater than 8 characters
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group controlId="dateofbirth">
@@ -148,21 +154,23 @@ function Register(props) {
               }}
               placeholder="Date of Birth"
             />
-                        {(dob <= new Date()) && <Form.Text>Please choose a valid DOB</Form.Text>}
-
-          </Form.Group>       
-              <Button variant="primary" onClick={(e) => {handleSubmit(e)}}>
-                Submit
-
-              </Button>
-              <br></br>
+            {dob <= new Date() && (
+              <Form.Text>Please choose a valid DOB</Form.Text>
+            )}
+          </Form.Group>
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            Submit
+          </Button>
+          <br></br>
 
           <Link to="/login">Already have an account?</Link>
         </Form>
       </Card>
-
-
-
     </div>
   );
 }
