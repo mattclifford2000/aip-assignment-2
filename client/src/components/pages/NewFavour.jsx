@@ -24,6 +24,7 @@ export default class NewFavourComponent extends Component {
       candies: 0,
       status: null,
       showModal: false,
+      showErrorModal: false,
       image: null,
       imageURL: null
     };
@@ -40,62 +41,72 @@ export default class NewFavourComponent extends Component {
     }
   };
 
+  handleErrorClose = () => {
+    this.setState({showErrorModal: false})
+  }
+
   handleSubmit = async (e) => {
 
 
-    console.log(this.state.image == null);
-    if (this.state.image !== null) {
-      const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
-      const imgPreset = 'w58gpgxt';
-      const formData = new FormData();
-      formData.append('file', this.state.image);
-      formData.append('upload_preset', imgPreset);
-      try {
-        const res = await axios.post(imgUploadURL, formData);
-        this.setState({
-          imageURL: res.data.secure_url
-        })
-      } catch (err) {
-        this.state.imageURL = "https://kr4m.com/wp-content/uploads/2019/05/Webp.net-compress-image-3.jpg"
-        console.error(err);
-      }
-      console.log(this.state.imageURL);
-    }
-
-    const favour = {
-      token: localStorage.getItem("authToken"),
-      externalemail: this.state.externalemail,
-      myname: localStorage.getItem("username"),
-      owed: this.state.owed,
-      name: this.state.name,
-      content: this.state.content,
-      completed: this.state.completed,
-      chocolates: this.state.chocolates,
-      mints: this.state.mints,
-      pizzas: this.state.pizzas,
-      coffees: this.state.coffees,
-      candies: this.state.candies,
-      imageURL: this.state.imageURL
-    };
-
-    const url = "/favour/new";
-
-    await axios
-      .post(url, favour)
-      .then((response) => {
-        this.setState({
-          status: response.status,
-          showModal: true,
-        })
-
+    if (this.state.owed && this.state.image === null){
+      console.log("You need an image");
+      this.setState({
+        showErrorModal: true
       })
-      .catch((error) => {
-        this.setState({
-          status: error,
-          showModal: true,
+    } else {
+      if (this.state.image !== null) {
+        const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
+        const imgPreset = 'w58gpgxt';
+        const formData = new FormData();
+        formData.append('file', this.state.image);
+        formData.append('upload_preset', imgPreset);
+        try {
+          const res = await axios.post(imgUploadURL, formData);
+          this.setState({
+            imageURL: res.data.secure_url
+          })
+        } catch (err) {
+          this.state.imageURL = "https://kr4m.com/wp-content/uploads/2019/05/Webp.net-compress-image-3.jpg"
+          console.error(err);
+        }
+        console.log(this.state.imageURL);
+      }
+
+      const favour = {
+        token: localStorage.getItem("authToken"),
+        externalemail: this.state.externalemail,
+        myname: localStorage.getItem("username"),
+        owed: this.state.owed,
+        name: this.state.name,
+        content: this.state.content,
+        completed: this.state.completed,
+        chocolates: this.state.chocolates,
+        mints: this.state.mints,
+        pizzas: this.state.pizzas,
+        coffees: this.state.coffees,
+        candies: this.state.candies,
+        imageURL: this.state.imageURL
+      };
+
+      const url = "/favour/new";
+
+      await axios
+        .post(url, favour)
+        .then((response) => {
+          this.setState({
+            status: response.status,
+            showModal: true,
+          })
+
         })
-        console.error(error);
-      });
+        .catch((error) => {
+          this.setState({
+            status: error,
+            showModal: true,
+          })
+          console.error(error);
+        });
+      }
   };
 
 
@@ -154,6 +165,7 @@ export default class NewFavourComponent extends Component {
         {/*Reuse RegisterForm styling for now*/}
 
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
+        <OperationModal status={this.state.status} show={this.state.showErrorModal} onHandleClose={this.handleErrorClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
           <Form noValidate>
             <ButtonGroup aria-label="Favour Choice">
