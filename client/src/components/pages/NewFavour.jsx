@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
 import { Button, Form, Card, ButtonGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
 import NewReward from "../shared/NewReward"
@@ -26,12 +26,20 @@ export default class NewFavourComponent extends Component {
       },
       status: null,
       showModal: false,
-      image: null
+      image: null,
+      URL: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
   }
-  handleClose = () => this.setState({showModal: false})
+  handleClose = () => {
+    this.setState({
+      showModal: false
+    });
+    if(this.state.status === 200){
+      this.setState({URL: "/profile"})
+    }
+  };
 
    handleSubmit = async (e) => {
     let validRewards = [];
@@ -50,7 +58,7 @@ export default class NewFavourComponent extends Component {
       image: this.state.image
     };
 
-    const url = "http://localhost:9000/favour/new";
+    const url = "/favour/new";
 
     await axios
       .post(url, favour)
@@ -152,11 +160,12 @@ export default class NewFavourComponent extends Component {
 
 
   render() {
+    if(this.state.URL !== null){
+      return(<Redirect to={this.state.URL}></Redirect>)
+    }
     return (
       <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
-
-        
 
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <Card style={{ width: "18rem" }}>

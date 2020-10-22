@@ -1,8 +1,8 @@
 .registerform {
-    margin: auto;
-    width: 300px;
+  margin: auto;
+  width: 300px;
 }
 
-#registerform{
-    padding-top: 100px;
+.registerform {
+  margin-top: 5rem;
 }

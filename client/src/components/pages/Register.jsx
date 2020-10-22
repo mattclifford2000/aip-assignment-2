@@ -1,12 +1,14 @@
 
 import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
-import { Button, Card, Form, Modal } from "react-bootstrap";
+import { Button, Card, Form, Alert } from "react-bootstrap";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import "../../styles/Login.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
+import OperationModal from "../shared/OperationModal"
+
 
 function Register(props) {
   const [email, setEmail] = useState("");
@@ -14,19 +16,22 @@ function Register(props) {
   const [name, setName] = useState("");
   const [dob, setDOB] = useState(new Date(0));
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isError, setIsError] = useState(false);
   const { setAuthTokens } = useAuth();
-  const [show, setShow] = useState(false);
+  //const [errors, setErrors] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [URL, setURL] = useState(null);
+  const [status, setStatus] = useState(null);
 
 
-  function handleClose(e) {
-    setShow(false);
-  }
 
 
   function handleSubmit(e) {
+    if(!validateEmail(email)|| name.length < 6 || password.length < 8){
+      setStatus(400);
+      setShowModal(true);
+      return;
+    }
     e.preventDefault();
-
     const user = {
       name: name,
       email: email,
@@ -41,36 +46,51 @@ function Register(props) {
     console.log(user);
     console.log({ user });
 
-    const url = "http://localhost:9000/register";
+    const url = "/register";
     axios
       .post(url, user)
       .then((response) => {
-        if (response.status === 200) {
+        setStatus(response.status);
+        if (status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
 
         } else {
-          setIsError(true);
         }
       })
       .catch((e) => {
-        setIsError(true);
+        console.log(e);
       });
 
-
-    //uncomment this to enable modal
-    // setShow(true)
-
-
   }
+
+  function handleClose () {
+    setShowModal(false);
+    if(status === 200){
+      setURL("/profile");
+    }
+  };
 
   if (localStorage.getItem('loggedIn') === true) {
     return <Redirect to="/" />;
   }
 
+  if(URL !== null){
+    return(<Redirect to={URL}></Redirect>)
+  }
+
+  function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return (re.test(String(email).toLowerCase()) && email.length > 6);
+}
+
   return (
+    
     <div className="registerform">
+    <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
       <Card style={{ width: "18rem" }}>
+        <Card.Header>Register</Card.Header>
+        <br></br>
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>
@@ -81,9 +101,10 @@ function Register(props) {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                console.log(email);
               }}
             />
+            {(!validateEmail(email)) && <Form.Text>Please enter a valid email</Form.Text>}
+            
           </Form.Group>
 
           <Form.Group controlId="name">
@@ -97,6 +118,8 @@ function Register(props) {
                 setName(e.target.value);
               }}
             />
+            {(name.length < 6) && <Form.Text>Please enter a name greater than 6 characters</Form.Text>}
+
           </Form.Group>
 
           <Form.Group controlId="password">
@@ -110,6 +133,8 @@ function Register(props) {
                 setPassword(e.target.value);
               }}
             />
+                        {(password.length < 6) && <Form.Text>Please enter a password greater than 8 characters</Form.Text>}
+
           </Form.Group>
 
           <Form.Group controlId="dateofbirth">
@@ -123,30 +148,20 @@ function Register(props) {
               }}
               placeholder="Date of Birth"
             />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+                        {<Form.Text>Please choose a valid DOB</Form.Text>}
+
+          </Form.Group>       
+              <Button variant="primary" onClick={(e) => {handleSubmit(e)}}>
+                Submit
+
               </Button>
+              <br></br>
+
           <Link to="/login">Already have an account?</Link>
-          {isError && (
-            <Error>You have provided one or more invalid details. Please try again.</Error>
-          )}
         </Form>
       </Card>
 
 
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body> You successfully registered an account with Favour Center
-          <Button href="/login"> Login </Button>
-        </Modal.Body>
-        <br></br>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal>
 
     </div>
   );
