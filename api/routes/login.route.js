@@ -66,10 +66,8 @@ router.post("/findUserOther", async (req, res) => { //bad route name, will fix l
 
 
 router.post("/findUserProfile", async (req, res) => { //bad route name, will fix later
-  console.log(req.body.userID)
   const userID = req.body.userID;
   const user = await User.findOne({ _id: userID });
-  console.log(user)
   res.json(user)
 });
 
