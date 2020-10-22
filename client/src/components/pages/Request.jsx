@@ -87,13 +87,15 @@ function Request(props) {
           (
             <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
           )}
+
             {(localStorage.getItem('userID') === request.ownerID) ?
 
-<Button onClick={() => handleDelete(request)} variant="danger">Delete</Button> : ""}
+              <Button onClick={() => handleDelete(request)} variant="danger">Delete</Button> : ""}
+
           </Card.Footer>
-          </Card>
-          </Col>
-</Row>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 

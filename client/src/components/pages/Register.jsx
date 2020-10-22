@@ -24,6 +24,7 @@ function Register(props) {
 
 
 
+
   function handleSubmit(e) {
     if(!validateEmail(email)|| name.length < 6 || password.length < 8){
       setStatus(400);
@@ -43,7 +44,7 @@ function Register(props) {
       requests: [],
     };
     console.log(user);
-    console.log({user});
+    console.log({ user });
 
     const url = "/register";
     axios
@@ -53,13 +54,14 @@ function Register(props) {
         if (status === 200) {
           setAuthTokens(response.data);
           setLoggedIn(true);
+
         } else {
         }
       })
       .catch((e) => {
         console.log(e);
       });
-      setShowModal(true);
+
   }
 
   function handleClose () {
@@ -119,7 +121,7 @@ function Register(props) {
             {(name.length < 6) && <Form.Text>Please enter a name greater than 6 characters</Form.Text>}
 
           </Form.Group>
-          
+
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -134,7 +136,7 @@ function Register(props) {
                         {(password.length < 6) && <Form.Text>Please enter a password greater than 8 characters</Form.Text>}
 
           </Form.Group>
-         
+
           <Form.Group controlId="dateofbirth">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
@@ -151,14 +153,30 @@ function Register(props) {
           </Form.Group>       
               <Button variant="primary" onClick={(e) => {handleSubmit(e)}}>
                 Submit
+
               </Button>
               <br></br>
 
           <Link to="/login">Already have an account?</Link>
         </Form>
       </Card>
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body> You successfully registered an account with Favour Center
+          <Button href="/login"> Login </Button>
+        </Modal.Body>
+        <br></br>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 }
 
-export default Register;
+export default withRouter(Register);

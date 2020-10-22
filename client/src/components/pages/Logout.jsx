@@ -17,7 +17,7 @@ function Logout(props) {
 
 
   function handleLogout(e) {
-    localStorage.setItem('user', null);
+    localStorage.setItem('userID', null);
     localStorage.setItem('loggedIn', false);
     localStorage.setItem('authToken', null);
   }
@@ -28,7 +28,10 @@ function Logout(props) {
 
   return (
     <div>
+              <h1> Are you sure you want to logout? </h1>
+
       <Button variant="info" size="lg" href="/" onClick={handleLogout}> Logout </Button>
+
     </div>
   )
 }

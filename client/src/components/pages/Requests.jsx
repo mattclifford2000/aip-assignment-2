@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row } from "react-bootstrap";
+import { Row, Modal, Button } from "react-bootstrap";
 import RequestCard from "../shared/RequestCard";
 import "./../../styles/Requests.scss";
 
@@ -8,10 +8,16 @@ import "./../../styles/Requests.scss";
 function Requests(props) {
   const [requests, setRequests] = useState([]);
   const [user, setUser] = useState();
+  const [show, setShow] = useState(false);
+
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log(e.target.value);
+  }
+
+  function handleClose(e) {
+    setShow(false)
   }
 
   function handleAccept(request) {
@@ -73,7 +79,7 @@ function Requests(props) {
               })
           })
       })
-
+    setShow(true)
   }
 
   useEffect(() => {
@@ -83,15 +89,28 @@ function Requests(props) {
   });
 
   return (
-<div id="requests">
-<h1> Requests</h1>
+    <div id="requests">
+      <h1> Requests</h1>
       <p>  These are public requests made by others </p>
-        <Row max-width="100%">
+      <Row max-width="100%">
         {requests.map((request) => (
-         <RequestCard request={request} onAccept={()=> {this.handleAccept(request)}}></RequestCard> //onaccept add
+          <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add
         ))}
-        </Row>
-        </div>
+      </Row>
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+    </div>
   );
 }
 
