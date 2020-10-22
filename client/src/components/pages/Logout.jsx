@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
-import { Link, Redirect, History } from "react-router-dom";
+import { Link, Redirect, History, useHistory } from "react-router-dom";
 import { Button, Form, Card, Navbar, Nav } from "react-bootstrap";
 import axios from "axios";
 import "../../styles/Login.css";
@@ -8,7 +8,7 @@ import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
 
 function Logout(props) {
-
+  const history = useHistory();
 
 
   /*  note: still need to fix logout page. Logout button is currently a link styled as a button. */
@@ -17,14 +17,21 @@ function Logout(props) {
 
 
   function handleLogout(e) {
-    localStorage.setItem('user', null);
+    localStorage.setItem('userID', null);
     localStorage.setItem('loggedIn', false);
     localStorage.setItem('authToken', null);
   }
 
+  function redirect() {
+    history.push("/");
+  }
+
   return (
     <div>
-      <a href="/" onClick={handleLogout}> Logout </a>
+      <h1> Are you sure you want to logout? </h1>
+
+      <Button variant="info" size="lg" href="/" onClick={handleLogout}> Logout </Button>
+      <Button variant="danger" size="lg" href="/" > No </Button>
     </div>
   )
 }

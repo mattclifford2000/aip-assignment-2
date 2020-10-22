@@ -21,7 +21,7 @@ function Login(props) {
       email: email,
       password: password,
     };
-    const url = "http://localhost:9000/login";
+    const url = "/login";
 
     axios
       .post(url, { login })
@@ -49,43 +49,49 @@ function Login(props) {
   }
 
   return (
-    <div className="loginform">
-      <p> Loggedin: {isLoggedIn} </p>
-      <Card style={{ width: "18rem" }}>
-        <Form onSubmit={handleSubmit} noValidate>
-          <Form.Group controlId="id">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+    <div>
+      <div className="loginform" id="login">
+        <Card style={{ width: "18rem" }}>
+        <Card.Header>Login</Card.Header>
+        <br></br>
+          <Form onSubmit={handleSubmit} noValidate>
+            <Form.Group controlId="id">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
           </Button>
-          <Link to="/register">Don't have an account?</Link>
-        </Form>
-        {isError && (
-          <Error>The username or password provided were incorrect!</Error>
-        )}
-      </Card>
+          <br></br>
+            <Link to="/register">Don't have an account?</Link>
+          </Form>
+          {isError && (
+            <Error>The username or password provided were incorrect!</Error>
+          )}
+        </Card>
+      </div>
+
+
     </div>
   );
 }

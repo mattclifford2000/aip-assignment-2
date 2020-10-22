@@ -12,21 +12,57 @@ const FavourSchema = new Schema({
     unique: false,
     ref: "User",
   },
-  favourname: {
+  creditorName: {
+    type: String,
+    unique: false,
+  },
+  name: {
     type: String,
     unique: false,
     required: true,
   },
-  favourcontent: {
+  content: {
     type: String,
     unique: false,
     required: true,
   },
-  favourcompleted: {
+  completed: {
     type: Boolean,
     unique: false,
     required: true,
   },
+  chocolates: {
+    type: Number,
+    unique: false,
+    required: false,
+  },
+  mints: {
+    type: Number,
+    unique: false,
+    required: false,
+  },
+  pizzas: {
+    type: Number,
+    unique: false,
+    required: false,
+  },
+  coffees: {
+    type: Number,
+    unique: false,
+    required: false,
+  },
+  candies: {
+    type: Number,
+    unique: false,
+    required: false,
+  },
+  imageURL: String,
+  rewardIDs: [{
+    type: Schema.Types.ObjectId,
+    unique: false,
+    ref: "Reward",
+    required: false,
+  }]
 });
 
 module.exports = mongoose.model("Favour", FavourSchema);

@@ -1,149 +1,175 @@
-import React, { Component, useState } from "react"; //eslint-disable-line
-import { Button, Form, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import "../../styles/Register.css";
+import React, { useState } from 'react';
+import { Button, Card, Form, Modal } from "react-bootstrap";
+import "../../styles/searchRequests.css";
+import "./../../styles/Home.css";
 
-export default class NewRequestComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      token: "",
-      name: "",
-      content: "",
-      completed: false,
-      chocolates: 0,
-      muffins: 0,
-      errors: {
-        name: "",
-        content: "",
-        completed: "",
-      },
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+function NewRequests(props) {
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+  const [userID, setUserID] = useState(localStorage.getItem("userID"));
+  const [chocolates, setChocolates] = useState(0)
+  const [mints, setMints] = useState(0)
+  const [pizzas, setPizzas] = useState(0)
+  const [coffees, setCoffees] = useState(0)
+  const [candies, setCandies] = useState(0)
+  const [show, setShow] = useState(false)
 
-  handleSubmit = (e) => {
-    console.log(this.state);
-    e.preventDefault();
+  function handleSubmit(e) {
 
     const request = {
-      token: localStorage.getItem("authToken"),
-      name: this.state.name,
-      content: this.state.content,
-      completed: this.state.completed,
-      chocolates: this.state.chocolates,
-      muffins: this.state.muffins
+      ownerID: localStorage.getItem("userID"),
+      ownerName: localStorage.getItem("username"),
+      name: name,
+      content: content,
+      completed: false,
+      chocolates: chocolates,
+      mints: mints,
+      pizzas: pizzas,
+      coffees: coffees,
+      candies: candies
     };
 
-    const url = "http://localhost:9000/request/new";
+    console.log(request)
 
+    const url = "/request/new";
     axios
-      .post(url, request)
+      .post(url, { request, authToken: localStorage.getItem('authToken') })
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
-        this.setState({ result: response.data });
+
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
 
-  handleInputChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    let errors = this.state.errors;
-    switch (name) {
-      case "name":
-        errors.name =
-          value.length < 3 || value.length > 1024
-            ? "Your request name must be 3 characters or longer."
-            : "";
-        break;
-      case "content":
-        errors.content =
-          value.length < 3 || value.length > 1024
-            ? "Your request description must be 3 characters or longer."
-            : "";
-        break;
-      default:
-        break;
-    }
-    this.setState({ [e.target.name]: e.target.value });
-  };
 
-  render() {
-    return (
-      <div className="registerform">
-        {/*Reuse RegisterForm styling for now*/}
+    setShow(true)
+  }
+
+
+
+  function handleClose(e) {
+    setShow(false)
+  }
+
+
+  return (
+    <div>
+      <h1> Submit a Request</h1>
+      <div class="searchRequestForm">
+
         <Card style={{ width: "18rem" }}>
-          <Form onSubmit={this.handleSubmit} noValidate>
-            <Form.Group controlId="token">
+          <Form onSubmit={handleSubmit} noValidate >
+            <Form.Group controlId="searchRequests">
+              <Form.Label>Request name</Form.Label>
               <Form.Control
-                type="hidden"
-                name="token"
-                value={localStorage.getItem("authToken")}
-              />
-            </Form.Group>
-            <Form.Group controlId="completed">
-              <Form.Control
-                type="hidden"
-                name="completed"
-                value={false}
-              />
-            </Form.Group>
-            <Form.Group controlId="name">
-              <Form.Label>Request Name</Form.Label>
-              <Form.Control
-                type="string"
                 name="name"
-                placeholder="Enter request name"
-                value={this.state.name}
-                onChange={this.handleInputChange}
-              />
-              <p> {this.state.errors.name} </p>
-            </Form.Group>
-            <Form.Group controlId="chocolates">
-              <Form.Label>Chocolates</Form.Label>
-              <Form.Control
-                type="number"
-                name="chocolates"
-                placeholder="How many chocolates?"
-                value={this.state.chocolates}
-                onChange={this.handleInputChange}
+                type="query"
+                placeholder="Request name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
               />
             </Form.Group>
-            <Form.Group controlId="muffins">
-              <Form.Label>Muffins</Form.Label>
-              <Form.Control
-                type="number"
-                name="muffins"
-                placeholder="How many muffins?"
-                value={this.state.muffins}
-                onChange={this.handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="content">
+            <Form.Group controlId="searchRequests">
               <Form.Label>Request Description</Form.Label>
               <Form.Control
-                type="string"
                 name="content"
-                placeholder="Enter a description of the request"
-                value={this.state.content}
-                onChange={this.handleInputChange}
+                type="query"
+                placeholder="Request description"
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
               />
-              <p> {this.state.errors.content} </p>
             </Form.Group>
-            {this.state.name.length >= 3 &&
-              this.state.content.length >= 3 && (
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              )}
+            <h3> Rewards: </h3>
+            <Form.Group controlId="searchRequests">
+              <Form.Label>Chocolates</Form.Label>
+              <Form.Control
+                name="content"
+                type="number"
+                placeholder={chocolates}
+                value={chocolates}
+                onChange={(e) => {
+                  setChocolates(parseInt(e.target.value));
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="searchRequests">
+              <Form.Label>Mints</Form.Label>
+              <Form.Control
+                name="content"
+                type="number"
+                placeholder={mints}
+                value={mints}
+                onChange={(e) => {
+                  setMints(parseInt(e.target.value));
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="searchRequests">
+              <Form.Label>Pizzas</Form.Label>
+              <Form.Control
+                name="content"
+                type="number"
+                placeholder={pizzas}
+                value={pizzas}
+                onChange={(e) => {
+                  setPizzas(parseInt(e.target.value));
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="searchRequests">
+              <Form.Label>Coffees</Form.Label>
+              <Form.Control
+                name="content"
+                type="number"
+                placeholder={coffees}
+                value={coffees}
+                onChange={(e) => {
+                  setCoffees(parseInt(e.target.value));
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="searchRequests">
+              <Form.Label>Candies</Form.Label>
+              <Form.Control
+                name="content"
+                type="number"
+                placeholder={candies}
+                value={candies}
+                onChange={(e) => {
+                  setCandies(parseInt(e.target.value));
+                }}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
           </Form>
         </Card>
+
+
+
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Body> New request created successfully
+        </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Ok
+          </Button>
+          </Modal.Footer>
+        </Modal>
+
+
       </div>
-    );
-  }
+
+    </div>
+  );
 }
+
+export default NewRequests;
+

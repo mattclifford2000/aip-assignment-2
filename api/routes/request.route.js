@@ -5,15 +5,42 @@ const { verifyUser } = require("../helpers/verifyUser");
 
 
 router.get("/request", async (req, res) => {
-  const request = await Request.findOne({_id : req.query.id});
+  const request = await Request.findOne({ _id: req.query.id });
   res.json(request);
-  console.log(request);
 });
+
+
 
 router.get("/", async (req, res) => {
   const requests = await Request.find();
   res.json(requests);
 });
+
+
+router.post("/searchRequest", async (req, res) => {
+  console.log(req.body.query);
+  const query = req.body.query;
+  /* return results where name OR content contains the search query */
+  const result = await Request.find({
+    $or: [
+      { name: { $regex: req.body.query } },
+      { content: { $regex: req.body.query } },
+      { [req.body.query]: { $gt: 0 } }
+    ]
+  });
+
+  res.json(result);
+  console.log(result)
+});
+
+
+router.post("/acceptRequest", async (req, res) => {
+  console.log(req.body._id);
+  const id = req.body._id
+  const request = await Request.deleteOne({ _id: id });
+});
+
+
 
 router.post("/mine", async (req, res) => {
   const { authToken } = req.body;
@@ -22,11 +49,18 @@ router.post("/mine", async (req, res) => {
   res.json(requests);
 });
 
+
+router.post("/myRequests", async (req, res) => {
+  const ownerID = req.body.userID
+  const requests = await Request.find({ ownerID: ownerID });
+  res.json(requests);
+});
+
 router.post("/delete", async (req, res) => {
   const { requestID, authToken } = req.body;
   const verifiedUser = verifyUser(authToken);
   const usersRequest = await Request.findOne({ _id: requestID });
-  if (verifiedUser.user._id == usersRequest.ownerID){
+  if (verifiedUser.user._id == usersRequest.ownerID) {
     await Request.deleteOne({ _id: requestID });
   }
   const requests = await Request.find({ ownerID: verifiedUser.user._id });
@@ -35,25 +69,26 @@ router.post("/delete", async (req, res) => {
 });
 
 router.post("/new", async (req, res) => {
-  let verifiedUser = verifyUser(req.body.token);
-  console.log("here");
-  console.log(req.body)
+  const { request, authToken } = req.body;
+  let verifiedUser = verifyUser(authToken);
   if (verifiedUser.status != "200") {
-    console.log("failed");
     return res.send(verifiedUser.status);
   }
-  const request = new Request({
-    ownerID: verifiedUser.user._id,
-    name: req.body.name,
-    content: req.body.content,
-    completed: req.body.completed,
-    chocolates: req.body.chocolates, 
-    muffins: req.body.muffins
+  const newRequest = new Request({
+    ownerID: request.ownerID,
+    ownerName: request.ownerName,
+    name: request.name,
+    content: request.content,
+    completed: request.completed,
+    chocolates: request.chocolates,
+    mints: request.mints,
+    pizzas: request.pizzas,
+    coffees: request.coffees,
+    candies: request.candies
   });
-  const savedRequest = await request.save();
+  const savedRequest = newRequest.save();
   return res.status(200).send(savedRequest);
 });
 
-module.exports = router;
 
 module.exports = router;

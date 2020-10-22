@@ -1,11 +1,14 @@
-import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
-import "./../../styles/Request.css";
-import { Button, Form, Card } from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { Row, Modal, Button } from "react-bootstrap";
+import RequestCard from "../shared/RequestCard";
+import "./../../styles/Requests.scss";
 
 
 function Requests(props) {
-  const[requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState([]);
+  const [user, setUser] = useState();
+  const [show, setShow] = useState(false);
 
 
   function handleSubmit(e) {
@@ -13,37 +16,109 @@ function Requests(props) {
     console.log(e.target.value);
   }
 
+  function handleClose(e) {
+    setShow(false)
+  }
+
+  function handleAccept(request) {
+
+    const urlUser = "http://localhost:9000/login/findUser";
+    const OwnerID = request.ownerID;
+    const owner = "";
+
+
+    const urlUserOther = "http://localhost:9000/login/findUserOther";
+    const debitorID = localStorage.getItem('userID')
+    const debitor = "";
+
+    //get request creator's email address for favour debitorID
+    axios
+      .post(urlUser, { OwnerID })
+      .then((res) => {
+        const owner = res.data
+        console.log("owner email: " + owner.email)
+
+        //get my email
+        axios
+          .post(urlUserOther, { debitorID })
+          .then((res) => {
+            const debitor = res.data
+            console.log("debitor email: " + debitor.email)
+
+            //turn request into a favour that I owe to the request creator
+            const favour = {
+              token: localStorage.getItem("authToken"),
+              creditorID: OwnerID, // request creator email
+              creditorName: request.ownerName,
+              debitorID: debitorID, //my email
+              externalemail: owner.email,
+              owed: owner.email,
+              name: request.name,
+              content: request.content,
+              chocolates: request.chocolates,
+              mints: request.mints,
+              pizzas: request.pizzas,
+              coffees: request.coffees,
+              candies: request.candies,
+              completed: false,
+              rewards: "da",
+            };
+
+            const urlFavour = "/favour/requestToFavour";
+            axios
+              .post(urlFavour, favour)
+              .then((response) => {
+                console.log(response);
+
+                //delete request from database
+                const url = "/request/acceptRequest";
+                const _id = request._id
+                axios
+                  .post(url, { _id })
+                  .then((response) => {
+                  })
+              })
+          })
+      })
+    setShow(true)
+  }
+
   useEffect(() => {
     axios.get("/request").then((res) => {
-        setRequests(res.data);
-      })
+      setRequests(res.data);
+    })
   });
 
   return (
-    <div>
-      <h1> Requests </h1>
-      <ol class="requestList">
-        {requests.map((request) => (
-          <li class="request">
-            <h1> {request.requestname} </h1>
-            <p>Request Description: {request.requestcontent}</p>
-            <p>Request ID (TESTING): {request._id}</p>
-            <p>Request userID (TESTING): {request.ownerID}</p>
+    <div id="requests">
+      <h1> Requests</h1>
+      <p>  These are public requests made by others </p>
 
-            {/* Only show rewards that are entered. No blank rewards */}
-            {/*See whether we want static items, or stored in an array in the future? */}
-            {/*
-            {request.cupcakes > 0 && <p> Cupcakes: {request.cupcakes} </p>}
-            {request.chocolates > 0 && (
-              <p> Chocolates: {request.chocolates} </p>
-            )}
-            {request.mints > 0 && <p> Mints: {request.mints} </p>}
-            {request.coffees > 0 && <p> Coffees: {request.coffees} </p>}
-            {request.icecreams > 0 && <p> Icecreams: {request.icecreams} </p>}
-            */}
-          </li>
+      {localStorage.getItem('loggedIn') == null || localStorage.getItem('loggedIn') == "false" &&
+        (
+          <p>  Log in to start accepting requests </p>
+        )}
+
+
+
+      <Row max-width="100%">
+        {requests.map((request) => (
+          <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add
         ))}
-      </ol>
+      </Row>
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
     </div>
   );
 }

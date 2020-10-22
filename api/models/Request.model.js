@@ -6,26 +6,44 @@ const RequestSchema = new Schema({
 
   ownerID: {
     type: Schema.Types.ObjectId,
-    unique: false,
-    ref: "User",
+    ref: "User"
+  },
+  ownerName: {
+    type: String,
+    required: true
   },
   name: {
     type: String,
-    unique: false,
-    required: true,
+    required: true
   },
   content: {
     type: String,
-    unique: false,
-    required: true,
+    required: true
   },
   completed: {
     type: Boolean,
-    unique: false,
-    required: true,
+    required: true
   },
-  chocolates: Number,
-  muffins: Number
+  chocolates: {
+    type: Number,
+    required: false
+  },
+  mints: {
+    type: Number,
+    required: false
+  },
+  pizzas: {
+    type: Number,
+    required: false
+  },
+  coffees: {
+    type: Number,
+    required: false
+  },
+  candies: {
+    type: Number,
+    required: false
+  }
 });
 
 module.exports = mongoose.model("Request", RequestSchema);
