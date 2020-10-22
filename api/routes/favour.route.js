@@ -103,5 +103,10 @@ router.post("/delete", async (req, res) => {
   console.log(favour)
 });
 
+router.post("/addImg", async (req, res) => {
+  const favour = await Favour.updateOne({ _id: req.body._id }, { $set: { imageURL: req.body.imageURL, completed: true } });
+  res.status(200).json(favour);
+});
+
 
 module.exports = router;
