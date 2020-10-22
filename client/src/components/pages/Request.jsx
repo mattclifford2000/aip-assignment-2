@@ -49,7 +49,8 @@ function Request(props) {
           <Card.Body>
             <Card.Title> <h2>{request.name} </h2> </Card.Title>
             <Card.Text>
-              {request.content}
+              <p> {request.content} </p>
+              <p> Requested by: {request.ownerName} </p>
               <br></br>
               <br></br>
               <span display="inline">

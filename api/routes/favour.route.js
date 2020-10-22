@@ -57,6 +57,7 @@ router.post("/requestToFavour", async (req, res) => {
   const favour = new Favour({
     debitorID: (req.body.creditorID),
     creditorID: (req.body.debitorID),
+    creditorName: req.body.creditorName,
     name: req.body.name,
     content: req.body.content,
     completed: false,

@@ -49,6 +49,7 @@ function Requests(props) {
             const favour = {
               token: localStorage.getItem("authToken"),
               creditorID: OwnerID, // request creator email
+              creditorName: request.ownerName,
               debitorID: debitorID, //my email
               externalemail: owner.email,
               owed: owner.email,

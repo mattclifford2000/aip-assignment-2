@@ -19,6 +19,7 @@ function NewRequests(props) {
 
     const request = {
       ownerID: localStorage.getItem("userID"),
+      ownerName: localStorage.getItem("username"),
       name: name,
       content: content,
       completed: false,
