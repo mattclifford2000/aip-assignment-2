@@ -8,6 +8,8 @@ import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
 
+
+
 function Logout(props) {
   const history = useHistory();
 
@@ -23,9 +25,11 @@ function Logout(props) {
     localStorage.setItem('authToken', null);
   }
 
-  function redirect() {
-    history.push("/");
+
+  if (localStorage.getItem("loggedIn") === "false") {
+    return <Redirect to="/login" />;
   }
+
 
   return (
     <div>

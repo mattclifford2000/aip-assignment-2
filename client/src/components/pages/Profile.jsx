@@ -7,7 +7,7 @@ import "./../../styles/Profile.css";
 import RequestCard from "../shared/RequestCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
 import OwingFavourCard from "../shared/OwingFavourCard";
-
+import { Link, Redirect } from "react-router-dom";
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
@@ -25,6 +25,41 @@ function Profile(props) {
   const requestURL = "/request/myRequests"
   const owedURL = "/favour/myOwedFavours";
   const owingURL = "/favour/myOwingFavours";
+
+  useEffect(() => {
+
+    axios
+      .post(requestURL, { userID })
+      .then((response) => {
+        setMyRequests(response.data)
+      })
+
+    axios
+      .post(owedURL, { userID })
+      .then((response) => {
+        setOwed(response.data)
+      })
+
+    axios
+      .post(owingURL, { userID })
+      .then((response) => {
+        setOwing(response.data)
+      })
+
+
+    const findUser = "/login/findUserProfile"
+    axios
+      .post(findUser, { userID })
+      .then((response) => {
+        setUsers(response.data)
+      })
+  }, [owed]);
+
+
+  if (localStorage.getItem("loggedIn") === false) {
+    return <Redirect to="/login" />;
+  }
+
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -72,35 +107,6 @@ function Profile(props) {
 
 
 
-
-  useEffect(() => {
-
-    axios
-      .post(requestURL, { userID })
-      .then((response) => {
-        setMyRequests(response.data)
-      })
-
-    axios
-      .post(owedURL, { userID })
-      .then((response) => {
-        setOwed(response.data)
-      })
-
-    axios
-      .post(owingURL, { userID })
-      .then((response) => {
-        setOwing(response.data)
-      })
-
-
-    const findUser = "/login/findUserProfile"
-    axios
-      .post(findUser, { userID })
-      .then((response) => {
-        setUsers(response.data)
-      })
-  }, [owed]);
 
 
 

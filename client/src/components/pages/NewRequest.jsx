@@ -63,6 +63,11 @@ function NewRequests(props) {
     return <Redirect to={URL}></Redirect>;
   }
 
+
+  if (localStorage.getItem("loggedIn") === "false") {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <div>
       <OperationModal
