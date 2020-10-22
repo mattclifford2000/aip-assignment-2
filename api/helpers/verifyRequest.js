@@ -1,14 +1,11 @@
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
-
-
 const verifyRequest = (request) => {
   console.log("Request: ");
   console.log(request);
   const schema = Joi.object()
     .keys({
-      ownerID: Joi.objectId(),
       ownerName: Joi.string(),
       name: Joi.string().min(6),
       content: Joi.string().min(6),
