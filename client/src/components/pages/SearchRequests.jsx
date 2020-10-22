@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row, Spinner, Modal, Button } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -16,13 +16,10 @@ function SearchRequests(props) {
     let { query } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
-    const [show, setShow] = useState(false);
-
 
     useEffect(() => {
-
         if (query) {
-        const url = "/request/searchRequest";
+            const url = "/request/searchRequest";
             axios
                 .post(url, { query })
                 .then((response) => {
@@ -33,10 +30,6 @@ function SearchRequests(props) {
         setLoading(false);
 
     }, []);
-
-    function handleClose() {
-        setShow(false)
-
 
 
     function handleAccept(request) {
@@ -94,7 +87,7 @@ function SearchRequests(props) {
                             })
                     })
             })
-        setShow(true)
+
     }
 
 
@@ -133,19 +126,6 @@ function SearchRequests(props) {
                     <RequestCard request={request} onAccept={() => { handleAccept(request) }}></RequestCard> //onaccept add
                 ))}
             </Row>
-
-
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
-                        Ok
-          </Button>
-                </Modal.Footer>
-            </Modal>
-
-
         </div>
     );
 }
@@ -165,4 +145,3 @@ export default function App() {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-
