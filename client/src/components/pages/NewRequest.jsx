@@ -127,6 +127,11 @@ function NewRequests(props) {
                   setChocolates(parseInt(e.target.value));
                 }}
               />
+              {chocolates < 0 && (
+              <Form.Text>
+                Please enter a positive or 0 amount of chocolates
+              </Form.Text>
+              )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
@@ -140,6 +145,11 @@ function NewRequests(props) {
                   setMints(parseInt(e.target.value));
                 }}
               />
+              {mints < 0 && (
+              <Form.Text>
+                Please enter a positive or 0 amount of mints
+              </Form.Text>
+              )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
@@ -153,6 +163,11 @@ function NewRequests(props) {
                   setPizzas(parseInt(e.target.value));
                 }}
               />
+              {pizzas < 0 && (
+              <Form.Text>
+                Please enter a positive or 0 amount of pizzas
+              </Form.Text>
+              )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
@@ -166,6 +181,11 @@ function NewRequests(props) {
                   setCoffees(parseInt(e.target.value));
                 }}
               />
+              {coffees < 0 && (
+              <Form.Text>
+                Please enter a positive or 0 amount of coffees
+              </Form.Text>
+              )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
@@ -179,6 +199,11 @@ function NewRequests(props) {
                   setCandies(parseInt(e.target.value));
                 }}
               />
+              {candies < 0 && (
+              <Form.Text>
+                Please enter a positive or 0 amount of candies
+              </Form.Text>
+              )}
             </Form.Group>
             <Button
               variant="primary"
