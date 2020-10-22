@@ -24,7 +24,8 @@ router.post("/searchRequest", async (req, res) => {
   const result = await Request.find({
     $or: [
       { name: { $regex: req.body.query } },
-      { content: { $regex: req.body.query } }
+      { content: { $regex: req.body.query } },
+      { [req.body.query]: { $gt: 0 } }
     ]
   });
 
