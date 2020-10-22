@@ -3,19 +3,27 @@ import React, { useState } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
+import OperationModal from "../shared/OperationModal"
+import { Link, Redirect, withRouter } from "react-router-dom";
+
 
 function NewRequests(props) {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [userID, setUserID] = useState(localStorage.getItem("userID"));
-  const [chocolates, setChocolates] = useState(0);
-  const [mints, setMints] = useState(0);
-  const [pizzas, setPizzas] = useState(0);
-  const [coffees, setCoffees] = useState(0);
-  const [candies, setCandies] = useState(0);
-  const [show, setShow] = useState(false);
+  const [chocolates, setChocolates] = useState(0)
+  const [mints, setMints] = useState(0)
+  const [pizzas, setPizzas] = useState(0)
+  const [coffees, setCoffees] = useState(0)
+  const [candies, setCandies] = useState(0)
+  const [show, setShow] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+  const [URL, setURL] = useState(null);
+  const [status, setStatus] = useState(null);
+  
+  function handleSubmit() {
 
-  function handleSubmit(e) {
+
     const request = {
       ownerID: localStorage.getItem("userID"),
       ownerName: localStorage.getItem("username"),
@@ -33,18 +41,31 @@ function NewRequests(props) {
 
     const url = "/request/new";
     axios
-      .post(url, { request, authToken: localStorage.getItem("authToken") })
-      .then((response) => {});
-
-    setShow(true);
+      .post(url, { request, authToken: localStorage.getItem('authToken') })
+      .then((response) => {
+          setStatus(response.status);
+      })
+      setShowModal(true);
   }
 
-  function handleClose(e) {
-    setShow(false);
+  function handleClose () {
+    setShowModal(false);
+    if(status === 200){
+      //setURL("/profile");
+    }
+  };
+
+  if(URL !== null){
+    return(<Redirect to={URL}></Redirect>)
   }
+
+
+
+
 
   return (
     <div>
+          <OperationModal status={status} show={showModal} onHandleClose={() => {handleClose()}}></OperationModal>
       <h1> Submit a Request</h1>
       <div class="searchRequestForm">
         <Card style={{ width: "18rem" }}>
@@ -138,20 +159,12 @@ function NewRequests(props) {
                 }}
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" onClick={()=> {handleSubmit()}}>
               Submit
             </Button>
           </Form>
         </Card>
 
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Body> New request created successfully</Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Ok
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </div>
   );
