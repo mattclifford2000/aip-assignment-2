@@ -61,13 +61,13 @@ function Profile(props) {
   }
 
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  const handleDelete = (request) => {
+    //e.preventDefault();
     console.log(localStorage.getItem('userID'));
 
     axios
       .post("/request/delete", {
-        requestID: e.target.value,
+        requestID: request._id,
         authToken: localStorage.getItem('authToken')
       })
       .then((res) => {
@@ -130,7 +130,7 @@ function Profile(props) {
 
       <Row max-width="100%">
         {myRequests.map((request) => (
-          <RequestCard request={request} onAccept={() => { handleComplete(request) }}></RequestCard> //onaccept add
+          <RequestCard request={request} onAccept={() => { handleComplete(request) }} onDelete={() => { handleDelete(request)}}></RequestCard> //onaccept add
         ))}
       </Row>
       {myRequests.length == 0 &&
