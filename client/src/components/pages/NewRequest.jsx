@@ -92,6 +92,11 @@ function NewRequests(props) {
                   setName(e.target.value);
                 }}
               />
+              {name.length < 6 && (
+              <Form.Text>
+                Please enter a request name greater than 6 characters
+              </Form.Text>
+            )}
             </Form.Group>
             <Form.Group controlId="searchRequests">
               <Form.Label>Request Description</Form.Label>
@@ -104,6 +109,11 @@ function NewRequests(props) {
                   setContent(e.target.value);
                 }}
               />
+              {content.length < 6 && (
+              <Form.Text>
+                Please enter a description greater than 6 characters
+              </Form.Text>
+            )}
             </Form.Group>
             <h3> Rewards: </h3>
             <Form.Group controlId="searchRequests">
