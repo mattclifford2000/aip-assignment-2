@@ -37,14 +37,18 @@ function NewRequests(props) {
     console.log(request);
 
     const url = "/request/new";
-    axios
-      .post(url, { request, authToken: localStorage.getItem("authToken") })
-      .then((response) => {
-        setStatus(response.status);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      axios
+        .post(url, { request, authToken: localStorage.getItem("authToken") })
+        .then((response) => {
+          setStatus(response.status);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (error) {
+      console.log(error);
+    }
     setShowModal(true);
   }
 

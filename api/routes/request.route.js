@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const Request = require("../models/Request.model");
-const verifyRequest = require("../helpers/verifyRequest");
+const { verifyRequest } = require("../helpers/verifyRequest");
 const { verifyUser } = require("../helpers/verifyUser");
 
 router.get("/request", async (req, res) => {
@@ -62,31 +62,38 @@ router.post("/delete", async (req, res) => {
 
 router.post("/new", async (req, res) => {
   const { request, authToken } = req.body;
+
   let verifiedUser = verifyUser(authToken);
   if (verifiedUser.status != "200") {
     return res.status(verifiedUser.status).send(verifiedUser.status);
   }
-  const newRequest = new Request({
-    ownerID: request.ownerID,
-    ownerName: request.ownerName,
-    name: request.name,
-    content: request.content,
-    completed: request.completed,
-    chocolates: request.chocolates,
-    mints: request.mints,
-    pizzas: request.pizzas,
-    coffees: request.coffees,
-    candies: request.candies,
-  });
   try {
-    const { error } = verifyRequest(newRequest);
-    if (error) {
-      console.log("Does not meet schema");
-      return res.status(400).send(error.details[0].message);
+    const newRequest = new Request({
+      ownerID: request.ownerID,
+      ownerName: request.ownerName,
+      name: request.name,
+      content: request.content,
+      completed: request.completed,
+      chocolates: request.chocolates,
+      mints: request.mints,
+      pizzas: request.pizzas,
+      coffees: request.coffees,
+      candies: request.candies,
+    });
+    try {
+      const { error } = verifyRequest(newRequest);
+      if (error) {
+        console.log("Does not meet schema");
+        return res.status(400).send(error.details[0].message);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    console.log("Does not meet schema");
+    return res.status(400).send(error.details[0].message);
   }
+
   const savedRequest = newRequest.save();
   console.log(savedRequest);
   return res.status(200).send(savedRequest);
