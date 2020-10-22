@@ -24,7 +24,8 @@ router.post("/searchRequest", async (req, res) => {
   const result = await Request.find({
     $or: [
       { name: { $regex: req.body.query } },
-      { content: { $regex: req.body.query } }
+      { content: { $regex: req.body.query } },
+      { [req.body.query]: { $gt: 0 } }
     ]
   });
 
@@ -84,7 +85,7 @@ router.post("/new", async (req, res) => {
     coffees: request.coffees,
     candies: request.candies
   });
-  const savedRequest = await newRequest.save();
+  const savedRequest = newRequest.save();
   return res.status(200).send(savedRequest);
 });
 

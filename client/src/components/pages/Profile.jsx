@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import RequestComp from "../functionalComponents/request.comp";
 import "./../../styles/Home.css";
 
@@ -12,6 +12,9 @@ function Profile(props) {
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showRequest, setShowRequest] = useState(false);
+  const [users, setUsers] = useState([])
 
   const [userID, setUserID] = useState(localStorage.getItem('userID'))
 
@@ -31,6 +34,18 @@ function Profile(props) {
       .then((res) => {
         setRequests(res.data);
       });
+
+    setShowRequest(true)
+  }
+
+
+  const handleClose = (e) => {
+    setShow(false)
+  }
+
+
+  const handleRequestClose = (e) => {
+    setShowRequest(false)
   }
 
 
@@ -40,6 +55,15 @@ function Profile(props) {
       .post(favourDelete, favour)
       .then((response) => {
       })
+
+
+    const userAddScore = "/login/addScore"; //on login route for now. Will create a new route for user editing later 
+    axios
+      .post(userAddScore, { userID })
+      .then((response) => {
+      })
+
+    setShow(true)
   }
 
 
@@ -64,6 +88,14 @@ function Profile(props) {
       .then((response) => {
         setOwing(response.data)
       })
+
+
+    const findUser = "/login/findUserProfile"
+    axios
+      .post(findUser, { userID })
+      .then((response) => {
+        setUsers(response.data)
+      })
   }, [owed]);
 
 
@@ -71,7 +103,15 @@ function Profile(props) {
   return (
     <div class="center">
       <h1>{localStorage.getItem('username')}</h1>
-      <h2> My Requests </h2>
+      <p> Score: {users.score} </p>
+      <p> Requests: {owed.length} </p>
+      <p> Owing favours: {owed.length} </p>
+      <p> Owed favours: {owing.length} </p>
+
+
+
+
+      <h2> Requests ({requests.length})  </h2>
       <p>  Public requests you've made </p>
       <ul class="requestList">
         {myRequests.map((request) => (
@@ -81,7 +121,7 @@ function Profile(props) {
         ))}
       </ul>
 
-      <h2> Owing favours </h2>
+      <h2> Owing favours ({owed.length}) </h2>
       <p>  Favours that you owe others </p>
       <ol class="requestList">
         {owed.map((favour) => (
@@ -118,8 +158,8 @@ function Profile(props) {
           </li>
         ))}
       </ol>
-      <h2> Owed Favours </h2>
-      <p>  Favours that others owe you </p>
+      <h2> Owed Favours ({owing.length}) </h2>
+      <p>  Favours that others owe you  </p>
       <ol class="requestList">
         {owing.map((favour) => (
           <li class="request">
@@ -130,6 +170,33 @@ function Profile(props) {
           </li>
         ))}
       </ol>
+
+
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body> Congratulations! Favour completed successfully. You have earned 1 point
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+      <Modal show={showRequest} onHide={handleRequestClose}>
+        <Modal.Body> Request successfully deleted
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleRequestClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
 
     </div>
   );

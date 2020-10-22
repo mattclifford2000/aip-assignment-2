@@ -49,51 +49,72 @@ function App(props) {
 
           {/*Navbar when user is not logged in*/}
           {localStorage.getItem('loggedIn') == "false" &&
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
-  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-  <Navbar.Collapse id="responsive-navbar-nav">
-    <Nav className="mr-auto">
-    <Nav.Link href="/">Home</Nav.Link>
-                <NavDropdown title="Requests" id="requests-dropdown">
-                    <NavDropdown.Item href="/newrequest">New Request</NavDropdown.Item>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                  <NavDropdown title="Requests" id="requests-dropdown">
                     <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
-    </Nav>
-    <Nav>
-    <Nav.Link href="/register">Register</Nav.Link>
-                <Nav.Link href="/login">Login</Nav.Link>
-    </Nav>
-  </Navbar.Collapse>
-</Navbar>
+                  </NavDropdown>
+                  <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
+                </Nav>
+                <Nav>
+                  <Nav.Link href="/register">Register</Nav.Link>
+                  <Nav.Link href="/login">Login</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
           }
+
+
+          {localStorage.getItem('loggedIn') == null &&
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                  <NavDropdown title="Requests" id="requests-dropdown">
+                    <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
+                  </NavDropdown>
+                  <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
+                </Nav>
+                <Nav>
+                  <Nav.Link href="/register">Register</Nav.Link>
+                  <Nav.Link href="/login">Login</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
+          }
+
 
 
 
           {/*Navbar when user is logged in*/}
           {localStorage.getItem('loggedIn') == "true" &&
-                      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                      <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-                <NavDropdown title="Requests" id="requests-dropdown">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                  <NavDropdown title="Requests" id="requests-dropdown">
                     <NavDropdown.Item href="/newrequest">New Request</NavDropdown.Item>
                     <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown title="Favours" id="requests-dropdown">
+                  </NavDropdown>
+                  <NavDropdown title="Favours" id="requests-dropdown">
                     <NavDropdown.Item href="/newfavour">New Favour</NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
-            </Nav>
-            <Nav>
-            <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
-                <Nav.Link href="/logout">Logout</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+                  </NavDropdown>
+                  <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
+                </Nav>
+                <Nav>
+                  <Nav.Link href="/profile">{localStorage.getItem('username')}</Nav.Link>
+                  <Nav.Link href="/logout">Logout</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
 
           }
 
@@ -109,7 +130,7 @@ function App(props) {
           <Route exact path="/logout" component={Logout} />
           {/* //there is a bug here in the code, when commented the two
            lines below out, the GET /request stops */}
-          <Route exact path="/requests" component={Requests} /> 
+          <Route exact path="/requests" component={Requests} />
           <Route exact path="/" component={Home} />
           <Route exact path="/searchrequests/:query" component={SearchRequests} />
           <Route exact path="/searchrequests" component={SearchRequests} />

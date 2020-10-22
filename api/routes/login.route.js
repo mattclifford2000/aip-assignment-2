@@ -3,6 +3,7 @@ var router = express.Router();
 const { verifyLoginUser, verifyRegisterUser } = require("../helpers/validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
+const Request = require("../models/Request.model");
 const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
@@ -55,7 +56,7 @@ router.post("/findUser", async (req, res) => {
 });
 
 
-router.post("/findUserOther", async (req, res) => {
+router.post("/findUserOther", async (req, res) => { //bad route name, will fix later
   console.log(req.body.debitorID)
   const debitorID = req.body.debitorID;
   const user = await User.findOne({ _id: debitorID });
@@ -63,6 +64,21 @@ router.post("/findUserOther", async (req, res) => {
   res.json(user)
 });
 
+
+router.post("/findUserProfile", async (req, res) => { //bad route name, will fix later
+  console.log(req.body.userID)
+  const userID = req.body.userID;
+  const user = await User.findOne({ _id: userID });
+  console.log(user)
+  res.json(user)
+});
+
+
+router.post("/addScore", async (req, res) => {
+  const userID = req.body.userID
+  const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
+  console.log("done")
+});
 
 
 
