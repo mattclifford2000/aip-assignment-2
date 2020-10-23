@@ -68,7 +68,7 @@ class SearchBox extends React.Component {
               <InputGroup.Append>
                 <DropdownButton alignRight variant="light" size="lg" id="dropdown-basic-button" title={<FontAwesomeIcon icon="sliders-h" />}>
                   <Dropdown.Item active={(this.state.searchType === "requests")} onClick={() => { this.changeSearchType("requests") }}>Requests</Dropdown.Item>
-                  <Dropdown.Item active={(this.state.searchType === "favours")} onClick={() => { this.changeSearchType("favours") }} disabled>Favours (Not Available)</Dropdown.Item>
+                 {/* <Dropdown.Item active={(this.state.searchType === "favours")} onClick={() => { this.changeSearchType("favours") }} disabled>Favours (Not Available)</Dropdown.Item>*/}
 
                 </DropdownButton>
                 <Button variant="primary" size="lg" href={"/search" + this.state.searchType + "/" + this.state.query}><FontAwesomeIcon icon="search" /> </Button>
