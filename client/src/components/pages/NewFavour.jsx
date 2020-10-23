@@ -154,6 +154,10 @@ export default class NewFavourComponent extends Component {
     return (this.state.owed ? "Email of user who owes you" : "Email of user you owe");
   }
 
+  validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase()) && email.length > 6;
+  }
 
   render() {
     if (this.state.URL !== null) {
@@ -207,6 +211,9 @@ export default class NewFavourComponent extends Component {
                 value={this.state.externalemail}
                 onChange={this.handleInputChange}
               />
+                          {!this.validateEmail(this.state.externalemail) && (
+              <Form.Text>Please enter a valid email</Form.Text>
+            )}
             </Form.Group>
             <Form.Group controlId="name">
               <Form.Label>Favour Name</Form.Label>
@@ -217,6 +224,11 @@ export default class NewFavourComponent extends Component {
                 value={this.state.name}
                 onChange={this.handleInputChange}
               />
+                            {this.state.name.length < 3 && (
+              <Form.Text>
+                Please enter a favour name greater than 3 characters
+              </Form.Text>
+            )}
             </Form.Group>
             <Form.Group controlId="content">
               <Form.Label>Favour Description</Form.Label>
@@ -227,6 +239,11 @@ export default class NewFavourComponent extends Component {
                 value={this.state.content}
                 onChange={this.handleInputChange}
               />
+               {this.state.content.length < 3 && (
+              <Form.Text>
+                Please enter a favour description greater than 3 characters
+              </Form.Text>
+            )}
               <br></br>
               {/* DUMPED FROM NEW REQUEST*/}
               <h3> Rewards: </h3>
@@ -295,7 +312,9 @@ export default class NewFavourComponent extends Component {
               </Form.Group>
               <Form.Group>
                 {this.state.name.length >= 3 &&
-                  this.state.content.length >= 3 && (
+                  this.state.content.length >= 3 &&
+                  this.validateEmail(this.state.externalemail) &&
+                  (
 
                     <Button variant="primary" onClick={this.handleSubmit}>
                       Submit
