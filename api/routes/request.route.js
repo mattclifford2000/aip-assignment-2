@@ -20,8 +20,8 @@ router.post("/searchRequest", async (req, res) => {
   /* return results where name OR content contains the search query */
   const result = await Request.find({
     $or: [
-      { name: { $regex: req.body.query } },
-      { content: { $regex: req.body.query } },
+      { name: { $regex: req.body.query, $options:'i' } },
+      { content: { $regex: req.body.query,$options:'i' } },
       { [req.body.query]: { $gt: 0 } },
     ],
   });
