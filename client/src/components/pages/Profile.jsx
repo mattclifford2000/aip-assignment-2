@@ -171,6 +171,11 @@ function Profile(props) {
         ))}
       </Row>
 
+      {owing.length == 0 &&
+        <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
+          No owed favours! Accept requests or create an owed favour to see something here
+</div>}
+
 
 
       <h2> Completed ({completed.length}) </h2>
@@ -180,13 +185,11 @@ function Profile(props) {
           <CompletedCard favour={favour} onAccept={() => { handleComplete(favour) }}></CompletedCard> //onaccept add
         ))}
       </Row>
-
-
-
-      {owing.length == 0 &&
+      {completed.length == 0 &&
         <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
-          No owed favours! Accept requests or create an owed favour to see something here
+          No completed favours! Start accepting and completing requests to see something here!
 </div>}
+
 
 
 
