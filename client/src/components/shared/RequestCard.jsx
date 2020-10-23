@@ -72,10 +72,11 @@ class RewardCard extends React.Component {
 
             <Card.Footer>
               {cardFooterAccept}
-              <Button href={"/request/" + request._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
               {(request.ownerID === localStorage.getItem("userID")) &&
-                <Button onClick={() => { this.handleDelete(request) }} variant="danger"> Delete</Button>
+                <Button onClick={() => { this.handleDelete(request) }} variant="danger"> Delete <FontAwesomeIcon icon="times"></FontAwesomeIcon></Button>
               }
+              <Button href={"/request/" + request._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
+
             </Card.Footer>
           </Card>
         </Col>
