@@ -125,7 +125,7 @@ function Profile(props) {
     <div class="center">
 
 
-      <Card style={{ width: '18rem' }} id="profile">
+      <Card style={{ width: '30rem' }} id="profile">
         <Card.Header as="h5" >      <h1>{localStorage.getItem('username')}</h1></Card.Header>
         <Card.Body>
           <p> Score: {users.score} </p>
