@@ -7,6 +7,7 @@ import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
 import OperationModal from "../shared/OperationModal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Register(props) {
   const [email, setEmail] = useState("");
@@ -92,7 +93,7 @@ function Register(props) {
         <br></br>
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label><span><FontAwesomeIcon icon="at"></FontAwesomeIcon> Email Address  </span> </Form.Label>
             <Form.Control
               type="email"
               name="email"
@@ -108,7 +109,7 @@ function Register(props) {
           </Form.Group>
 
           <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label><span><FontAwesomeIcon icon="user"></FontAwesomeIcon> Name  </span> </Form.Label>
             <Form.Control
               type="string"
               name="name"
@@ -126,7 +127,7 @@ function Register(props) {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label><span><FontAwesomeIcon icon="key"></FontAwesomeIcon> Password  </span> </Form.Label>
             <Form.Control
               name="password"
               type="password"
@@ -144,7 +145,7 @@ function Register(props) {
           </Form.Group>
 
           <Form.Group controlId="dateofbirth">
-            <Form.Label>Date of Birth</Form.Label>
+            <Form.Label><span><FontAwesomeIcon icon="calendar"></FontAwesomeIcon> Date of Birth  </span> </Form.Label>
             <Form.Control
               type="date"
               name="dateofbirth"

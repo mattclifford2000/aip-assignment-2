@@ -5,6 +5,8 @@ import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
 import OperationModal from "../shared/OperationModal";
 import { Link, Redirect, withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function NewRequests(props) {
   const [name, setName] = useState("");
@@ -77,10 +79,10 @@ function NewRequests(props) {
           handleClose();
         }}
       ></OperationModal>
-      <h1> Submit a Request</h1>
       <div class="searchRequestForm">
         <Card style={{ width: "18rem" }}>
           <Form onSubmit={handleSubmit} noValidate>
+            <Card.Header>New Request</Card.Header>
             <Form.Group controlId="searchRequests">
               <Form.Label>Request name</Form.Label>
               <Form.Control
@@ -93,10 +95,10 @@ function NewRequests(props) {
                 }}
               />
               {name.length < 6 && (
-              <Form.Text>
-                Please enter a request name greater than 6 characters
-              </Form.Text>
-            )}
+                <Form.Text>
+                  Please enter a request name greater than 6 characters
+                </Form.Text>
+              )}
             </Form.Group>
             <Form.Group controlId="searchRequests">
               <Form.Label>Request Description</Form.Label>
@@ -110,14 +112,14 @@ function NewRequests(props) {
                 }}
               />
               {content.length < 6 && (
-              <Form.Text>
-                Please enter a description greater than 6 characters
-              </Form.Text>
-            )}
+                <Form.Text>
+                  Please enter a description greater than 6 characters
+                </Form.Text>
+              )}
             </Form.Group>
             <h3> Rewards: </h3>
             <Form.Group controlId="searchRequests">
-              <Form.Label>Chocolates</Form.Label>
+              <Form.Label><span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> Chocolates  </span> </Form.Label>
               <Form.Control
                 name="content"
                 type="number"
@@ -128,14 +130,14 @@ function NewRequests(props) {
                 }}
               />
               {chocolates < 0 && (
-              <Form.Text>
-                Please enter a positive or 0 amount of chocolates
-              </Form.Text>
+                <Form.Text>
+                  Please enter a positive or 0 amount of chocolates
+                </Form.Text>
               )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
-              <Form.Label>Mints</Form.Label>
+              <Form.Label><span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> Mints  </span></Form.Label>
               <Form.Control
                 name="content"
                 type="number"
@@ -146,14 +148,14 @@ function NewRequests(props) {
                 }}
               />
               {mints < 0 && (
-              <Form.Text>
-                Please enter a positive or 0 amount of mints
-              </Form.Text>
+                <Form.Text>
+                  Please enter a positive or 0 amount of mints
+                </Form.Text>
               )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
-              <Form.Label>Pizzas</Form.Label>
+              <Form.Label><span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> Pizzas  </span></Form.Label>
               <Form.Control
                 name="content"
                 type="number"
@@ -164,14 +166,14 @@ function NewRequests(props) {
                 }}
               />
               {pizzas < 0 && (
-              <Form.Text>
-                Please enter a positive or 0 amount of pizzas
-              </Form.Text>
+                <Form.Text>
+                  Please enter a positive or 0 amount of pizzas
+                </Form.Text>
               )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
-              <Form.Label>Coffees</Form.Label>
+              <Form.Label><span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> Coffees  </span></Form.Label>
               <Form.Control
                 name="content"
                 type="number"
@@ -182,14 +184,14 @@ function NewRequests(props) {
                 }}
               />
               {coffees < 0 && (
-              <Form.Text>
-                Please enter a positive or 0 amount of coffees
-              </Form.Text>
+                <Form.Text>
+                  Please enter a positive or 0 amount of coffees
+                </Form.Text>
               )}
             </Form.Group>
 
             <Form.Group controlId="searchRequests">
-              <Form.Label>Candies</Form.Label>
+              <Form.Label> <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> Candies  </span></Form.Label>
               <Form.Control
                 name="content"
                 type="number"
@@ -200,9 +202,9 @@ function NewRequests(props) {
                 }}
               />
               {candies < 0 && (
-              <Form.Text>
-                Please enter a positive or 0 amount of candies
-              </Form.Text>
+                <Form.Text>
+                  Please enter a positive or 0 amount of candies
+                </Form.Text>
               )}
             </Form.Group>
             <Button

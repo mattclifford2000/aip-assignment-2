@@ -7,6 +7,8 @@ import "../../styles/Login.css";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import { Error } from "../shared/AuthForm";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -55,7 +57,7 @@ function Login(props) {
           <br></br>
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group controlId="id">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label><span><FontAwesomeIcon icon="at"></FontAwesomeIcon> Email Address  </span> </Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -67,7 +69,7 @@ function Login(props) {
               />
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label><span><FontAwesomeIcon icon="key"></FontAwesomeIcon> Password  </span> </Form.Label>
               <Form.Control
                 name="password"
                 type="password"

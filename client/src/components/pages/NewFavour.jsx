@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
 import OperationModal from "../shared/OperationModal"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { isValidElement } from "react";
 
@@ -161,10 +162,10 @@ export default class NewFavourComponent extends Component {
     return (
       <div className="registerform" id="registerform">
         {/*Reuse RegisterForm styling for now*/}
-        <h1> New Favour </h1>
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <OperationModal status={this.state.status} show={this.state.showErrorModal} onHandleClose={this.handleErrorClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
+          <Card.Header>New Favour</Card.Header>
           <Form noValidate>
             <ButtonGroup aria-label="Favour Choice">
 
@@ -230,7 +231,7 @@ export default class NewFavourComponent extends Component {
               {/* DUMPED FROM NEW REQUEST*/}
               <h3> Rewards: </h3>
               <Form.Group controlId="chocolates">
-                <Form.Label>Chocolates</Form.Label>
+                <Form.Label><span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> Chocolates  </span> </Form.Label>
                 <Form.Control
                   name="chocolates"
                   type="number"
@@ -241,7 +242,7 @@ export default class NewFavourComponent extends Component {
               </Form.Group>
 
               <Form.Group controlId="mints">
-                <Form.Label>Mints</Form.Label>
+                <Form.Label><span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> Mints  </span></Form.Label>
                 <Form.Control
                   name="mints"
                   type="number"
@@ -252,7 +253,7 @@ export default class NewFavourComponent extends Component {
               </Form.Group>
 
               <Form.Group controlId="pizzas">
-                <Form.Label>Pizzas</Form.Label>
+                <Form.Label><span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> Pizzas  </span></Form.Label>
                 <Form.Control
                   name="pizzas"
                   type="number"
@@ -264,7 +265,7 @@ export default class NewFavourComponent extends Component {
               </Form.Group>
 
               <Form.Group controlId="coffees">
-                <Form.Label>Coffees</Form.Label>
+                <Form.Label><span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> Coffees  </span></Form.Label>
                 <Form.Control
                   name="coffees"
                   type="number"
@@ -276,7 +277,7 @@ export default class NewFavourComponent extends Component {
               </Form.Group>
 
               <Form.Group controlId="candies">
-                <Form.Label>Candies</Form.Label>
+                <Form.Label> <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> Candies  </span></Form.Label>
                 <Form.Control
                   name="candies"
                   type="number"
