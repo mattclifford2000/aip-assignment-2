@@ -136,7 +136,7 @@ function Register(props) {
                 setPassword(e.target.value);
               }}
             />
-            {password.length < 6 && (
+            {password.length < 8 && (
               <Form.Text>
                 Please enter a password greater than 8 characters
               </Form.Text>
