@@ -41,12 +41,12 @@ function Requests(props) {
 
   function handleAccept(request) {
 
-    const urlUser = "http://localhost:9000/login/findUser";
+    const urlUser = "/login/findUser";
     const OwnerID = request.ownerID;
     const owner = "";
 
 
-    const urlUserOther = "http://localhost:9000/login/findUserOther";
+    const urlUserOther = "/login/findUserOther";
     const debitorID = localStorage.getItem('userID');
     const debitor = "";
 
