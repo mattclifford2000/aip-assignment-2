@@ -46,8 +46,6 @@ export default class NewFavourComponent extends Component {
   }
 
   handleSubmit = async (e) => {
-
-
     if (this.state.owed && this.state.image === null) {
       console.log("You need an image");
       this.setState({
@@ -66,7 +64,7 @@ export default class NewFavourComponent extends Component {
             imageURL: res.data.secure_url
           })
         } catch (err) {
-          this.state.imageURL = "https://kr4m.com/wp-content/uploads/2019/05/Webp.net-compress-image-3.jpg"
+          this.state.imageURL = "https://res.cloudinary.com/dj31q081c/image/upload/v1603411404/h1ev27jysc1vkbuicvyq.jpg"
           console.error(err);
         }
         console.log(this.state.imageURL);
