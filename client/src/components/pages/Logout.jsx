@@ -23,6 +23,10 @@ function Logout(props) {
     localStorage.setItem('userID', null);
     localStorage.setItem('loggedIn', false);
     localStorage.setItem('authToken', null);
+    localStorage.setItem('tokens', null);
+    localStorage.setItem('user', null);
+    localStorage.setItem('username', null);
+
   }
 
 
