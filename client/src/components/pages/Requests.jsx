@@ -120,7 +120,7 @@ function Requests(props) {
 
 
 
-      <Row max-width="100%">
+      <Row max-width="100%" padding="0">
         {requests.map((request) => (
           <RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard> //onaccept add
         ))}

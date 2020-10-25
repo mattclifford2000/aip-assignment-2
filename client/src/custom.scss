@@ -8,3 +8,9 @@ $dark: #283747;*/
 
 $navbg: #932432;
 @import "~bootstrap/scss/bootstrap";
+//Bootstrap Breakpoint Mixin (From: https://glennmccomb.com/articles/useful-sass-scss-media-query-mixins-for-bootstrap/)
+@import "/styles/MediaQueries";
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

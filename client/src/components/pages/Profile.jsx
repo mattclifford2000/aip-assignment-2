@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Card, Row } from "react-bootstrap";
+import { Button, Modal, Card, Row, Alert} from "react-bootstrap";
 import RequestComp from "../functionalComponents/request.comp";
 import "./../../styles/Home.css";
-import "./../../styles/Profile.css";
+import "./../../styles/Profile.scss";
 import RequestCard from "../shared/RequestCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
 import CompletedCard from "../shared/CompletedCard";
@@ -125,7 +125,7 @@ function Profile(props) {
     <div class="center">
 
 
-      <Card style={{ width: '30rem' }} id="profile">
+      <Card className="profileCard">
         <Card.Header as="h5" >      <h1>{localStorage.getItem('username')}</h1></Card.Header>
         <Card.Body>
           <p> Score: {users.score} </p>
@@ -146,9 +146,9 @@ function Profile(props) {
         ))}
       </Row>
       {myRequests.length == 0 &&
-        <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
+        <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
           No requests! Create a request to see something here
-</div>}
+</Alert>}
 
 
       <h2> Owing favours ({owed.length}) </h2>
@@ -159,9 +159,9 @@ function Profile(props) {
         ))}
       </Row>
       {owed.length == 0 &&
-        <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
-          No owing favours! Create an owing favour to see something here
-</div>}
+        <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
+        No owing favours! Create an owing favour to see something here
+</Alert>}
 
       <h2> Owed Favours ({owing.length}) </h2>
       <p>  Favours that others owe you  </p>
@@ -172,9 +172,9 @@ function Profile(props) {
       </Row>
 
       {owing.length == 0 &&
-        <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
-          No owed favours! Accept requests or create an owed favour to see something here
-</div>}
+        <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
+        No owed favours! Accept requests or create an owed favour to see something here
+</Alert>}
 
 
 
@@ -186,9 +186,9 @@ function Profile(props) {
         ))}
       </Row>
       {completed.length == 0 &&
-        <div id="emptyInfo" class="alert alert-info" style={{ width: '30rem' }} role="alert">
-          No completed favours! Start accepting and completing requests to see something here!
-</div>}
+        <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
+        No completed favours! Start accepting and completing requests to see something here!
+</Alert>}
 
 
 
