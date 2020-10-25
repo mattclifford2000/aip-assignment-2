@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react"; //eslint-disable-line
-import { Button, Form, Card, ButtonGroup } from "react-bootstrap";
+import { Button, Form, Card, ButtonGroup, ProgressBar } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import "../../styles/Register.css";
@@ -27,7 +27,8 @@ export default class NewFavourComponent extends Component {
       showModal: false,
       showErrorModal: false,
       image: null,
-      imageURL: null
+      imageURL: null,
+      uploadProgress: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
@@ -35,7 +36,8 @@ export default class NewFavourComponent extends Component {
 
   handleClose = () => {
     this.setState({
-      showModal: false
+      showModal: false,
+      uploadProgress: null
     });
     if (this.state.status === 200) {
       this.setState({ URL: "/profile" })
@@ -53,6 +55,17 @@ export default class NewFavourComponent extends Component {
         showErrorModal: true
       })
     } else {
+      const config = {
+        onUploadProgress: progressEvent => {
+          var completed = Math.round((progressEvent.loaded *100)/progressEvent.total) * 0.9;
+          this.setState({
+            uploadProgress: completed
+          })
+        }
+        
+        //console.log(progressEvent.loaded)
+    }
+
       if (this.state.image !== null) {
         const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
         const imgPreset = 'w58gpgxt';
@@ -60,7 +73,7 @@ export default class NewFavourComponent extends Component {
         formData.append('file', this.state.image);
         formData.append('upload_preset', imgPreset);
         try {
-          const res = await axios.post(imgUploadURL, formData);
+          const res = await axios.post(imgUploadURL, formData, config);
           this.setState({
             imageURL: res.data.secure_url
           })
@@ -104,6 +117,9 @@ export default class NewFavourComponent extends Component {
             showModal: true,
           })
           console.error(error);
+        });
+        this.setState({
+          uploadProgress: 100
         });
     }
   };
@@ -321,6 +337,13 @@ export default class NewFavourComponent extends Component {
                     </Button>
 
                   )}
+                  {(this.state.uploadProgress !== null) &&
+                  <div>
+                  <br></br>
+                  <ProgressBar variant="info" animated now={this.state.uploadProgress}/>
+                  <p>Currently uploading image and favour</p>
+                  </div>
+                  }
               </Form.Group>
             </Form.Group>
 
