@@ -57,7 +57,6 @@ function Requests(props) {
           .post(urlUserOther, { debitorID })
           .then((res) => {
             const debitor = res.data
-            console.log("debitor email: " + debitor.email)
 
             //turn request into a favour that I owe to the request creator
             const favour = {
@@ -78,7 +77,7 @@ function Requests(props) {
               rewards: "da",
             };
 
-            const urlFavour = "/favour/requestToFavour";
+            const urlFavour = "/favour/new";
             axios
               .post(urlFavour, favour)
               .then((response) => {
@@ -89,8 +88,6 @@ function Requests(props) {
                 const _id = request._id
                 axios
                   .post(url, { _id })
-                  .then((response) => {
-                  })
               })
           })
       })
@@ -109,9 +106,7 @@ function Requests(props) {
       <p>  These are public requests made by others </p>
 
       {(localStorage.getItem('loggedIn') === null || localStorage.getItem('loggedIn') === "false") &&
-        (
-          <p>  Log in to start accepting requests </p>
-        )}
+        (<p>  Log in to start accepting requests </p>)}
 
 
 
