@@ -43,7 +43,6 @@ app.use("/verify", VerifyRoute);
 app.use("/request", RequestRoute);
 app.use("/favour", FavourRoute);
 app.use("/reward", RewardRoute);
-
 app.use("/lists", ListRoute);
 
 // catch 404 and forward to error handler

@@ -1,8 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Leaderboard.css";
-import { Button, Form, Card, Table } from "react-bootstrap";
-
 
 
 function Leaderboard(props) {

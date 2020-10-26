@@ -35,6 +35,11 @@ const FavourSchema = new Schema({
     unique: false,
     required: true,
   },
+  imageURL: {
+    type: String,
+  },
+
+
   chocolates: {
     type: Number,
     unique: false,
@@ -60,9 +65,7 @@ const FavourSchema = new Schema({
     unique: false,
     required: false,
   },
-  imageURL: {
-    type: String,
-  },
+
 });
 
 module.exports = mongoose.model("Favour", FavourSchema);

@@ -2,24 +2,23 @@ const express = require("express");
 var router = express.Router();
 const { verifyUser } = require("../helpers/verifyUser");
 const { addRewards } = require("../helpers/addRewards");
-
 const User = require("../models/User.model");
-const Reward = require("../models/Reward.model");
 const Favour = require("../models/Favour.model");
 
+//find favour by ID
 router.get("/favour", async (req, res) => {
   console.log(req.query.id);
   const favour = await Favour.findOne({ _id: req.query.id });
   res.json(favour);
 });
 
+//new favour
 router.post("/new", async (req, res) => {
   console.log(req.body);
   let verifiedUser = verifyUser(req.body.token);
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  //const rewardIDs = await addRewards(req.body.rewards);
 
   const externalUser = await User.findOne({ email: req.body.externalemail });
 
@@ -43,19 +42,18 @@ router.post("/new", async (req, res) => {
     candies: req.body.candies,
     imageURL: req.body.imageURL
   });
-
   const savedFavour = await favour.save();
   console.log(savedFavour);
   return res.status(200).send(savedFavour);
 });
 
-
-router.post("/requestToFavour", async (req, res) => {
-  const rewardIDs = await addRewards(req.body.rewards);
+//accept request
+router.post("/acceptRequest", async (req, res) => {
   const favour = new Favour({
-    debitorID: (req.body.creditorID),
-    creditorID: (req.body.debitorID),
+    debitorID: req.body.debitorID,
+    creditorID: req.body.creditorID,
     creditorName: req.body.creditorName,
+    debitorName: req.body.debitorName,
     name: req.body.name,
     content: req.body.content,
     completed: false,
@@ -67,46 +65,40 @@ router.post("/requestToFavour", async (req, res) => {
   });
 
   const savedFavour = await favour.save();
-  console.log(savedFavour);
-  return res.status(200).send(savedFavour);
 });
 
 
-
+//get all user's owed favours
 router.post("/myOwedFavours", async (req, res) => {
-  console.log(req.body.userID);
   const userID = req.body.userID;
   const favour = await Favour.find({ creditorID: userID, completed: false });
   res.json(favour);
 });
 
-
+//get all user's owing favours
 router.post("/myOwingFavours", async (req, res) => {
-  console.log(req.body.userID);
   const userID = req.body.userID;
   const favour = await Favour.find({ debitorID: userID, completed: false });
   res.json(favour);
 });
 
-
-
+//get all user's completed favours
 router.post("/myCompletedFavours", async (req, res) => {
-  console.log(req.body.userID);
   const userID = req.body.userID;
   const favour = await Favour.find({ debitorID: userID, completed: true });
   res.json(favour);
 });
 
-router.post("/delete", async (req, res) => {
+//complete a favour
+router.post("/complete", async (req, res) => {
   const id = req.body._id;
   const favour = await Favour.updateOne({ _id: id }, { $set: { completed: true } });
-  console.log(favour)
 });
 
+//add image to favour
 router.post("/addImg", async (req, res) => {
   const favour = await Favour.updateOne({ _id: req.body._id }, { $set: { imageURL: req.body.imageURL, completed: true } });
   res.status(200).json(favour);
 });
-
 
 module.exports = router;

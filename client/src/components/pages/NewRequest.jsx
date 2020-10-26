@@ -1,30 +1,29 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button, Card, Form, Modal } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import "../../styles/searchRequests.css";
 import "./../../styles/Home.css";
 import OperationModal from "../shared/OperationModal";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 function NewRequests(props) {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
-  const [userID, setUserID] = useState(localStorage.getItem("userID"));
+  const [userID] = useState(localStorage.getItem("userID"));
   const [chocolates, setChocolates] = useState(0);
   const [mints, setMints] = useState(0);
   const [pizzas, setPizzas] = useState(0);
   const [coffees, setCoffees] = useState(0);
   const [candies, setCandies] = useState(0);
-  const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [URL, setURL] = useState(null);
+  const [URL] = useState(null);
   const [status, setStatus] = useState(null);
 
   function handleSubmit() {
     const request = {
-      ownerID: localStorage.getItem("userID"),
+      ownerID: userID,
       ownerName: localStorage.getItem("username"),
       name: name,
       content: content,

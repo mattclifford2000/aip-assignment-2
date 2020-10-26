@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Button, Card, Col } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import PlaceholderImage from "../img/placeholder.png";
 
 class RewardCard extends React.Component {
@@ -45,27 +45,27 @@ class RewardCard extends React.Component {
                 <br></br>
                 <br></br>
                 <span display="inline">
-                  {favour.chocolates != 0 && favour.chocolates != null &&
+                  {favour.chocolates !== 0 && favour.chocolates !== null &&
                     (
                       <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>
                     )}
 
-                  {favour.mints != 0 && favour.mints != null &&
+                  {favour.mints !== 0 && favour.mints !== null &&
                     (
                       <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>
                     )}
 
-                  {favour.pizzas != 0 && favour.pizzas != null &&
+                  {favour.pizzas !== 0 && favour.pizzas !== null &&
                     (
                       <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>
                     )}
 
-                  {favour.coffees != 0 && favour.coffees != null &&
+                  {favour.coffees !== 0 && favour.coffees !== null &&
                     (
                       <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>
                     )}
 
-                  {favour.candies != 0 && favour.candies != null &&
+                  {favour.candies !== 0 && favour.candies !== null &&
                     (
                       <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>
                     )}

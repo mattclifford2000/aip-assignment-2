@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
+
+//login
 router.post("/", async (req, res) => {
   console.log(req.body);
   var userCredentials = req.body.login;
@@ -39,15 +41,10 @@ router.post("/", async (req, res) => {
   }
   user.password = null;
   const authToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
-  return res.send({ name: user.name, authToken, id: user._id, user });
+  return res.send({ email: user.email, name: user.name, authToken, id: user._id, user });
 });
 
-//Testing purposes
-router.get("/", async (req, res) => {
-  res.json({ message: "This is the login route!" });
-});
-
-
+//find user by ownerID
 router.post("/findUser", async (req, res) => {
   console.log(req.body.OwnerID)
   const OwnerID = req.body.OwnerID;
@@ -65,20 +62,12 @@ router.post("/findUserOther", async (req, res) => { //bad route name, will fix l
   res.json(user)
 });
 
-
-router.post("/findUserProfile", async (req, res) => { //bad route name, will fix later
+//find user by their userid
+router.post("/findUserByID", async (req, res) => {
   const userID = req.body.userID;
   const user = await User.findOne({ _id: userID });
   res.json(user)
 });
-
-
-router.post("/addScore", async (req, res) => {
-  const userID = req.body.userID
-  const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
-  console.log("done")
-});
-
 
 
 module.exports = router;

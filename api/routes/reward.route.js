@@ -7,6 +7,4 @@ router.post("/new", async (req, res) => {
   return res.status(404);
 });
 
-
-
 module.exports = router;

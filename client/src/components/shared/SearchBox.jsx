@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Jumbotron, Row, Button, InputGroup, Form, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Row, Button, InputGroup, Form, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
 class SearchBox extends React.Component {
@@ -68,7 +68,7 @@ class SearchBox extends React.Component {
               <InputGroup.Append>
                 <DropdownButton alignRight variant="light" size="lg" id="dropdown-basic-button" title={<FontAwesomeIcon icon="sliders-h" />}>
                   <Dropdown.Item active={(this.state.searchType === "requests")} onClick={() => { this.changeSearchType("requests") }}>Requests</Dropdown.Item>
-                 {/* <Dropdown.Item active={(this.state.searchType === "favours")} onClick={() => { this.changeSearchType("favours") }} disabled>Favours (Not Available)</Dropdown.Item>*/}
+                  {/* <Dropdown.Item active={(this.state.searchType === "favours")} onClick={() => { this.changeSearchType("favours") }} disabled>Favours (Not Available)</Dropdown.Item>*/}
 
                 </DropdownButton>
                 <Button variant="primary" size="lg" href={"/search" + this.state.searchType + "/" + this.state.query}><FontAwesomeIcon icon="search" /> </Button>
