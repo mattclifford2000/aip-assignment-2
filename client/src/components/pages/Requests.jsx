@@ -4,23 +4,26 @@ import { Row, Modal, Button } from "react-bootstrap";
 import RequestCard from "../shared/RequestCard";
 import "./../../styles/Requests.scss";
 
-
 function Requests(props) {
   const [requests, setRequests] = useState([]);
   const [show, setShow] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false)
 
+  useEffect(() => {
+    axios.get("/request").then((res) => {
+      setRequests(res.data);
+    })
+  });
 
+  //close modal
   function handleClose(e) {
     setShow(false)
     setDeleteShow(false)
   }
 
-
+  //delete request
   const handleDelete = (request) => {
-    //e.preventDefault();
     console.log(localStorage.getItem('userID'));
-
     axios
       .post("/request/delete", {
         requestID: request._id,
@@ -32,73 +35,37 @@ function Requests(props) {
     setDeleteShow(true)
   }
 
-
-
+  //accept request
   function handleAccept(request) {
+    const favour = {
+      debitorID: request.ownerID,
+      creditorID: localStorage.getItem("userID"),
+      creditorName: localStorage.getItem("username"),
+      debitorName: request.ownerName,
+      name: request.name,
+      content: request.content,
+      completed: false,
+      chocolates: request.chocolates,
+      mints: request.mints,
+      pizzas: request.pizzas,
+      coffees: request.coffees,
+      candies: request.candies,
+    }
 
-    const urlUser = "/login/findUser";
-    const OwnerID = request.ownerID;
-    const owner = "";
-
-
-    const urlUserOther = "/login/findUserOther";
-    const debitorID = localStorage.getItem('userID');
-    const debitor = "";
-
-    //get request creator's email address for favour debitorID
+    //convert request to owed favour by creating new favour using request details
+    const favourURL = "/favour/acceptRequest";
     axios
-      .post(urlUser, { OwnerID })
-      .then((res) => {
-        const owner = res.data
-        console.log("owner email: " + owner.email)
+      .post(favourURL, favour)
 
-        //get my email
-        axios
-          .post(urlUserOther, { debitorID })
-          .then((res) => {
-            const debitor = res.data
+    //delete request from database
+    const requestURL = "/request/acceptRequest";
+    const _id = request._id
+    axios
+      .post(requestURL, { _id })
 
-            //turn request into a favour that I owe to the request creator
-            const favour = {
-              token: localStorage.getItem("authToken"),
-              creditorID: OwnerID, // request creator email
-              creditorName: request.ownerName,
-              debitorID: debitorID, //my email
-              externalemail: owner.email,
-              owed: owner.email,
-              name: request.name,
-              content: request.content,
-              chocolates: request.chocolates,
-              mints: request.mints,
-              pizzas: request.pizzas,
-              coffees: request.coffees,
-              candies: request.candies,
-              completed: false,
-              rewards: "da",
-            };
-
-            const urlFavour = "/favour/new";
-            axios
-              .post(urlFavour, favour)
-              .then((response) => {
-                console.log(response);
-
-                //delete request from database
-                const url = "/request/acceptRequest";
-                const _id = request._id
-                axios
-                  .post(url, { _id })
-              })
-          })
-      })
     setShow(true)
   }
 
-  useEffect(() => {
-    axios.get("/request").then((res) => {
-      setRequests(res.data);
-    })
-  });
 
   return (
     <div id="requests">
@@ -108,15 +75,9 @@ function Requests(props) {
       {(localStorage.getItem('loggedIn') === null || localStorage.getItem('loggedIn') === "false") &&
         (<p>  Log in to start accepting requests </p>)}
 
-
-
       <Row max-width="100%" padding="0">
-        {requests.map((request) => (
-          <RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard> //onaccept add
-        ))}
+        {requests.map((request) => (<RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard>))}
       </Row>
-
-
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
@@ -126,7 +87,6 @@ function Requests(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-
 
       <Modal show={deleteShow} onHide={handleClose}>
         <Modal.Body>You successfully deleted a request.</Modal.Body>

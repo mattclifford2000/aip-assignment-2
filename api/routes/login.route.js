@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
   }
   user.password = null;
   const authToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
-  return res.send({ name: user.name, authToken, id: user._id, user });
+  return res.send({ email: user.email, name: user.name, authToken, id: user._id, user });
 });
 
 //find user by ownerID

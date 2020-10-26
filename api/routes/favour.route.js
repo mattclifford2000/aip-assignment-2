@@ -12,7 +12,6 @@ router.get("/favour", async (req, res) => {
   res.json(favour);
 });
 
-
 //new favour
 router.post("/new", async (req, res) => {
   console.log(req.body);
@@ -47,6 +46,27 @@ router.post("/new", async (req, res) => {
   console.log(savedFavour);
   return res.status(200).send(savedFavour);
 });
+
+//accept request
+router.post("/acceptRequest", async (req, res) => {
+  const favour = new Favour({
+    debitorID: req.body.debitorID,
+    creditorID: req.body.creditorID,
+    creditorName: req.body.creditorName,
+    debitorName: req.body.debitorName,
+    name: req.body.name,
+    content: req.body.content,
+    completed: false,
+    chocolates: req.body.chocolates,
+    mints: req.body.mints,
+    pizzas: req.body.pizzas,
+    coffees: req.body.coffees,
+    candies: req.body.candies,
+  });
+
+  const savedFavour = await favour.save();
+});
+
 
 //get all user's owed favours
 router.post("/myOwedFavours", async (req, res) => {

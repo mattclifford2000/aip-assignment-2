@@ -39,8 +39,6 @@ function Register(props) {
       credits: [],
       requests: [],
     };
-    console.log(user);
-    console.log({ user });
 
     const url = "/register";
     axios

@@ -21,14 +21,12 @@ function Favour(props) {
 
 
   const handleDelete = (request) => {
-    //e.preventDefault();
     axios
       .post("/favour/delete", {
         requestID: favour._id,
         authToken: localStorage.getItem('authToken')
       })
       .then((res) => {
-        //setRequests(res.data);
       });
   }
 

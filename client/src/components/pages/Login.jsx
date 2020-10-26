@@ -29,6 +29,7 @@ function Login(props) {
         localStorage.setItem('username', response.data.name);
         localStorage.setItem('user', response.data.user);
         localStorage.setItem('userID', response.data.id);
+        localStorage.setItem('userEmail', response.data.email);
         localStorage.setItem('loggedIn', true);
         localStorage.setItem('authToken', response.data.authToken);
         setLoggedIn(true);
