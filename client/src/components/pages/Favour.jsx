@@ -19,11 +19,9 @@ function Favour(props) {
     });
   }, []);
 
-  //DUPLICATE OF PROFILE CODE, TIDY UP
+
   const handleDelete = (request) => {
     //e.preventDefault();
-    console.log(localStorage.getItem('userID'));
-
     axios
       .post("/favour/delete", {
         requestID: favour._id,
@@ -59,45 +57,28 @@ function Favour(props) {
               <br></br>
               <h5>Rewards:</h5>
               <span display="inline">
+                {/* display rewards if they are greater than 0 */}
                 {favour.chocolates !== 0 && favour.chocolates !== null &&
-                  (
-                    <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>
-                  )}
-
+                  (<span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>)}
                 {favour.mints !== 0 && favour.mints !== null &&
-                  (
-                    <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>
-                  )}
-
+                  (<span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>)}
                 {favour.pizzas !== 0 && favour.pizzas !== null &&
-                  (
-                    <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>
-                  )}
-
+                  (<span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>)}
                 {favour.coffees !== 0 && favour.coffees !== null &&
-                  (
-                    <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>
-                  )}
-
+                  (<span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>)}
                 {favour.candies !== 0 && favour.candies !== null &&
-                  (
-                    <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>
-                  )}
+                  (<span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>)}
               </span>
             </Card.Text>
           </Card.Body>
 
           <Card.Footer>
+            {/* display accept button if the user did not create the favour */}
             {localStorage.getItem("userID") !== favour.ownerID &&
-              (
-                <Button onClick={() => this.handleAccept(favour)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
-              )}
-
-
+              (<Button onClick={() => this.handleAccept(favour)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>)}
+            {/* display delete button if the user created the favour */}
             {(localStorage.getItem('userID') === favour.ownerID) ?
-
               <Button onClick={() => handleDelete(favour)} variant="danger">Delete</Button> : ""}
-
           </Card.Footer>
         </Card>
       </Col>

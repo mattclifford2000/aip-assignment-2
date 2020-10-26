@@ -59,13 +59,14 @@ function Profile(props) {
         setCompleted(response.data)
       })
 
-
-    const findUser = "/login/findUserProfile"
+    //find currently loggedin user
+    const findUser = "/login/findUserByID"
     axios
       .post(findUser, { userID })
       .then((response) => {
         setUsers(response.data)
       })
+
   }, [owed]);
 
 

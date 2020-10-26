@@ -11,12 +11,9 @@ class RewardCard extends React.Component {
     //this.handleDelete = this.handleDelete.bind(this);*/
   }
 
-
   handleComplete(e) {
     this.props.onAccept(e);
   }
-
-
 
   render() {
     const favour = this.props.favour;
@@ -72,7 +69,6 @@ class RewardCard extends React.Component {
               {cardFooterAccept}
               <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
               {/* <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button> */}
-
             </Card.Footer>
 
           </Card>

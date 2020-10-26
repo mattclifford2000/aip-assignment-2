@@ -13,14 +13,13 @@ router.get("/favour", async (req, res) => {
 });
 
 
-//new faovur
+//new favour
 router.post("/new", async (req, res) => {
   console.log(req.body);
   let verifiedUser = verifyUser(req.body.token);
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  //const rewardIDs = await addRewards(req.body.rewards);
 
   const externalUser = await User.findOne({ email: req.body.externalemail });
 
@@ -44,12 +43,10 @@ router.post("/new", async (req, res) => {
     candies: req.body.candies,
     imageURL: req.body.imageURL
   });
-
   const savedFavour = await favour.save();
   console.log(savedFavour);
   return res.status(200).send(savedFavour);
 });
-
 
 router.post("/requestToFavour", async (req, res) => {
   const rewardIDs = await addRewards(req.body.rewards);
@@ -68,23 +65,18 @@ router.post("/requestToFavour", async (req, res) => {
   });
 
   const savedFavour = await favour.save();
-  console.log(savedFavour);
   return res.status(200).send(savedFavour);
 });
 
-
 //get all user's owed favours
 router.post("/myOwedFavours", async (req, res) => {
-  console.log(req.body.userID);
   const userID = req.body.userID;
   const favour = await Favour.find({ creditorID: userID, completed: false });
   res.json(favour);
 });
 
-
 //get all user's owing favours
 router.post("/myOwingFavours", async (req, res) => {
-  console.log(req.body.userID);
   const userID = req.body.userID;
   const favour = await Favour.find({ debitorID: userID, completed: false });
   res.json(favour);
@@ -92,18 +84,15 @@ router.post("/myOwingFavours", async (req, res) => {
 
 //get all user's completed favours
 router.post("/myCompletedFavours", async (req, res) => {
-  console.log(req.body.userID);
   const userID = req.body.userID;
   const favour = await Favour.find({ debitorID: userID, completed: true });
   res.json(favour);
 });
 
-
 //complete a favour
 router.post("/complete", async (req, res) => {
   const id = req.body._id;
   const favour = await Favour.updateOne({ _id: id }, { $set: { completed: true } });
-  console.log(favour)
 });
 
 //add image to favour
@@ -111,6 +100,5 @@ router.post("/addImg", async (req, res) => {
   const favour = await Favour.updateOne({ _id: req.body._id }, { $set: { imageURL: req.body.imageURL, completed: true } });
   res.status(200).json(favour);
 });
-
 
 module.exports = router;

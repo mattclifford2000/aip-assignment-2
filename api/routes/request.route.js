@@ -26,7 +26,6 @@ router.post("/searchRequest", async (req, res) => {
   });
 
   res.json(result);
-  console.log(result);
 });
 
 router.post("/acceptRequest", async (req, res) => {
