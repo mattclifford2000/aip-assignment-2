@@ -68,12 +68,6 @@ router.post("/findUserProfile", async (req, res) => { //bad route name, will fix
   res.json(user)
 });
 
-//add score 
-router.post("/addScore", async (req, res) => {
-  const userID = req.body.userID
-  const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
-  console.log("done")
-});
 
 
 

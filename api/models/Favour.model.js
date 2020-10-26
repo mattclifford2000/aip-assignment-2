@@ -2,24 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const FavourSchema = new Schema({
-  debitorID: {
-    type: Schema.Types.ObjectId,
-    unique: false,
-    ref: "User",
-  },
-  creditorID: {
-    type: Schema.Types.ObjectId,
-    unique: false,
-    ref: "User",
-  },
-  creditorName: {
-    type: String,
-    unique: false,
-  },
-  debitorName: {
-    type: String,
-    unique: false,
-  },
   name: {
     type: String,
     unique: false,
@@ -30,11 +12,35 @@ const FavourSchema = new Schema({
     unique: false,
     required: true,
   },
+  debitorID: {
+    type: Schema.Types.ObjectId,
+    unique: false,
+    ref: "User",
+  },
+  debitorName: {
+    type: String,
+    unique: false,
+  },
+  creditorID: {
+    type: Schema.Types.ObjectId,
+    unique: false,
+    ref: "User",
+  },
+  creditorName: {
+    type: String,
+    unique: false,
+  },
   completed: {
     type: Boolean,
     unique: false,
     required: true,
   },
+  imageURL: {
+    type: String,
+  },
+
+
+  //rewards
   chocolates: {
     type: Number,
     unique: false,
@@ -59,9 +65,6 @@ const FavourSchema = new Schema({
     type: Number,
     unique: false,
     required: false,
-  },
-  imageURL: {
-    type: String,
   },
 });
 

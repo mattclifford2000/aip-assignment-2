@@ -10,5 +10,14 @@ router.get("/leaderboard", async (req, res) => {
   res.json(users);
 });
 
+
+//Increment score by 1 when user completes a faovur
+router.post("/addScore", async (req, res) => {
+  const userID = req.body.userID
+  const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
+  console.log("done")
+});
+
+
 module.exports = router;
 

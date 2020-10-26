@@ -104,13 +104,11 @@ function Profile(props) {
       .then((response) => {
       })
 
-
-    const userAddScore = "/login/addScore"; //on login route for now. Will create a new route for user editing later 
+    const userAddScore = "/Lists/addScore";
     axios
       .post(userAddScore, { userID })
       .then((response) => {
       })
-
     setShow(true)
   }
 

@@ -24,6 +24,8 @@ const RequestSchema = new Schema({
     type: Boolean,
     required: true
   },
+
+  //rewards
   chocolates: {
     type: Number,
     required: false
