@@ -4,21 +4,16 @@ const Request = require("../models/Request.model");
 const { verifyRequest } = require("../helpers/verifyRequest");
 const { verifyUser } = require("../helpers/verifyUser");
 
-
-
-//find all current requests
-router.get("/", async (req, res) => {
-  const requests = await Request.find();
-  res.json(requests);
-});
-
-//view single request
 router.get("/request", async (req, res) => {
   const request = await Request.findOne({ _id: req.query.id });
   res.json(request);
 });
 
-//search requests by user query
+router.get("/", async (req, res) => {
+  const requests = await Request.find();
+  res.json(requests);
+});
+
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
   /* return results where name OR content contains the search query */
@@ -29,24 +24,29 @@ router.post("/searchRequest", async (req, res) => {
       { [req.body.query]: { $gt: 0 } },
     ],
   });
+
   res.json(result);
   console.log(result);
 });
 
-//delete request when accepted by user (the request data is used to make a favour object)
 router.post("/acceptRequest", async (req, res) => {
   const id = req.body._id;
   const request = await Request.deleteOne({ _id: id });
 });
 
-//get all requests made by the user
+router.post("/mine", async (req, res) => {
+  const { authToken } = req.body;
+  const verifiedUser = verifyUser(authToken);
+  const requests = await Request.find({ ownerID: verifiedUser.user._id });
+  res.json(requests);
+});
+
 router.post("/myRequests", async (req, res) => {
   const ownerID = req.body.userID;
   const requests = await Request.find({ ownerID: ownerID });
   res.json(requests);
 });
 
-//delete unwanted request 
 router.post("/delete", async (req, res) => {
   const { requestID, authToken } = req.body;
   const verifiedUser = verifyUser(authToken);
@@ -58,13 +58,15 @@ router.post("/delete", async (req, res) => {
   res.send(requests);
 });
 
-//create new request
 router.post("/new", async (req, res) => {
   const { request, authToken } = req.body;
+
   let verifiedUser = verifyUser(authToken);
   if (verifiedUser.status != "200") {
     return res.status(verifiedUser.status).send(verifiedUser.status);
   }
+
+
   const newRequest = new Request({
     ownerID: request.ownerID,
     ownerName: request.ownerName,

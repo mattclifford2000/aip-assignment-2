@@ -44,6 +44,28 @@ const UserSchema = new Schema({
     min: 0,
     max: 99999,
   },
+  debits: {
+    type: Number,
+    unique: false,
+    default: 0,
+    required: true,
+    min: 0,
+    max: 99999,
+  },
+  credits: {
+    type: Number,
+    unique: false,
+    default: 0,
+    required: true,
+    min: 0,
+    max: 99999,
+  },
+  requests: {
+    type: Array,
+    default: [],
+    required: true,
+    unique: false,
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);
