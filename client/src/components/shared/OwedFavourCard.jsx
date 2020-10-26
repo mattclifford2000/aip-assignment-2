@@ -30,38 +30,39 @@ class RewardCard extends React.Component {
       }
   */
 
- handleSubmit = async (favour) => {
-  if (this.state.image !== null) {
-    const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
-    const imgPreset = 'w58gpgxt';
-    const formData = new FormData();
-    formData.append('file', this.state.image);
-    formData.append('upload_preset', imgPreset);
-    try {
-      const res = await axios.post(imgUploadURL, formData);
-      favour.imageURL = res.data.secure_url;
-    } catch (err) {
-      favour.imageURL = "https://res.cloudinary.com/dj31q081c/image/upload/v1603411404/h1ev27jysc1vkbuicvyq.jpg"
-      console.error(err);
+  handleSubmit = async (favour) => {
+    if (this.state.image !== null) {
+      const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
+      const imgPreset = 'w58gpgxt';
+      const formData = new FormData();
+      formData.append('file', this.state.image);
+      formData.append('upload_preset', imgPreset);
+      try {
+        const res = await axios.post(imgUploadURL, formData);
+        favour.imageURL = res.data.secure_url;
+      } catch (err) {
+        favour.imageURL = "https://res.cloudinary.com/dj31q081c/image/upload/v1603411404/h1ev27jysc1vkbuicvyq.jpg"
+        console.error(err);
+      }
+      console.log(favour.imageURL);
     }
-    console.log(favour.imageURL);
+
+    const url = "/favour/addImg";
+    await axios
+      .post(url, favour)
+      .then((response) => {
+        console.log("client success upload");
+      })
+      .catch((error) => {
+
+        console.error(error);
+      });
+    this.setState({ uploaded: true })
   }
-  
-  const url = "/favour/addImg";
-  await axios
-  .post(url, favour)
-  .then((response) => {console.log("client success upload");
-  })
-  .catch((error) => {
 
-    console.error(error);
-  });
-  this.setState({ uploaded: true })
-}
-
-onChangeImg(e) {
-  this.setState({ image: e.target.files[0] });
-}
+  onChangeImg(e) {
+    this.setState({ image: e.target.files[0] });
+  }
 
 
   render() {
@@ -72,7 +73,7 @@ onChangeImg(e) {
     };
 
     let cardFooterAccept = <p></p>;
-    if (favour != null) {
+    if (favour !== null) {
       return (
         <Col sm={12} md={4} lg={3} className="request-card-container">
           <Card className="request-card">
@@ -85,27 +86,27 @@ onChangeImg(e) {
                 <br></br>
                 <br></br>
                 <span display="inline">
-                  {favour.chocolates != 0 && favour.chocolates != null &&
+                  {favour.chocolates !== 0 && favour.chocolates !== null &&
                     (
                       <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>
                     )}
 
-                  {favour.mints != 0 && favour.mints != null &&
+                  {favour.mints !== 0 && favour.mints !== null &&
                     (
                       <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>
                     )}
 
-                  {favour.pizzas != 0 && favour.pizzas != null &&
+                  {favour.pizzas !== 0 && favour.pizzas !== null &&
                     (
                       <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>
                     )}
 
-                  {favour.coffees != 0 && favour.coffees != null &&
+                  {favour.coffees !== 0 && favour.coffees !== null &&
                     (
                       <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>
                     )}
 
-                  {favour.candies != 0 && favour.candies != null &&
+                  {favour.candies !== 0 && favour.candies !== null &&
                     (
                       <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>
                     )}
@@ -120,10 +121,10 @@ onChangeImg(e) {
 
                 <input type="file" name="myImage" onChange={this.onChangeImg} />
 
-                {this.state.image != null &&
+                {this.state.image !== null &&
                   (
 
-                    <Button onClick={() => {this.handleSubmit(favour); this.handleComplete(favour)}} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
+                    <Button onClick={() => { this.handleSubmit(favour); this.handleComplete(favour) }} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
 
                   )}
 
@@ -132,7 +133,7 @@ onChangeImg(e) {
 
 
             </Card.Footer>
-            
+
           </Card>
         </Col>
       );

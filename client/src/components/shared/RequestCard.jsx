@@ -26,10 +26,10 @@ class RewardCard extends React.Component {
     const request = this.props.request;
     let cardFooterAccept = <p></p>;
 
-    if (localStorage.getItem("userID") != request.ownerID && localStorage.getItem("loggedIn") == "true") {
+    if (localStorage.getItem("userID") !== request.ownerID && localStorage.getItem("loggedIn") === "true") {
       cardFooterAccept = <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>;
     }
-    if (request != null) {
+    if (request !== null) {
       return (
         <Col sm={12} md={4} lg={3} className="request-card-container">
           <Card className="request-card">
@@ -42,27 +42,27 @@ class RewardCard extends React.Component {
                 <br></br>
                 <br></br>
                 <span display="inline">
-                  {request.chocolates != 0 && request.chocolates != null &&
+                  {request.chocolates !== 0 && request.chocolates !== null &&
                     (
                       <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{request.chocolates}  </span>
                     )}
 
-                  {request.mints != 0 && request.mints != null &&
+                  {request.mints !== 0 && request.mints !== null &&
                     (
                       <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{request.mints}  </span>
                     )}
 
-                  {request.pizzas != 0 && request.pizzas != null &&
+                  {request.pizzas !== 0 && request.pizzas !== null &&
                     (
                       <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{request.pizzas}  </span>
                     )}
 
-                  {request.coffees != 0 && request.coffees != null &&
+                  {request.coffees !== 0 && request.coffees !== null &&
                     (
                       <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{request.coffees}  </span>
                     )}
 
-                  {request.candies != 0 && request.candies != null &&
+                  {request.candies !== 0 && request.candies !== null &&
                     (
                       <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{request.candies}  </span>
                     )}

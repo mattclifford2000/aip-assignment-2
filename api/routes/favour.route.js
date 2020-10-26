@@ -2,17 +2,18 @@ const express = require("express");
 var router = express.Router();
 const { verifyUser } = require("../helpers/verifyUser");
 const { addRewards } = require("../helpers/addRewards");
-
 const User = require("../models/User.model");
-const Reward = require("../models/Reward.model");
 const Favour = require("../models/Favour.model");
 
+//find favour by ID
 router.get("/favour", async (req, res) => {
   console.log(req.query.id);
   const favour = await Favour.findOne({ _id: req.query.id });
   res.json(favour);
 });
 
+
+//new faovur
 router.post("/new", async (req, res) => {
   console.log(req.body);
   let verifiedUser = verifyUser(req.body.token);
@@ -72,7 +73,7 @@ router.post("/requestToFavour", async (req, res) => {
 });
 
 
-
+//get all user's owed favours
 router.post("/myOwedFavours", async (req, res) => {
   console.log(req.body.userID);
   const userID = req.body.userID;
@@ -81,6 +82,7 @@ router.post("/myOwedFavours", async (req, res) => {
 });
 
 
+//get all user's owing favours
 router.post("/myOwingFavours", async (req, res) => {
   console.log(req.body.userID);
   const userID = req.body.userID;
@@ -88,8 +90,7 @@ router.post("/myOwingFavours", async (req, res) => {
   res.json(favour);
 });
 
-
-
+//get all user's completed favours
 router.post("/myCompletedFavours", async (req, res) => {
   console.log(req.body.userID);
   const userID = req.body.userID;
@@ -97,12 +98,15 @@ router.post("/myCompletedFavours", async (req, res) => {
   res.json(favour);
 });
 
-router.post("/delete", async (req, res) => {
+
+//complete a favour
+router.post("/complete", async (req, res) => {
   const id = req.body._id;
   const favour = await Favour.updateOne({ _id: id }, { $set: { completed: true } });
   console.log(favour)
 });
 
+//add image to favour
 router.post("/addImg", async (req, res) => {
   const favour = await Favour.updateOne({ _id: req.body._id }, { $set: { imageURL: req.body.imageURL, completed: true } });
   res.status(200).json(favour);

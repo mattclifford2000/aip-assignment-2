@@ -15,13 +15,12 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/searchRequest", async (req, res) => {
-  console.log(req.body.query);
   const query = req.body.query;
   /* return results where name OR content contains the search query */
   const result = await Request.find({
     $or: [
-      { name: { $regex: req.body.query, $options:'i' } },
-      { content: { $regex: req.body.query,$options:'i' } },
+      { name: { $regex: req.body.query, $options: 'i' } },
+      { content: { $regex: req.body.query, $options: 'i' } },
       { [req.body.query]: { $gt: 0 } },
     ],
   });
@@ -31,7 +30,6 @@ router.post("/searchRequest", async (req, res) => {
 });
 
 router.post("/acceptRequest", async (req, res) => {
-  console.log(req.body._id);
   const id = req.body._id;
   const request = await Request.deleteOne({ _id: id });
 });
@@ -92,7 +90,6 @@ router.post("/new", async (req, res) => {
   }
 
   const savedRequest = newRequest.save();
-  console.log(savedRequest);
   return res.status(200).send(savedRequest);
 });
 

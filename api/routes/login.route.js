@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
+
+//login
 router.post("/", async (req, res) => {
   console.log(req.body);
   var userCredentials = req.body.login;
@@ -42,12 +44,6 @@ router.post("/", async (req, res) => {
   return res.send({ name: user.name, authToken, id: user._id, user });
 });
 
-//Testing purposes
-router.get("/", async (req, res) => {
-  res.json({ message: "This is the login route!" });
-});
-
-
 router.post("/findUser", async (req, res) => {
   console.log(req.body.OwnerID)
   const OwnerID = req.body.OwnerID;
@@ -72,7 +68,7 @@ router.post("/findUserProfile", async (req, res) => { //bad route name, will fix
   res.json(user)
 });
 
-
+//add score 
 router.post("/addScore", async (req, res) => {
   const userID = req.body.userID
   const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });

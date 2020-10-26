@@ -9,11 +9,9 @@ import RequestCard from "../shared/RequestCard";
 import SearchBox from "../shared/SearchBox";
 import "./../../styles/Home.css";
 
-
-
 function SearchRequests(props) {
     const [requests, setRequests] = useState([]); //search results
-    let { query } = useParams();
+    const { query } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
     const [show, setShow] = useState(false);
@@ -110,9 +108,6 @@ function SearchRequests(props) {
         setDeleteShow(true)
     }
 
-
-
-
     if (isLoading) {
         return <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
@@ -127,17 +122,17 @@ function SearchRequests(props) {
 
             {/* Only show if a search query has been made */}
             {/* Single result */}
-            {resultIndicator != undefined && requests.length == 1 &&
+            {resultIndicator !== undefined && requests.length === 1 &&
                 <div>
                     <p> {requests.length} result for "{resultIndicator}" </p> </div>}
 
             {/* Multiple results */}
-            {resultIndicator != undefined && requests.length > 1 &&
+            {resultIndicator !== undefined && requests.length > 1 &&
                 <div>
                     <p> {requests.length} results for "{resultIndicator}" </p> </div>}
 
             {/* No results */}
-            {resultIndicator != undefined && requests.length == 0 &&
+            {resultIndicator !== undefined && requests.length === 0 &&
                 <div>
                     <p> No results for "{resultIndicator}" </p> </div>}
 
@@ -181,7 +176,6 @@ export default function App() {
             <Switch>
                 <Route path="/searchrequests/:query" children={<SearchRequests />} />
                 <Route path="/searchrequests/" children={<SearchRequests />} />
-
             </Switch>
         </Router>
     );

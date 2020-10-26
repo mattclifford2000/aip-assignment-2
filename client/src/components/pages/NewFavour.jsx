@@ -1,12 +1,12 @@
-import React, { Component, useState } from "react"; //eslint-disable-line
+import React, { Component } from "react"; //eslint-disable-line
 import { Button, Form, Card, ButtonGroup, ProgressBar } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+
 import axios from "axios";
 import "../../styles/Register.css";
 import OperationModal from "../shared/OperationModal"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { isValidElement } from "react";
+
 
 export default class NewFavourComponent extends Component {
   constructor(props) {
@@ -57,14 +57,14 @@ export default class NewFavourComponent extends Component {
     } else {
       const config = {
         onUploadProgress: progressEvent => {
-          var completed = Math.round((progressEvent.loaded *100)/progressEvent.total) * 0.9;
+          var completed = Math.round((progressEvent.loaded * 100) / progressEvent.total) * 0.9;
           this.setState({
             uploadProgress: completed
           })
         }
-        
+
         //console.log(progressEvent.loaded)
-    }
+      }
 
       if (this.state.image !== null) {
         const imgUploadURL = 'https://api.cloudinary.com/v1_1/dj31q081c/image/upload';
@@ -118,9 +118,9 @@ export default class NewFavourComponent extends Component {
           })
           console.error(error);
         });
-        this.setState({
-          uploadProgress: 100
-        });
+      this.setState({
+        uploadProgress: 100
+      });
     }
   };
 
@@ -227,9 +227,9 @@ export default class NewFavourComponent extends Component {
                 value={this.state.externalemail}
                 onChange={this.handleInputChange}
               />
-                          {!this.validateEmail(this.state.externalemail) && (
-              <Form.Text>Please enter a valid email</Form.Text>
-            )}
+              {!this.validateEmail(this.state.externalemail) && (
+                <Form.Text>Please enter a valid email</Form.Text>
+              )}
             </Form.Group>
             <Form.Group controlId="name">
               <Form.Label>Favour Name</Form.Label>
@@ -240,11 +240,11 @@ export default class NewFavourComponent extends Component {
                 value={this.state.name}
                 onChange={this.handleInputChange}
               />
-                            {this.state.name.length < 3 && (
-              <Form.Text>
-                Please enter a favour name greater than 3 characters
-              </Form.Text>
-            )}
+              {this.state.name.length < 3 && (
+                <Form.Text>
+                  Please enter a favour name greater than 3 characters
+                </Form.Text>
+              )}
             </Form.Group>
             <Form.Group controlId="content">
               <Form.Label>Favour Description</Form.Label>
@@ -255,11 +255,11 @@ export default class NewFavourComponent extends Component {
                 value={this.state.content}
                 onChange={this.handleInputChange}
               />
-               {this.state.content.length < 3 && (
-              <Form.Text>
-                Please enter a favour description greater than 3 characters
-              </Form.Text>
-            )}
+              {this.state.content.length < 3 && (
+                <Form.Text>
+                  Please enter a favour description greater than 3 characters
+                </Form.Text>
+              )}
               <br></br>
               {/* DUMPED FROM NEW REQUEST*/}
               <h3> Rewards: </h3>
@@ -337,13 +337,13 @@ export default class NewFavourComponent extends Component {
                     </Button>
 
                   )}
-                  {(this.state.uploadProgress !== null) &&
+                {(this.state.uploadProgress !== null) &&
                   <div>
-                  <br></br>
-                  <ProgressBar variant="info" animated now={this.state.uploadProgress}/>
-                  <p>Currently uploading image and favour</p>
+                    <br></br>
+                    <ProgressBar variant="info" animated now={this.state.uploadProgress} />
+                    <p>Currently uploading image and favour</p>
                   </div>
-                  }
+                }
               </Form.Group>
             </Form.Group>
 

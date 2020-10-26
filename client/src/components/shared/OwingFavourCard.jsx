@@ -27,7 +27,7 @@ class RewardCard extends React.Component {
 
     let cardFooterAccept = <p></p>;
 
-    if (favour != null) {
+    if (favour !== null) {
       return (
         <Col sm={12} md={4} lg={3} className="request-card-container">
           <Card className="request-card">
@@ -40,27 +40,27 @@ class RewardCard extends React.Component {
                 <br></br>
                 <br></br>
                 <span display="inline">
-                  {favour.chocolates != 0 && favour.chocolates != null &&
+                  {favour.chocolates !== 0 && favour.chocolates !== null &&
                     (
                       <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>
                     )}
 
-                  {favour.mints != 0 && favour.mints != null &&
+                  {favour.mints !== 0 && favour.mints !== null &&
                     (
                       <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>
                     )}
 
-                  {favour.pizzas != 0 && favour.pizzas != null &&
+                  {favour.pizzas !== 0 && favour.pizzas !== null &&
                     (
                       <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>
                     )}
 
-                  {favour.coffees != 0 && favour.coffees != null &&
+                  {favour.coffees !== 0 && favour.coffees !== null &&
                     (
                       <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>
                     )}
 
-                  {favour.candies != 0 && favour.candies != null &&
+                  {favour.candies !== 0 && favour.candies !== null &&
                     (
                       <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>
                     )}
@@ -74,7 +74,7 @@ class RewardCard extends React.Component {
               {/* <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button> */}
 
             </Card.Footer>
-            
+
           </Card>
         </Col >
       );

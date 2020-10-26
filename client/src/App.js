@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./App.scss";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { AuthContext } from "./components/context/auth";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Leaderboard from "./components/shared/Leaderboard";
-
 import SearchRequests from "./components/pages/SearchRequests";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
@@ -12,24 +12,17 @@ import NewFavour from "./components/pages/NewFavour";
 import Request from "./components/pages/Request";
 import NewRequest from "./components/pages/NewRequest";
 import Favour from "./components/pages/Favour";
-import "./styles/Navbar.css";
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
-import { AuthContext } from "./components/context/auth";
-import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import "./styles/Navbar.css";
+import "./App.scss";
 
-import { Component } from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
 
 //Font Awesome Initialisation
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faStroopwafel, faSearch, faSlidersH, faPizzaSlice, faCookie, faCoffee, faCandyCane, faLeaf, faArrowRight, faCheck, faKey, faAt, faUser, faCalendar, faTimes } from '@fortawesome/free-solid-svg-icons'
 library.add(faStroopwafel, faSearch, faSlidersH, faPizzaSlice, faCookie, faCoffee, faCandyCane, faLeaf, faArrowRight, faCheck, faKey, faAt, faUser, faCalendar, faTimes);
-
-
-
 
 function App(props) {
   const existingTokens = JSON.parse(localStorage.getItem("tokens"));
@@ -45,32 +38,8 @@ function App(props) {
       <Router>
         <div className="App" max-width="100%">
 
-
-
           {/*Navbar when user is not logged in*/}
-          {localStorage.getItem('loggedIn') == "false" &&
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-
-              <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                  <Nav.Link href="/">Home</Nav.Link>
-                  <NavDropdown title="Requests" id="requests-dropdown">
-                    <NavDropdown.Item href="/searchrequests">Search Requests</NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link href="/leaderboard" class="navbarText">Leaderboard</Nav.Link>
-                </Nav>
-                <Nav>
-                  <Nav.Link href="/register">Register</Nav.Link>
-                  <Nav.Link href="/login">Login</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar>
-          }
-
-
-          {localStorage.getItem('loggedIn') == null &&
+          {(localStorage.getItem('loggedIn') === "false" || localStorage.getItem('loggedIn') === "true") &&
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -89,12 +58,9 @@ function App(props) {
               </Navbar.Collapse>
             </Navbar>
           }
-
-
-
 
           {/*Navbar when user is logged in*/}
-          {localStorage.getItem('loggedIn') == "true" &&
+          {localStorage.getItem('loggedIn') === "true" &&
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Favour Centre</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -116,16 +82,9 @@ function App(props) {
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
-
           }
 
-
-
-
-
-
           <Route exact path="/leaderboard" component={Leaderboard} />
-
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
@@ -140,9 +99,6 @@ function App(props) {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/request/:id" component={Request} />
           <PrivateRoute exact path="/favour/:id" component={Favour} />
-
-
-
         </div>
       </Router>
     </AuthContext.Provider>

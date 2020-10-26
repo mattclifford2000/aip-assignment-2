@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Card, Row, Alert} from "react-bootstrap";
-import RequestComp from "../functionalComponents/request.comp";
+import { Button, Modal, Card, Row, Alert } from "react-bootstrap";
 import "./../../styles/Home.css";
 import "./../../styles/Profile.scss";
 import RequestCard from "../shared/RequestCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
 import CompletedCard from "../shared/CompletedCard";
 import OwingFavourCard from "../shared/OwingFavourCard";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 function Profile(props) {
   const [requests, setRequests] = useState([]);
@@ -21,7 +20,7 @@ function Profile(props) {
   const [showRequest, setShowRequest] = useState(false);
   const [users, setUsers] = useState([])
   const [completed, setCompleted] = useState([])
-  const [userID, setUserID] = useState(localStorage.getItem('userID'))
+  const [userID] = useState(localStorage.getItem('userID'))
 
   const requestURL = "/request/myRequests"
   const owedURL = "/favour/myOwedFavours";
@@ -31,25 +30,29 @@ function Profile(props) {
 
   useEffect(() => {
 
+    //find requests
     axios
       .post(requestURL, { userID })
       .then((response) => {
         setMyRequests(response.data)
       })
 
+    //find owed favours
     axios
       .post(owedURL, { userID })
       .then((response) => {
         setOwed(response.data)
       })
 
+
+    //find owing faovurs
     axios
       .post(owingURL, { userID })
       .then((response) => {
         setOwing(response.data)
       })
 
-
+    //find completed favours
     axios
       .post(completedURL, { userID })
       .then((response) => {
@@ -94,15 +97,10 @@ function Profile(props) {
   }
 
 
-  const handleRequestClose = (e) => {
-    setShowRequest(false)
-  }
-
-
   function handleComplete(favour) {
-    const favourDelete = "/favour/delete"; //we dont want to delete favours, we want to mark them complete in some cases
+    const favourComplete = "/favour/complete";
     axios
-      .post(favourDelete, favour)
+      .post(favourComplete, favour)
       .then((response) => {
       })
 
@@ -145,7 +143,7 @@ function Profile(props) {
           <RequestCard request={request} onAccept={() => { handleComplete(request) }} onDelete={() => { handleDelete(request) }}></RequestCard> //onaccept add
         ))}
       </Row>
-      {myRequests.length == 0 &&
+      {myRequests.length === 0 &&
         <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
           No requests! Create a request to see something here
 </Alert>}
@@ -158,9 +156,9 @@ function Profile(props) {
           <OwedFavourCard favour={favour} onAccept={() => { handleComplete(favour) }}></OwedFavourCard> //onaccept add
         ))}
       </Row>
-      {owed.length == 0 &&
+      {owed.length === 0 &&
         <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
-        No owing favours! Create an owing favour to see something here
+          No owing favours! Create an owing favour to see something here
 </Alert>}
 
       <h2> Owed Favours ({owing.length}) </h2>
@@ -171,9 +169,9 @@ function Profile(props) {
         ))}
       </Row>
 
-      {owing.length == 0 &&
+      {owing.length === 0 &&
         <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
-        No owed favours! Accept requests or create an owed favour to see something here
+          No owed favours! Accept requests or create an owed favour to see something here
 </Alert>}
 
 
@@ -185,9 +183,9 @@ function Profile(props) {
           <CompletedCard favour={favour} onAccept={() => { handleComplete(favour) }}></CompletedCard> //onaccept add
         ))}
       </Row>
-      {completed.length == 0 &&
+      {completed.length === 0 &&
         <Alert id="emptyInfo" variant="info" className="profileAlert" role="alert">
-        No completed favours! Start accepting and completing requests to see something here!
+          No completed favours! Start accepting and completing requests to see something here!
 </Alert>}
 
 

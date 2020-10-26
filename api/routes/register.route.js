@@ -4,7 +4,7 @@ const { verifyLoginUser, verifyRegisterUser } = require("../helpers/validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 
-
+//register new user
 router.post("/", async (req, res) => {
     var name = req.body.name;
     var password = req.body.password;
@@ -46,11 +46,6 @@ router.post("/", async (req, res) => {
     const savedUser = await user.save();
     console.log(savedUser);
     return res.status(200).send(savedUser);
-});
-
-//For testing API purposes
-router.get("/", async (req, res) => {
-    res.json({ message: "This is the register route!" });
 });
 
 module.exports = router;

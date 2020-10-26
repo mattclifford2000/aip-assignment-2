@@ -1,15 +1,11 @@
 import React from "react";
-import Leaderboard from "../shared/Leaderboard";
 import "./../../styles/Home.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Jumbotron, Row, Button, InputGroup, Form, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 import Requests from "./Requests";
 import SearchBox from "../shared/SearchBox";
 
-
-
 function Home(props) {
-
   return (
     <div>
       <Jumbotron fluid className="showcase">
@@ -21,6 +17,5 @@ function Home(props) {
     </div>
   );
 }
-
 export default Home;
 

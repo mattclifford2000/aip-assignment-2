@@ -7,14 +7,9 @@ import "./../../styles/Requests.scss";
 
 function Requests(props) {
   const [requests, setRequests] = useState([]);
-  const [user, setUser] = useState();
   const [show, setShow] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false)
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e.target.value);
-  }
 
   function handleClose(e) {
     setShow(false)
@@ -113,7 +108,7 @@ function Requests(props) {
       <h1> Requests</h1>
       <p>  These are public requests made by others </p>
 
-      {localStorage.getItem('loggedIn') == null || localStorage.getItem('loggedIn') == "false" &&
+      {(localStorage.getItem('loggedIn') === null || localStorage.getItem('loggedIn') === "false") &&
         (
           <p>  Log in to start accepting requests </p>
         )}
