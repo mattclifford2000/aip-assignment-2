@@ -35,8 +35,6 @@ function NewRequests(props) {
       candies: candies,
     };
 
-    console.log(request);
-
     const url = "/request/new";
     try {
       axios

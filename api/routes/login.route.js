@@ -53,15 +53,6 @@ router.post("/findUser", async (req, res) => {
   res.json(user)
 });
 
-
-router.post("/findUserOther", async (req, res) => { //bad route name, will fix later
-  console.log(req.body.debitorID)
-  const debitorID = req.body.debitorID;
-  const user = await User.findOne({ _id: debitorID });
-  console.log(user)
-  res.json(user)
-});
-
 //find user by their userid
 router.post("/findUserByID", async (req, res) => {
   const userID = req.body.userID;

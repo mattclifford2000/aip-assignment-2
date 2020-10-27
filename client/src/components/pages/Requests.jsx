@@ -9,11 +9,14 @@ function Requests(props) {
   const [show, setShow] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false)
 
+  const favourURL = "/favour/acceptRequest";
+  const requestURL = "/request/acceptRequest";
+
   useEffect(() => {
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })
-  });
+  }, [requests]);
 
   //close modal
   function handleClose(e) {
@@ -53,12 +56,10 @@ function Requests(props) {
     }
 
     //convert request to owed favour by creating new favour using request details
-    const favourURL = "/favour/acceptRequest";
     axios
       .post(favourURL, favour)
 
     //delete request from database
-    const requestURL = "/request/acceptRequest";
     const _id = request._id
     axios
       .post(requestURL, { _id })
@@ -82,18 +83,14 @@ function Requests(props) {
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Ok
-          </Button>
+          <Button variant="primary" onClick={handleClose}> Ok </Button>
         </Modal.Footer>
       </Modal>
 
       <Modal show={deleteShow} onHide={handleClose}>
         <Modal.Body>You successfully deleted a request.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Ok
-          </Button>
+          <Button variant="primary" onClick={handleClose}> Ok </Button>
         </Modal.Footer>
       </Modal>
 

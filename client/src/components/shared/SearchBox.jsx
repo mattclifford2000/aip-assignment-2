@@ -21,11 +21,6 @@ class SearchBox extends React.Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
-    /*
-    let URL = "/search" + this.state.searchType + "/" + this.state.query;
-    this.setState({
-      redirectURL: URL
-    })*/
   }
 
   changeSearchType = (type) => {
