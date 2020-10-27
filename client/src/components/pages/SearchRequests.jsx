@@ -10,7 +10,7 @@ import SearchBox from "../shared/SearchBox";
 import "./../../styles/Home.css";
 
 function SearchRequests(props) {
-    const [requests, setRequests] = useState([]); //search results
+    const [requests, setRequests] = useState([]);
     const { query } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
@@ -64,7 +64,7 @@ function SearchRequests(props) {
         axios
             .post(favourURL, favour)
 
-        //delete request from database
+        //delete request from database so it doesn't show up as a request anymore
         const requestURL = "/request/acceptRequest";
         const _id = request._id
         axios

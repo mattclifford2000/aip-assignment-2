@@ -38,8 +38,6 @@ const FavourSchema = new Schema({
   imageURL: {
     type: String,
   },
-
-
   chocolates: {
     type: Number,
     unique: false,

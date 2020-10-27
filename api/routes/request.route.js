@@ -4,16 +4,19 @@ const Request = require("../models/Request.model");
 const { verifyRequest } = require("../helpers/verifyRequest");
 const { verifyUser } = require("../helpers/verifyUser");
 
-router.get("/request", async (req, res) => {
-  const request = await Request.findOne({ _id: req.query.id });
-  res.json(request);
-});
-
+//get all requests
 router.get("/", async (req, res) => {
   const requests = await Request.find();
   res.json(requests);
 });
 
+//get single request
+router.get("/request", async (req, res) => {
+  const request = await Request.findOne({ _id: req.query.id });
+  res.json(request);
+});
+
+//search requests according to usre query
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
   /* return results where name OR content contains the search query */
@@ -24,28 +27,23 @@ router.post("/searchRequest", async (req, res) => {
       { [req.body.query]: { $gt: 0 } },
     ],
   });
-
   res.json(result);
 });
 
+//delete request when it's accepted. Request data is turned into favour on favour route
 router.post("/acceptRequest", async (req, res) => {
   const id = req.body._id;
   const request = await Request.deleteOne({ _id: id });
 });
 
-router.post("/mine", async (req, res) => {
-  const { authToken } = req.body;
-  const verifiedUser = verifyUser(authToken);
-  const requests = await Request.find({ ownerID: verifiedUser.user._id });
-  res.json(requests);
-});
-
+//get all requests made by the user
 router.post("/myRequests", async (req, res) => {
   const ownerID = req.body.userID;
   const requests = await Request.find({ ownerID: ownerID });
   res.json(requests);
 });
 
+//delete request made by the user
 router.post("/delete", async (req, res) => {
   const { requestID, authToken } = req.body;
   const verifiedUser = verifyUser(authToken);
@@ -57,6 +55,7 @@ router.post("/delete", async (req, res) => {
   res.send(requests);
 });
 
+//make new request
 router.post("/new", async (req, res) => {
   const { request, authToken } = req.body;
 
@@ -64,8 +63,6 @@ router.post("/new", async (req, res) => {
   if (verifiedUser.status != "200") {
     return res.status(verifiedUser.status).send(verifiedUser.status);
   }
-
-
   const newRequest = new Request({
     ownerID: request.ownerID,
     ownerName: request.ownerName,
@@ -87,7 +84,6 @@ router.post("/new", async (req, res) => {
   } catch (err) {
     console.error(err.message);
   }
-
   const savedRequest = newRequest.save();
   return res.status(200).send(savedRequest);
 });

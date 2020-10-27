@@ -2,17 +2,14 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Leaderboard.css";
 
-
 function Leaderboard(props) {
   const [users, setUsers] = useState([]);
-
 
   useEffect(() => {
     axios.get("/lists/leaderboard").then((res) => {
       setUsers(res.data);
     })
-  }, []);
-
+  });
 
   return (
     <div id="leaderboard">
@@ -34,7 +31,6 @@ function Leaderboard(props) {
           ))}
         </tbody>
       </table>
-
     </div>
   );
 }
