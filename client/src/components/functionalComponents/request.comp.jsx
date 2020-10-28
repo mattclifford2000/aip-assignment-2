@@ -1,38 +1,91 @@
-import React, { Component, useState, useEffect } from 'react';
-import "./../../styles/request.comp.css";
-import { Button, Form, Card } from "react-bootstrap";
-import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Button, Card, Col } from "react-bootstrap";
+import PlaceholderImage from "../img/placeholder.png";
 
-function RequestComp(props) {
-    const [requests, setRequests] = useState([]);
+class RewardCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleAccept = this.handleAccept.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 
-    function handleDelete(e) {
-        e.preventDefault();
-        console.log(e.target.value);
+  }
+  handleAccept(e) {
+    this.props.onAccept(e);
+  }
+  handleInputChange(e) {
+    this.props.onInputChange(e);
+  }
 
-        axios
-            .post("/request/delete", {
-                requestID: e.target.value,
-                authToken: localStorage.getItem('authToken')
-            })
-            .then((res) => {
-                props.setRequests(res.data); //this is a callback to setRequests
-            });
+  handleDelete(request) {
+    this.props.onDelete(request);
+  }
+
+
+  render() {
+    const request = this.props.request;
+    let cardFooterAccept = <p></p>;
+
+    if (localStorage.getItem("userID") !== request.ownerID && localStorage.getItem("loggedIn") === "true") {
+      cardFooterAccept = <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>;
     }
+    if (request !== null) {
+      return (
+        <Col sm={12} md={4} lg={3} className="request-card-container">
+          <Card className="request-card">
+            <Card.Img variant="top" className="card-img" style={{ backgroundImage: `url(${PlaceholderImage})` }} />
+            <Card.Body>
+              <Card.Title> <h2>{request.name}</h2> </Card.Title>
+              <Card.Text>
+                <p> {request.content} </p>
+                <p> Requested by: {request.ownerName} </p>
+                <br></br>
+                <br></br>
+                <span display="inline">
+                  {request.chocolates !== 0 && request.chocolates !== null &&
+                    (
+                      <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{request.chocolates}  </span>
+                    )}
 
-    console.log(props);
-    console.log(typeof props.request.name);
-    return (
-        <div>
-            <h2> {props.request.name} </h2>
-            <p>Request Description: {props.request.content}</p>
-            <p>Request ID (TESTING): {props.request._id}</p>
-            <p>Request userID (TESTING): {props.request.ownerID}</p>
-            <Button value={props.request._id} variant="danger" type="submit" onClick={handleDelete}>
-                DELETE
-            </Button>
-        </div>
-    );
+                  {request.mints !== 0 && request.mints !== null &&
+                    (
+                      <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{request.mints}  </span>
+                    )}
+
+                  {request.pizzas !== 0 && request.pizzas !== null &&
+                    (
+                      <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{request.pizzas}  </span>
+                    )}
+
+                  {request.coffees !== 0 && request.coffees !== null &&
+                    (
+                      <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{request.coffees}  </span>
+                    )}
+
+                  {request.candies !== 0 && request.candies !== null &&
+                    (
+                      <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{request.candies}  </span>
+                    )}
+                </span>
+              </Card.Text>
+            </Card.Body>
+
+            <Card.Footer>
+              {cardFooterAccept}
+              {(request.ownerID === localStorage.getItem("userID")) &&
+                <Button onClick={() => { this.handleDelete(request) }} variant="danger"> Delete <FontAwesomeIcon icon="times"></FontAwesomeIcon></Button>
+              }
+              <Button href={"/request/" + request._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button>
+
+            </Card.Footer>
+          </Card>
+        </Col>
+      );
+    }
+    else return null;
+  }
+
 }
 
-export default RequestComp;
+export default RewardCard;
+

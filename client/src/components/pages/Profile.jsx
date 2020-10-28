@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Card, Row, Alert } from "react-bootstrap";
 import "./../../styles/Home.css";
 import "./../../styles/Profile.scss";
-import RequestCard from "../shared/RequestCard";
+import RequestCard from "../functionalComponents/request.comp";
 import OwingFavourCard from "../shared/OwingFavourCard";
 import CompletedCard from "../shared/CompletedCard";
 import OwedFavourCard from "../shared/OwedFavourCard";

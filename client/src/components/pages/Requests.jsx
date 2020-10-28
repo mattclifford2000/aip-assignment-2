@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import { Row, Modal, Button } from "react-bootstrap";
-import RequestCard from "../shared/RequestCard";
+import RequestCard from "../functionalComponents/request.comp";
 import "./../../styles/Requests.scss";
 
 function Requests(props) {
