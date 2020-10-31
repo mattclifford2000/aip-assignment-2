@@ -15,7 +15,7 @@ import Favour from "./components/pages/Favour";
 import Requests from "./components/pages/Requests";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
-import "./styles/Navbar.css";
+import "./styles/Navbar.scss";
 import "./App.scss";
 
 

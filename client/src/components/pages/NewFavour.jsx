@@ -2,7 +2,7 @@ import React, { Component } from "react"; //eslint-disable-line
 import { Button, Form, Card, ButtonGroup, ProgressBar } from "react-bootstrap";
 
 import axios from "axios";
-import "../../styles/Register.css";
+import "../../styles/Register.scss";
 import OperationModal from "../shared/OperationModal"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

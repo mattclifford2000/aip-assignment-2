@@ -1,3 +1,8 @@
+/**
+ * parseJwt function courtesy of Stackoverflow user Peheje
+ * Source: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+ */
+
 const { Base64 } = require("js-base64");
 
 const parseJwt = (token) => {

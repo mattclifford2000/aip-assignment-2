@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react"; //eslint-disable-line
 import { Button, Card, Form } from "react-bootstrap";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import "../../styles/Login.css";
+import "../../styles/Login.scss";
 import "../context/auth.jsx";
 import { useAuth } from "../context/auth.jsx";
 import OperationModal from "../shared/OperationModal";
