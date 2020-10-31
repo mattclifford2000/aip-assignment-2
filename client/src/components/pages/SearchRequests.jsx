@@ -4,10 +4,10 @@ import { Row, Spinner, Button, Modal } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "../../styles/searchRequests.css";
+import "../../styles/searchRequests.scss";
 import RequestCard from "../shared/RequestCard";
 import SearchBox from "../shared/SearchBox";
-import "./../../styles/Home.css";
+import "./../../styles/Home.scss";
 
 function SearchRequests(props) {
     const [requests, setRequests] = useState([]);

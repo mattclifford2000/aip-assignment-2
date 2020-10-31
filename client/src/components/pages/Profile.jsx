@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Card, Row, Alert } from "react-bootstrap";
-import "./../../styles/Home.css";
+import "./../../styles/Home.scss";
 import "./../../styles/Profile.scss";
 import RequestCard from "../shared/RequestCard";
 import OwingFavourCard from "../shared/OwingFavourCard";

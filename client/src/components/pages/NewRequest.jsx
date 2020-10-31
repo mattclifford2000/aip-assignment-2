@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import "../../styles/searchRequests.css";
-import "./../../styles/Home.css";
+import "../../styles/searchRequests.scss";
+import "./../../styles/Home.scss";
 import OperationModal from "../shared/OperationModal";
 import { Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
