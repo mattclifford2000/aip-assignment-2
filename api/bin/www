@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('api:server');
 var http = require('http');
+var io = require('../io');
+
 
 /**
  * Get port from environment and store in Express.
@@ -26,6 +28,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
+io.attach(server);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -92,6 +95,7 @@ function onListening() {
 /**
  * Setup Socket.io for entire app.
  */
+/*
 var io = require('socket.io')(http);
 io.listen(server);
 
@@ -101,6 +105,5 @@ io.on('connection', function(socket) {
         console.log('Sending update!');
         socket.emit('update', 'Working!');
     });
-});
+});*/
 
-export default io;

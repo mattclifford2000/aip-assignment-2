@@ -11,10 +11,20 @@ var logger = require("morgan");
 var cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { Base64 } = require("js-base64");
+var io = require('./io');
 
 
 require("dotenv").config();
 
+io.on('connection', function(socket) {
+  console.log('Client connected!');
+  socket.emit('update', 'Working!');
+
+  socket.on('message', function (data) {
+      console.log('Sending update!');
+      socket.emit('update', 'Working!');
+  });
+});
 
 const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");

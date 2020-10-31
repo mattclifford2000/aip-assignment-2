@@ -13,7 +13,7 @@ function Leaderboard(props) {
     axios.get("/lists/leaderboard").then((res) => {
       setUsers(res.data);
     })
-    socket.on("some event", data => {
+    socket.on("update", data => {
       console.log(data);
     });  });
 
