@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const User = require("../models/User.model");
+var io = require("../bin/www")
 
 //display leaderboard
 router.get("/leaderboard", async (req, res) => {
@@ -16,6 +17,7 @@ router.post("/addScore", async (req, res) => {
   const userID = req.body.userID
   const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
   console.log("done")
+  io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' }); // This will emit the event to all connected sockets
 });
 
 module.exports = router;

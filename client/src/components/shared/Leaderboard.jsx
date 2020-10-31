@@ -1,6 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from "axios";
 import "./../../styles/Leaderboard.scss";
+import socketIOClient from "socket.io-client";
+import io from 'socket.io-client';
+ 
+const socket = io('/socket');
 
 function Leaderboard(props) {
   const [users, setUsers] = useState([]);
@@ -9,7 +13,9 @@ function Leaderboard(props) {
     axios.get("/lists/leaderboard").then((res) => {
       setUsers(res.data);
     })
-  });
+    socket.on("some event", data => {
+      console.log(data);
+    });  });
 
   return (
     <div id="leaderboard">
