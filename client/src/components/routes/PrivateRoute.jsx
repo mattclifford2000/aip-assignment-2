@@ -2,14 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 function PrivateRoute({ component: Component, ...rest }) {
-
-    /***
-     * NASTY BUG. getItem("loggedIn") returned a string, not a bool, so an
-     * if statement was always checking if ('true' == true)
-     */
-    //  console.log(localStorage.getItem("loggedIn") == true);
-    //  console.log(localStorage.getItem("loggedIn") == "true");
-
     if (localStorage.getItem("loggedIn") === "true") {
         return (
             <Route
