@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Row, Modal, Button } from "react-bootstrap";
 import RequestCard from "../functionalComponents/request.comp";
 import "./../../styles/Requests.scss";
+import io from 'socket.io-client';
+const socket = io();
 
 function Requests(props) {
   const [requests, setRequests] = useState([]);
@@ -16,7 +18,23 @@ function Requests(props) {
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })
-  }, [requests]);
+  }, []);
+
+  useEffect(() => {
+    //Handle deleted request
+    socket.on("deleteRequest", requestID => {
+      let newRequests = requests;
+      for(var i = 0, len = newRequests.length; i < len; ++i){
+        if(newRequests[i]._id === requestID){
+          newRequests.splice(i, 1);
+        }
+      }
+      setRequests(newRequests);
+    }); 
+    socket.on("addRequest", newRequest => {
+      setRequests(requests.concat(newRequest));
+    })
+  });
 
   //close modal
   function handleClose(e) {
@@ -33,9 +51,8 @@ function Requests(props) {
         authToken: localStorage.getItem('authToken')
       })
       .then((res) => {
-        setRequests(res.data);
+        setDeleteShow(true);
       });
-    setDeleteShow(true)
   }
 
   //accept request

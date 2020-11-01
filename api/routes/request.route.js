@@ -6,8 +6,10 @@ const { verifyUser } = require("../helpers/verifyUser");
 
 //get all requests
 router.get("/", async (req, res) => {
+  const io = req.app.locals.io;
   const requests = await Request.find();
   res.json(requests);
+  global.io.emit('update', 'Just out of requests ;)');
 });
 
 //get single request
@@ -49,10 +51,11 @@ router.post("/delete", async (req, res) => {
   const verifiedUser = verifyUser(authToken);
   const usersRequest = await Request.findOne({ _id: requestID });
   if (verifiedUser.user._id == usersRequest.ownerID) {
-    await Request.deleteOne({ _id: requestID });
+    await Request.deleteOne({ _id: requestID })
+    .then(
+      global.io.emit("deleteRequest", requestID));
   }
-  const requests = await Request.find({ ownerID: verifiedUser.user._id });
-  res.send(requests);
+  return res.status(200).send();
 });
 
 //make new request
@@ -85,6 +88,7 @@ router.post("/new", async (req, res) => {
     console.error(err.message);
   }
   const savedRequest = newRequest.save();
+  global.io.emit("addRequest", newRequest);
   return res.status(200).send(savedRequest);
 });
 
