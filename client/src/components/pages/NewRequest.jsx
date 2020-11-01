@@ -54,7 +54,6 @@ function NewRequests(props) {
   function handleClose() {
     setShowModal(false);
     if (status === 200) {
-      //setURL("/profile");
     }
   }
 
@@ -69,13 +68,6 @@ function NewRequests(props) {
 
   return (
     <div>
-      <OperationModal
-        status={status}
-        show={showModal}
-        onHandleClose={() => {
-          handleClose();
-        }}
-      ></OperationModal>
       <div class="searchRequestForm">
         <Card style={{ width: "18rem" }}>
           <Form onSubmit={handleSubmit} noValidate>
@@ -215,6 +207,15 @@ function NewRequests(props) {
           </Form>
         </Card>
       </div>
+
+      <OperationModal
+        status={status}
+        show={showModal}
+        onHandleClose={() => {
+          handleClose();
+        }}
+      ></OperationModal>
+
     </div>
   );
 }

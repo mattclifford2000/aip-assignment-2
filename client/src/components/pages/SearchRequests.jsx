@@ -93,15 +93,15 @@ function SearchRequests(props) {
             <p>  Search public requests </p>
             <SearchBox initType="requests"></SearchBox>
 
-            {/* Single result */}
+            {/* Show when there's a single result */}
             {resultIndicator !== undefined && requests.length === 1 &&
                 <div> <p> {requests.length} result for "{resultIndicator}" </p> </div>}
 
-            {/* Multiple results */}
+            {/* Show when there's multiple results */}
             {resultIndicator !== undefined && requests.length > 1 &&
                 <div> <p> {requests.length} results for "{resultIndicator}" </p> </div>}
 
-            {/* No results */}
+            {/* Show when there's no results */}
             {resultIndicator !== undefined && requests.length === 0 &&
                 <div> <p> No results for "{resultIndicator}" </p> </div>}
 

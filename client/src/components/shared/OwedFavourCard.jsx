@@ -8,7 +8,6 @@ class RewardCard extends React.Component {
   constructor(props) {
     super(props);
     this.handleComplete = this.handleComplete.bind(this);
-    //this.handleDelete = this.handleDelete.bind(this);*/
   }
 
   handleComplete(e) {
@@ -38,29 +37,19 @@ class RewardCard extends React.Component {
                 <br></br>
                 <span display="inline">
                   {favour.chocolates !== 0 && favour.chocolates !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>)}
 
                   {favour.mints !== 0 && favour.mints !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>)}
 
                   {favour.pizzas !== 0 && favour.pizzas !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>)}
 
                   {favour.coffees !== 0 && favour.coffees !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>)}
 
                   {favour.candies !== 0 && favour.candies !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>)}
                 </span>
               </Card.Text>
             </Card.Body>
@@ -68,7 +57,6 @@ class RewardCard extends React.Component {
             <Card.Footer>
               {cardFooterAccept}
               <Button onClick={() => this.handleComplete(favour)} variant="primary">Complete <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
-              {/* <Button href={"/favour/" + favour._id} variant="info">View <FontAwesomeIcon icon="arrow-right"></FontAwesomeIcon></Button> */}
             </Card.Footer>
 
           </Card>

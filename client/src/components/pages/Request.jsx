@@ -19,9 +19,8 @@ function Request(props) {
     });
   }, []);
 
-  //DUPLICATE OF PROFILE CODE, TIDY UP
+
   const handleDelete = (request) => {
-    //e.preventDefault();
     console.log(localStorage.getItem('userID'));
 
     axios
@@ -30,7 +29,6 @@ function Request(props) {
         authToken: localStorage.getItem('authToken')
       })
       .then((res) => {
-        //setRequests(res.data);
       });
   }
 
@@ -89,11 +87,8 @@ function Request(props) {
                 <Button onClick={() => this.handleAccept(request)} variant="success">Accept <FontAwesomeIcon icon="check"></FontAwesomeIcon></Button>
               )}
 
-
             {(localStorage.getItem('userID') === request.ownerID) ?
-
               <Button onClick={() => handleDelete(request)} variant="danger">Delete</Button> : ""}
-
           </Card.Footer>
         </Card>
       </Col>

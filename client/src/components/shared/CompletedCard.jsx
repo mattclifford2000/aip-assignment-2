@@ -7,22 +7,10 @@ class RewardCard extends React.Component {
   constructor(props) {
     super(props);
     this.handleComplete = this.handleComplete.bind(this);
-
-    //this.handleDelete = this.handleDelete.bind(this);*/
-
   }
   handleComplete(e) {
     this.props.onAccept(e);
   }
-  /*  handleInputChange(e) {
-      this.props.onInputChange(e);
-    }
-*/
-  /*
-      handleDelete(favour){
-        this.props.onDelete(favour);
-      }
-  */
 
   render() {
     const favour = this.props.favour;
@@ -41,41 +29,29 @@ class RewardCard extends React.Component {
               <Card.Title> <h2>{favour.name}</h2> </Card.Title>
               <Card.Text>
                 <p> {favour.content} </p>
-                {/*<p> Completed by: {favour.debitorName} </p>*/}
                 <br></br>
                 <br></br>
                 <span display="inline">
                   {favour.chocolates !== 0 && favour.chocolates !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{favour.chocolates}  </span>)}
 
                   {favour.mints !== 0 && favour.mints !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{favour.mints}  </span>)}
 
                   {favour.pizzas !== 0 && favour.pizzas !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{favour.pizzas}  </span>)}
 
                   {favour.coffees !== 0 && favour.coffees !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{favour.coffees}  </span>)}
 
                   {favour.candies !== 0 && favour.candies !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{favour.candies}  </span>)}
                 </span>
               </Card.Text>
             </Card.Body>
 
             <Card.Footer>
               {cardFooterAccept}
-
             </Card.Footer>
           </Card>
         </Col>
