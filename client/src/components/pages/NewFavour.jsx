@@ -137,7 +137,7 @@ export default class NewFavourComponent extends Component {
     e.preventDefault();
     console.log(e);
 
-    const { name, value } = e.target;
+    const { name } = e.target;
     let errors = this.state.errors;
     switch (name) {
       case "owebutton":

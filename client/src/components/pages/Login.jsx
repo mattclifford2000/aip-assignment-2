@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const { setAuthTokens } = useAuth();
   const url = "/login";
@@ -32,10 +31,8 @@ function Login(props) {
         localStorage.setItem('userEmail', response.data.email);
         localStorage.setItem('loggedIn', true);
         localStorage.setItem('authToken', response.data.authToken);
-        setLoggedIn(true);
         if (response.status === 200) {
           setAuthTokens(response.data);
-          setLoggedIn(true);
         } else {
           setIsError(true);
         }

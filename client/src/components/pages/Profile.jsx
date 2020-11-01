@@ -10,7 +10,6 @@ import OwedFavourCard from "../shared/OwedFavourCard";
 import { Redirect } from "react-router-dom";
 
 function Profile(props) {
-  const [requests, setRequests] = useState([]);
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
@@ -71,9 +70,6 @@ function Profile(props) {
       .post(deleteURL, {
         requestID: request._id,
         authToken: localStorage.getItem('authToken')
-      })
-      .then((res) => {
-        setRequests(res.data);
       });
 
     setShowRequest(true)
