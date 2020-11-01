@@ -28,9 +28,9 @@ router.post("/addScore", async (req, res) => {
     .sort({ score: -1 }) //Use the score field to sort the query by score descending
     .limit(10); //Only take the top 10 results from the query
     leaderboard = users;
+    //Update leaderboard client side for users with page already loaded.
     io.emit('leaderboard', leaderboard);
-    console.log("Emitting a fresh copy");
-  }
+    }
   
 
 
