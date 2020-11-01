@@ -14,6 +14,7 @@ function Login(props) {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const { setAuthTokens } = useAuth();
+  const url = "/login";
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,7 +22,6 @@ function Login(props) {
       email: email,
       password: password,
     };
-    const url = "/login";
 
     axios
       .post(url, { login })

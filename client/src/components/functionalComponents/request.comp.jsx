@@ -43,29 +43,19 @@ class RewardCard extends React.Component {
                 <br></br>
                 <span display="inline">
                   {request.chocolates !== 0 && request.chocolates !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{request.chocolates}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{request.chocolates}  </span>)}
 
                   {request.mints !== 0 && request.mints !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{request.mints}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="leaf"></FontAwesomeIcon> x{request.mints}  </span>)}
 
                   {request.pizzas !== 0 && request.pizzas !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{request.pizzas}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="pizza-slice"></FontAwesomeIcon> x{request.pizzas}  </span>)}
 
                   {request.coffees !== 0 && request.coffees !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{request.coffees}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="coffee"></FontAwesomeIcon> x{request.coffees}  </span>)}
 
                   {request.candies !== 0 && request.candies !== null &&
-                    (
-                      <span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{request.candies}  </span>
-                    )}
+                    (<span><FontAwesomeIcon icon="candy-cane"></FontAwesomeIcon> x{request.candies}  </span>)}
                 </span>
               </Card.Text>
             </Card.Body>

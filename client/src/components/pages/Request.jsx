@@ -11,6 +11,7 @@ function Request(props) {
   let { id } = useParams();
   const [isLoading, setLoading] = useState(true);
   const [request, setRequest] = useState();
+  const deleteURL = "/request/delete";
 
   useEffect(() => {
     axios.get("/request/request?id=" + id).then(res => {
@@ -24,7 +25,7 @@ function Request(props) {
     console.log(localStorage.getItem('userID'));
 
     axios
-      .post("/request/delete", {
+      .post(deleteURL, {
         requestID: request._id,
         authToken: localStorage.getItem('authToken')
       })

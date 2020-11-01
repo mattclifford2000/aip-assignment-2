@@ -11,6 +11,7 @@ class RewardCard extends React.Component {
     this.state = {
       uploaded: false,
       image: null,
+      addImgURL: "/favour/addImg"
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
@@ -36,9 +37,8 @@ class RewardCard extends React.Component {
       console.log(favour.imageURL);
     }
 
-    const url = "/favour/addImg";
     await axios
-      .post(url, favour)
+      .post(this.state.addImgURL, favour)
       .then((response) => {
         console.log("client success upload");
       })

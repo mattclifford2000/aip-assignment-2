@@ -18,7 +18,7 @@ function Register(props) {
   const [showModal, setShowModal] = useState(false);
   const [URL, setURL] = useState(null);
   const [status, setStatus] = useState(null);
-
+  const registerURL = "/register";
 
   function handleSubmit(e) {
     if (!validateEmail(email) || name.length < 6 || password.length < 8) {
@@ -40,9 +40,9 @@ function Register(props) {
       requests: [],
     };
 
-    const url = "/register";
+
     axios
-      .post(url, user)
+      .post(registerURL, user)
       .then((response) => {
         setStatus(response.status);
         if (status === 200) {

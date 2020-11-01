@@ -27,6 +27,7 @@ function Profile(props) {
   const findUserURL = "/login/findUserByID"
   const completeFavourURL = "/favour/complete";
   const userAddScoreURL = "/Lists/addScore";
+  const deleteURL = "/request/delete";
 
   useEffect(() => {
     //find requests
@@ -67,7 +68,7 @@ function Profile(props) {
     console.log(localStorage.getItem('userID'));
 
     axios
-      .post("/request/delete", {
+      .post(deleteURL, {
         requestID: request._id,
         authToken: localStorage.getItem('authToken')
       })

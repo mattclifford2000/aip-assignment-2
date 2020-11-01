@@ -16,10 +16,13 @@ function SearchRequests(props) {
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
     const [show, setShow] = useState(false);
     const [deleteShow, setDeleteShow] = useState(false)
+    const url = "/request/searchRequest";
+    const favourURL = "/favour/acceptRequest";
+    const requestURL = "/request/acceptRequest";
+    const deleteURL = "/request/delete";
 
     useEffect(() => {
         if (query) {
-            const url = "/request/searchRequest";
             axios
                 .post(url, { query })
                 .then((response) => {
@@ -60,12 +63,10 @@ function SearchRequests(props) {
         }
 
         //convert request to owed favour by creating new favour using request details
-        const favourURL = "/favour/acceptRequest";
         axios
             .post(favourURL, favour)
 
         //delete request from database so it doesn't show up as a request anymore
-        const requestURL = "/request/acceptRequest";
         const _id = request._id
         axios
             .post(requestURL, { _id })
@@ -77,7 +78,7 @@ function SearchRequests(props) {
     const handleDelete = (request) => {
         console.log(localStorage.getItem('userID'));
         axios
-            .post("/request/delete", {
+            .post(deleteURL, {
                 requestID: request._id,
                 authToken: localStorage.getItem('authToken')
             })

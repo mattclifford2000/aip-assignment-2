@@ -20,6 +20,7 @@ function NewRequests(props) {
   const [showModal, setShowModal] = useState(false);
   const [URL] = useState(null);
   const [status, setStatus] = useState(null);
+  const [url] = useState("/request/new");
 
   function handleSubmit() {
     const request = {
@@ -35,7 +36,6 @@ function NewRequests(props) {
       candies: candies,
     };
 
-    const url = "/request/new";
     try {
       axios
         .post(url, { request, authToken: localStorage.getItem("authToken") })
@@ -60,7 +60,6 @@ function NewRequests(props) {
   if (URL !== null) {
     return <Redirect to={URL}></Redirect>;
   }
-
 
   if (localStorage.getItem("loggedIn") === "false" || localStorage.getItem("loggedIn") === null || localStorage.getItem("loggedIn") === false) {
     return <Redirect to="/login" />;

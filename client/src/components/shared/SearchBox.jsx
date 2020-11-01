@@ -71,7 +71,6 @@ class SearchBox extends React.Component {
       </Form>
     );
   }
-
 }
 
 export default SearchBox;

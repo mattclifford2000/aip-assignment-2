@@ -11,6 +11,7 @@ function Favour(props) {
   let { id } = useParams();
   const [isLoading, setLoading] = useState(true);
   const [favour, setFavour] = useState();
+  const deleteURL = "/favour/delete";
 
   useEffect(() => {
     axios.get("/favour/favour?id=" + id).then(res => {
@@ -22,7 +23,7 @@ function Favour(props) {
 
   const handleDelete = (request) => {
     axios
-      .post("/favour/delete", {
+      .post(deleteURL, {
         requestID: favour._id,
         authToken: localStorage.getItem('authToken')
       })

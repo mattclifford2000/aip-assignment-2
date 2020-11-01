@@ -1,12 +1,9 @@
 import React, { Component } from "react"; //eslint-disable-line
 import { Button, Form, Card, ButtonGroup, ProgressBar } from "react-bootstrap";
-
 import axios from "axios";
 import "../../styles/Register.scss";
 import OperationModal from "../shared/OperationModal"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-
 
 export default class NewFavourComponent extends Component {
   constructor(props) {
@@ -29,6 +26,7 @@ export default class NewFavourComponent extends Component {
       image: null,
       imageURL: null,
       uploadProgress: null,
+      url: "/favour/new"
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeImg = this.onChangeImg.bind(this);
@@ -62,8 +60,6 @@ export default class NewFavourComponent extends Component {
             uploadProgress: completed
           })
         }
-
-        //console.log(progressEvent.loaded)
       }
 
       if (this.state.image !== null) {
@@ -100,16 +96,13 @@ export default class NewFavourComponent extends Component {
         imageURL: this.state.imageURL
       };
 
-      const url = "/favour/new";
-
       await axios
-        .post(url, favour)
+        .post(this.state.url, favour)
         .then((response) => {
           this.setState({
             status: response.status,
             showModal: true,
           })
-
         })
         .catch((error) => {
           this.setState({
@@ -124,13 +117,9 @@ export default class NewFavourComponent extends Component {
     }
   };
 
-
-
-
   onChangeImg(e) {
     this.setState({ image: e.target.files[0] });
   }
-
 
   addReward = (e) => {
     const reward = {
@@ -142,8 +131,6 @@ export default class NewFavourComponent extends Component {
       rewards: this.state.rewards.concat(reward)
     });
   }
-
-
 
 
   handleInputChange = (e) => {
@@ -176,12 +163,9 @@ export default class NewFavourComponent extends Component {
   }
 
   render() {
-    if (this.state.URL !== null) {
-      //return (<Redirect to={this.state.URL}></Redirect>)
-    }
+
     return (
       <div className="registerform" id="registerform">
-        {/*Reuse RegisterForm styling for now*/}
         <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
         <OperationModal status={this.state.status} show={this.state.showErrorModal} onHandleClose={this.handleErrorClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
@@ -261,7 +245,7 @@ export default class NewFavourComponent extends Component {
                 </Form.Text>
               )}
               <br></br>
-              {/* DUMPED FROM NEW REQUEST*/}
+
               <h3> Rewards: </h3>
               <Form.Group controlId="chocolates">
                 <Form.Label><span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> Chocolates  </span> </Form.Label>
@@ -293,7 +277,6 @@ export default class NewFavourComponent extends Component {
                   placeholder={this.state.pizzas}
                   value={this.state.pizzas}
                   onChange={this.handleInputChange}
-
                 />
               </Form.Group>
 
@@ -305,7 +288,6 @@ export default class NewFavourComponent extends Component {
                   placeholder={this.state.coffees}
                   value={this.state.coffees}
                   onChange={this.handleInputChange}
-
                 />
               </Form.Group>
 
@@ -317,10 +299,9 @@ export default class NewFavourComponent extends Component {
                   placeholder={this.state.candies}
                   value={this.state.candies}
                   onChange={this.handleInputChange}
-
                 />
               </Form.Group>
-              {/* END DUMP */}
+
 
               <h3> Image: </h3>
               <Form.Group>
@@ -331,11 +312,9 @@ export default class NewFavourComponent extends Component {
                   this.state.content.length >= 3 &&
                   this.validateEmail(this.state.externalemail) &&
                   (
-
                     <Button variant="primary" onClick={this.handleSubmit}>
                       Submit
                     </Button>
-
                   )}
                 {(this.state.uploadProgress !== null) &&
                   <div>
@@ -346,10 +325,7 @@ export default class NewFavourComponent extends Component {
                 }
               </Form.Group>
             </Form.Group>
-
-
           </Form>
-
         </Card>
       </div>
     );

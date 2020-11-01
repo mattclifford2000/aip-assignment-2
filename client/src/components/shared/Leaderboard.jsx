@@ -4,9 +4,10 @@ import "./../../styles/Leaderboard.scss";
 
 function Leaderboard(props) {
   const [users, setUsers] = useState([]);
+  const leaderboardURL = "/lists/leaderboard"
 
   useEffect(() => {
-    axios.get("/lists/leaderboard").then((res) => {
+    axios.get(leaderboardURL).then((res) => {
       setUsers(res.data);
     })
   });
