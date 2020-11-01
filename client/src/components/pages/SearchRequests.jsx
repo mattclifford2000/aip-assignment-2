@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../../styles/searchRequests.scss";
-import RequestCard from "../shared/RequestCard";
+import RequestCard from "../functionalComponents/request.comp";
 import SearchBox from "../shared/SearchBox";
 import "./../../styles/Home.scss";
 
