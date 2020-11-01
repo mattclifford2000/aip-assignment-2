@@ -1,8 +1,6 @@
 var createError = require("http-errors");
 var express = require("express");
 var app = express();
-//var http = require('http').Server(app)
-//var io = require('socket.io')(http)
 var path = require("path");
 var http_module = require("http");
 var cookieParser = require("cookie-parser");
@@ -15,7 +13,6 @@ var io = require('./io');
 
 
 require("dotenv").config();
-
 io.on('connection', function(socket) {
   console.log('Client connected!');
   socket.emit('update', 'Working!');
@@ -26,7 +23,18 @@ io.on('connection', function(socket) {
   });
 });
 
-app.locals.io=io;
+/*
+io.sockets.on("connection", (socket) => {
+  //add client to online users list
+  addClientToMap(userName, socket.id);
+  });
+
+  socket.on("disconnect", () => {
+    //remove this client from online list
+    removeClientFromMap(userName, socket.id);
+    });*/
+
+global.io = io;
 
 const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");
