@@ -1,24 +1,38 @@
 var express = require("express");
 var router = express.Router();
 const User = require("../models/User.model");
-var io = require("../bin/www")
+var leaderboard = null;
 
 //display leaderboard
 router.get("/leaderboard", async (req, res) => {
-  const users = await User
-    .find({}, { name: 1, score: 1 }) //Finds all users with {}, then uses projection to return the name and score field (0 false, 1 true)
-    .sort({ score: -1 }) //Use the score field to sort the query by score descending
-    .limit(10); //Only take the top 10 results from the query
-  res.json(users);
+  const io = req.app.locals.io;
+  if(leaderboard == null) await updateLeaderboard(io);
+  console.log(leaderboard);
+  res.json(leaderboard);
 });
 
 //increment score by 1 when favour completed
 router.post("/addScore", async (req, res) => {
+  const io = req.app.locals.io;
   const userID = req.body.userID
-  const user = await User.updateOne({ _id: userID }, { $inc: { score: 1, } });
-  console.log("done")
-  io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' }); // This will emit the event to all connected sockets
+  const user = await User.findOneAndUpdate({ _id: userID }, { $inc: { score: 1, } });
+  //If this user is in the leaderboard and has had their score change, or has entered the top 10, emit the changes to clients
+  if(leaderboard == null || user.score >= leaderboard[9].score ){
+    updateLeaderboard(io);
+  }
 });
+
+  async function updateLeaderboard(io) {
+    const users = await User
+    .find({}, { name: 1, score: 1 }) //Finds all users with {}, then uses projection to return the name and score field (0 false, 1 true)
+    .sort({ score: -1 }) //Use the score field to sort the query by score descending
+    .limit(10); //Only take the top 10 results from the query
+    leaderboard = users;
+    io.emit('leaderboard', leaderboard);
+    console.log("Emitting a fresh copy");
+  }
+  
+
 
 module.exports = router;
 

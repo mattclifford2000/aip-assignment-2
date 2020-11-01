@@ -4,18 +4,26 @@ import "./../../styles/Leaderboard.scss";
 import socketIOClient from "socket.io-client";
 import io from 'socket.io-client';
  
-const socket = io('/socket');
+//const socket = io('/socket');
+const socket = io();
 
 function Leaderboard(props) {
   const [users, setUsers] = useState([]);
 
+  //initialise the leaderboard
+
+
   useEffect(() => {
     axios.get("/lists/leaderboard").then((res) => {
       setUsers(res.data);
-    })
-    socket.on("update", data => {
-      console.log(data);
-    });  });
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("leaderboard", data => {
+      setUsers(data);
+    }); 
+  });
 
   return (
     <div id="leaderboard">

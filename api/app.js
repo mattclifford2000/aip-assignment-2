@@ -26,6 +26,8 @@ io.on('connection', function(socket) {
   });
 });
 
+app.locals.io=io;
+
 const LoginRoute = require("./routes/login.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
