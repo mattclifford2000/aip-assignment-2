@@ -35,8 +35,9 @@ function Requests(props) {
     //Handle deleted request
     socket.on("deleteRequest", requestID => {
       let newRequests = requests;
-      for (var i = 0, len = newRequests.length; i < len; ++i) {
-        if (newRequests[i]._id === requestID) {
+      let i = newRequests.length;
+      while(i--) {
+        if(requests[i]._id === requestID){
           newRequests.splice(i, 1);
         }
       }
