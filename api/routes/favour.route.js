@@ -130,7 +130,7 @@ router.post("/addImg", async (req, res) => {
     emitFavour(req.body, "deleteFavour");
     emitFavour(doc, "addFavour");
   });
-  res.status(200).json(favour);
+  res.status(200).json(updatedFavour);
 });
 
 /**
