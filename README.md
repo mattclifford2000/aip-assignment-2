@@ -136,7 +136,7 @@ SOFTWARE.
 
 Developed by Group UTS-AIP-SPR-2020, consisting of Matthew Clifford (Klauser5), Ethan Choi (ethan-choi), Joe Drew (josephjdrew), and Lachlan Brown (LachlanB96).
 
-External Credits (credit in comments adjacent to functions/files):
+External Credits (additionally, credit is in comment adjacent to relevant function/file):
 
 MediaQueries.scss (Client): Glenn McComb (https://glennmccomb.com/articles/useful-sass-scss-media-query-mixins-for-bootstrap/)
 
