@@ -21,6 +21,7 @@ io.on('connection', function(socket) {
   socket.once('disconnect', ()=>{
   removeClientFromMap(userID, socket.id);
   })
+
 });
 
 /**
@@ -52,15 +53,13 @@ function removeClientFromMap(userID, socketID) {
 global.userSocketIDMap = userSocketIDMap;
 global.io = io;
 
-const LoginRoute = require("./routes/login.route");
+const UserRoute = require("./routes/user.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
 const ListRoute = require("./routes/Lists.route");
 const RequestRoute = require("./routes/request.route");
 /*const NewRequestRoute = require("./routes/newrequest.route");*/
 const FavourRoute = require("./routes/favour.route");
-const RewardRoute = require("./routes/reward.route");
-
 
 require("./database/initDB")();
 
@@ -75,12 +74,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
-app.use("/login", LoginRoute);
+app.use("/user", UserRoute);
 app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
 app.use("/request", RequestRoute);
 app.use("/favour", FavourRoute);
-app.use("/reward", RewardRoute);
 app.use("/lists", ListRoute);
 
 

@@ -13,7 +13,7 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const { setAuthTokens } = useAuth();
-  const url = "/login";
+  const url = "/user/login";
 
   function handleSubmit(e) {
     e.preventDefault();

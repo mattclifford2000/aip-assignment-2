@@ -4,13 +4,17 @@ import { Row, Modal, Button } from "react-bootstrap";
 import RequestCard from "../functionalComponents/request.comp";
 import "./../../styles/Requests.scss";
 import io from 'socket.io-client';
+import OperationModal from "../shared/OperationModal";
+
 var socket = null;
 
 
 function Requests(props) {
   const [requests, setRequests] = useState([]);
-  const [show, setShow] = useState(false);
+  const [status, setStatus] = useState(200);
   const [deleteShow, setDeleteShow] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+
 
   const favourURL = "/favour/acceptRequest";
   const requestURL = "/request/acceptRequest";
@@ -31,23 +35,19 @@ function Requests(props) {
     //Handle deleted request
     socket.on("deleteRequest", requestID => {
       let newRequests = requests;
-      for(var i = 0, len = newRequests.length; i < len; ++i){
-        if(newRequests[i]._id === requestID){
+      for (var i = 0, len = newRequests.length; i < len; ++i) {
+        if (newRequests[i]._id === requestID) {
           newRequests.splice(i, 1);
         }
       }
       setRequests(newRequests);
-    }); 
+    });
     socket.on("addRequest", newRequest => {
       setRequests(requests.concat(newRequest));
     })
   });
 
-  //close modal
-  function handleClose(e) {
-    setShow(false)
-    setDeleteShow(false)
-  }
+
 
   //delete request
   const handleDelete = (request) => {
@@ -60,6 +60,8 @@ function Requests(props) {
       .then((res) => {
         setDeleteShow(true);
       });
+
+    setShowModal(true);
   }
 
   //accept request
@@ -88,9 +90,13 @@ function Requests(props) {
     axios
       .post(requestURL, { _id })
 
-    setShow(true)
+
+    setShowModal(true);
   }
 
+  function handleClose() {
+    setShowModal(false);
+  }
 
   return (
     <div id="requests">
@@ -104,19 +110,15 @@ function Requests(props) {
         {requests.map((request) => (<RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard>))}
       </Row>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}> Ok </Button>
-        </Modal.Footer>
-      </Modal>
 
-      <Modal show={deleteShow} onHide={handleClose}>
-        <Modal.Body>You successfully deleted a request.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}> Ok </Button>
-        </Modal.Footer>
-      </Modal>
+
+      <OperationModal
+        status={status}
+        show={showModal}
+        onHandleClose={() => {
+          handleClose();
+        }}
+      ></OperationModal>
 
     </div>
   );
