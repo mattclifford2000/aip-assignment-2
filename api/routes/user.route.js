@@ -11,7 +11,6 @@ require("dotenv").config();
 
 //login user
 router.post("/login", async (req, res) => {
-  console.log(req.body);
   var userCredentials = req.body.login;
   try {
     const { error } = verifyLoginUser(userCredentials);

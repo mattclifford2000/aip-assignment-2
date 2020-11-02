@@ -14,12 +14,12 @@ var userSocketIDMap = new Map(); //Map of active user tokens/clients
 
 require("dotenv").config();
 
-io.on('connection', function(socket) {
-  let userID = socket.handshake.query.userID ;
-  if(userID) addClientToMap(userID, socket.id);
+io.on('connection', function (socket) {
+  let userID = socket.handshake.query.userID;
+  if (userID) addClientToMap(userID, socket.id);
 
-  socket.once('disconnect', ()=>{
-  removeClientFromMap(userID, socket.id);
+  socket.once('disconnect', () => {
+    removeClientFromMap(userID, socket.id);
   })
 
 });
@@ -30,21 +30,21 @@ io.on('connection', function(socket) {
  */
 function addClientToMap(userID, socketID) {
   //If first active client of this user
-  if(!userSocketIDMap.has(userID)) {
+  if (!userSocketIDMap.has(userID)) {
     userSocketIDMap.set(userID, new Set([socketID]));
   }
   //Else if another client of user
-  else{
+  else {
     userSocketIDMap.get(userID).add(socketID);
   }
 }
 
 function removeClientFromMap(userID, socketID) {
-  if(userSocketIDMap.has(userID)){
+  if (userSocketIDMap.has(userID)) {
     let userSocketIDSet = userSocketIDMap.get(userID);
     userSocketIDMap.get(userID).delete(socketID);
     //If we have no clients left, delete the userID
-    if(userSocketIDMap.get(userID).size ==0){
+    if (userSocketIDMap.get(userID).size == 0) {
       userSocketIDMap.delete(userID);
     }
   }
@@ -54,7 +54,6 @@ global.userSocketIDMap = userSocketIDMap;
 global.io = io;
 
 const UserRoute = require("./routes/user.route");
-const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
 const ListRoute = require("./routes/Lists.route");
 const RequestRoute = require("./routes/request.route");
@@ -75,7 +74,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
 app.use("/user", UserRoute);
-app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
 app.use("/request", RequestRoute);
 app.use("/favour", FavourRoute);
