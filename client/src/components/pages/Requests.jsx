@@ -19,12 +19,12 @@ function Requests(props) {
   const requestURL = "/request/acceptRequest";
 
   useEffect(() => {
-    socket = io({
-      query: {
-        userID: localStorage.getItem('userID'),
+      socket = io({
+        query: {
+          token: localStorage.getItem("authToken"),
+        }
       }
-    }
-    );
+      );
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })

@@ -21,6 +21,7 @@ function Profile(props) {
   const [users, setUsers] = useState([])
   const [completed, setCompleted] = useState([])
   const [userID] = useState(localStorage.getItem('userID'))
+  const [token] = useState(localStorage.getItem('authToken'))
 
   const requestURL = "/request/myRequests"
   const owedURL = "/favour/myOwedFavours";
@@ -34,7 +35,7 @@ function Profile(props) {
     useEffect(() => {
       socket = io({
         query: {
-          userID: userID,
+          token: token,
         }
       }
       );
@@ -47,19 +48,19 @@ function Profile(props) {
       });
     //find owed favours (favours others owed you)
     axios
-      .post(owedURL, { userID })
+      .post(owedURL, { token })
       .then((response) => {
         setOwed(response.data)
       });
     //find owing favours (favours you owe to others)
     axios
-      .post(owingURL, { userID })
+      .post(owingURL, { token })
       .then((response) => {
         setOwing(response.data)
       });
     //find completed favours
     axios
-      .post(completedURL, { userID })
+      .post(completedURL, { token })
       .then((response) => {
         setCompleted(response.data)
       });
@@ -74,8 +75,6 @@ function Profile(props) {
 
   useEffect(() => {
     socket.on('addFavour', favour => {
-      console.log("i should be adding");
-      console.log(favour);
       let section = determineFavourSection(favour);
       if(section){
       section[1](section[0].concat(favour));
