@@ -11,12 +11,22 @@ const jwt = require("jsonwebtoken");
 const { Base64 } = require("js-base64");
 var io = require('./io');
 var userSocketIDMap = new Map(); //Map of active user tokens/clients
+const { verifyUser } = require("./helpers/verifyUser");
 
 require("dotenv").config();
 
 io.on('connection', function (socket) {
-  let userID = socket.handshake.query.userID;
-  if (userID) addClientToMap(userID, socket.id);
+  let token = socket.handshake.query.token;
+  let userID;
+  if (token) {
+    let verifiedUser = verifyUser(token);
+    if(verifiedUser.status == "200"){
+      userID = verifiedUser.user._id;
+      console.log(verifiedUser.user._id);
+      addClientToMap(userID, socket.id);
+    }
+  } 
+  
 
   socket.once('disconnect', () => {
     removeClientFromMap(userID, socket.id);
@@ -25,7 +35,7 @@ io.on('connection', function (socket) {
 });
 
 /**
- * addClientToMap and removeClientFromMap functions courtesy of:
+ * Parts of addClientToMap and removeClientFromMap functions courtesy of:
  * https://medium.com/@albanero/socket-io-track-online-users-d8ed1df2cb88
  */
 function addClientToMap(userID, socketID) {
