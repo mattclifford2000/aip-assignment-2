@@ -39,6 +39,7 @@ router.post("/acceptRequest", async (req, res) => {
   .then(
     global.io.emit("deleteRequest", id)
   );
+  return res.status(200).send();
 });
 
 //get all requests made by the user
