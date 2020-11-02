@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Card, Row, Alert } from "react-bootstrap";
+import { Card, Row, Alert } from "react-bootstrap";
 import "./../../styles/Home.scss";
 import "./../../styles/Profile.scss";
 import RequestCard from "../functionalComponents/request.comp";
@@ -17,14 +17,12 @@ function Profile(props) {
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
-  const [show, setShow] = useState(false);
-  const [showRequest, setShowRequest] = useState(false);
   const [users, setUsers] = useState([])
   const [completed, setCompleted] = useState([])
   const [userID] = useState(localStorage.getItem('userID'))
   const [token] = useState(localStorage.getItem('authToken'))
   const [showModal, setShowModal] = useState(false);
-  const [status, setStatus] = useState(200);
+  const [status] = useState(200);
 
   const requestURL = "/request/myRequests"
   const owedURL = "/favour/myOwedFavours";
@@ -89,7 +87,7 @@ function Profile(props) {
         let newSection = section[0];
         let i = newSection.length;
         while (i--) {
-          if (section[0][i]._id == favour._id) {
+          if (section[0][i]._id === favour._id) {
             newSection.splice(i, 1);
           }
         }

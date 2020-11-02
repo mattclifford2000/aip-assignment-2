@@ -105,6 +105,7 @@ export default class NewFavourComponent extends Component {
     }
   };
 
+  //upload image
   onChangeImg(e) {
     this.setState({ image: e.target.files[0] });
   }
@@ -112,7 +113,6 @@ export default class NewFavourComponent extends Component {
   handleInputChange = (e) => {
     e.preventDefault();
     console.log(e);
-
     const { name } = e.target;
     let errors = this.state.errors;
     switch (name) {
@@ -137,7 +137,6 @@ export default class NewFavourComponent extends Component {
     return re.test(String(email).toLowerCase()) && email.length > 6;
   }
 
-
   //close modal
   handleClose = () => {
     this.setState({
@@ -156,7 +155,6 @@ export default class NewFavourComponent extends Component {
 
 
   render() {
-
     return (
       <div className="registerform" id="registerform">
         <Card style={{ width: "18rem" }}>
