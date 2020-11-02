@@ -154,9 +154,7 @@ export default class NewFavourComponent extends Component {
     this.setState({ showErrorModal: false })
   }
 
-
   render() {
-
     return (
       <div className="registerform" id="registerform">
         <Card style={{ width: "18rem" }}>
@@ -194,7 +192,6 @@ export default class NewFavourComponent extends Component {
 
             <Form.Group controlId="externalemail">
               <Form.Label>{this.externalUserLabel()}</Form.Label>
-
               <Form.Control
                 type="email"
                 name="externalemail"
@@ -206,6 +203,7 @@ export default class NewFavourComponent extends Component {
                 <Form.Text>Please enter a valid email</Form.Text>
               )}
             </Form.Group>
+
             <Form.Group controlId="name">
               <Form.Label>Favour Name</Form.Label>
               <Form.Control
@@ -221,6 +219,7 @@ export default class NewFavourComponent extends Component {
                 </Form.Text>
               )}
             </Form.Group>
+
             <Form.Group controlId="content">
               <Form.Label>Favour Description</Form.Label>
               <Form.Control
