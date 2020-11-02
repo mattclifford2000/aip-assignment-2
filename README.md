@@ -8,7 +8,7 @@ Requires Node.js and npm to be installed
 
 ## API Documentation
 
--- Favours
+- ### Favours
 
 GET /favour:
     Params: ID of a query
@@ -22,6 +22,79 @@ POST /acceptRequest:
     Function: Accepts a favour
 POST /myOwedFavours:
     Params: a users ID
+    Returns: List of favour objects owed
+POST /myOwedFavours:
+    Params: a users ID
+    Returns: List of favour objects owing
+POST /myCompletedFavours:
+    Params: a users ID
+    Returns: List of favour objects completed
+POST /complete:
+    Params: a ID of a favour
+    Function: Turns the completed field of that favour to true
+    Returns: Status code
+POST /addImg:
+    Params: a ID of a favour, a URL for an image
+    Function: Updates favour objects image field with the provided URL and sets completed field to true
+    Returns: Status code
+
+- ### Requests
+
+GET /:
+    Returns: All request objects in the database
+
+GET /request:
+    Params: a ID of a request
+    Returns: a request object
+
+POST /searchRequest:
+    Params: a string which will be queried
+    Function: Queries all requests to check if the query is in name or content of request object
+    Returns: a list of request objects
+
+POST /acceptRequest:
+    Params: a ID of a request
+    Function: Deletes the request from the database
+    Returns: status code
+
+POST /myRequests:
+    Params: a ID of a user
+    Returns: a list of request objects owned by the user
+
+POST /delete:
+    Params: a ID of a request, an auth token
+    Function: Verify the request selected is owned by the auth token owner, then deletes request
+    Returns: status code
+
+POST /new:
+    Params: a request object, an auth token
+    Function: Verify the request selected is owned by the auth token owner, then creates request
+    Returns: status code
+
+- ### User
+
+POST /login:
+    Params: username, password
+    Function: checks if user exists and if credentials are correct
+    Returns: Authentication token
+
+POST /register:
+    Params: username, password, email, date of birth
+    Function: checks if new user is valid, then creates user in DB
+    Returns: a user object
+
+POST /findUserByID:
+    Params: a ID of a user
+    Returns: a user object
+
+- ### Lists
+
+GET /leaderboard:
+    Returns: JSON leaderboard object
+
+POST /addScore:
+    Params: a ID of a user
+    Functrion: Increments one to the users score, then updates the leaderboard
 
 ## License
 
