@@ -18,7 +18,7 @@ function Register(props) {
   const [showModal, setShowModal] = useState(false);
   const [URL, setURL] = useState(null);
   const [status, setStatus] = useState(null);
-  const registerURL = "/register";
+  const registerURL = "user/register";
 
   function handleSubmit(e) {
     if (!validateEmail(email) || name.length < 6 || password.length < 8) {
