@@ -4,7 +4,8 @@ import { Row, Modal, Button } from "react-bootstrap";
 import RequestCard from "../functionalComponents/request.comp";
 import "./../../styles/Requests.scss";
 import io from 'socket.io-client';
-const socket = io();
+var socket = null;
+
 
 function Requests(props) {
   const [requests, setRequests] = useState([]);
@@ -15,6 +16,12 @@ function Requests(props) {
   const requestURL = "/request/acceptRequest";
 
   useEffect(() => {
+    socket = io({
+      query: {
+        userID: localStorage.getItem('userID'),
+      }
+    }
+    );
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })

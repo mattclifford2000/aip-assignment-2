@@ -10,30 +10,50 @@ var cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { Base64 } = require("js-base64");
 var io = require('./io');
-
+var userSocketIDMap = new Map(); //Map of active user tokens/clients
 
 require("dotenv").config();
-io.on('connection', function(socket) {
-  console.log('Client connected!');
-  socket.emit('update', 'Working!');
 
-  socket.on('message', function (data) {
-      console.log('Sending update!');
-      socket.emit('update', 'Working!');
-  });
+io.on('connection', function(socket) {
+  let userID = socket.handshake.query.userID ;
+  if(userID) addClientToMap(userID, socket.id);
+
+  socket.once('disconnect', ()=>{
+  removeClientFromMap(userID, socket.id);
+  console.log("Disconnect from " + socket.id);
+  console.log("New Map " + userSocketIDMap);
+
+  })
 });
 
-/*
-io.sockets.on("connection", (socket) => {
-  //add client to online users list
-  addClientToMap(userName, socket.id);
-  });
+/**
+ * addClientToMap and removeClientFromMap functions courtesy of:
+ * https://medium.com/@albanero/socket-io-track-online-users-d8ed1df2cb88
+ */
+function addClientToMap(userID, socketID) {
+  //If first active client of this user
+  if(!userSocketIDMap.has(userID)) {
+    userSocketIDMap.set(userID, new Set([socketID]));
+  }
+  //Else if another client of user
+  else{
+    userSocketIDMap.get(userID).add(socketID);
+  }
+  console.log(userSocketIDMap);
+}
 
-  socket.on("disconnect", () => {
-    //remove this client from online list
-    removeClientFromMap(userName, socket.id);
-    });*/
+function removeClientFromMap(userID, socketID) {
+  if(userSocketIDMap.has(userID)){
+    let userSocketIDSet = userSocketIDMap.get(userID);
+    userSocketIDMap.get(userID).delete(socketID);
+    //If we have no clients left, delete the userID
+    if(userSocketIDMap.get(userID).size ==0){
+      userSocketIDMap.delete(userID);
+    }
+  }
+}
 
+global.userSocketIDMap = userSocketIDMap;
 global.io = io;
 
 const LoginRoute = require("./routes/login.route");
