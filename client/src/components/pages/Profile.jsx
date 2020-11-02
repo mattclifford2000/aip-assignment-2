@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Card, Row, Alert } from "react-bootstrap";
+import { Card, Row, Alert } from "react-bootstrap";
 import "./../../styles/Home.scss";
 import "./../../styles/Profile.scss";
 import RequestCard from "../functionalComponents/request.comp";
 import OwingFavourCard from "../shared/OwingFavourCard";
 import CompletedCard from "../shared/CompletedCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import io from 'socket.io-client';
+import OperationModal from "../shared/OperationModal";
 var socket = null;
 
 
@@ -16,12 +17,12 @@ function Profile(props) {
   const [owed, setOwed] = useState([]);
   const [owing, setOwing] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
-  const [show, setShow] = useState(false);
-  const [showRequest, setShowRequest] = useState(false);
   const [users, setUsers] = useState([])
   const [completed, setCompleted] = useState([])
   const [userID] = useState(localStorage.getItem('userID'))
   const [token] = useState(localStorage.getItem('authToken'))
+  const [showModal, setShowModal] = useState(false);
+  const [status] = useState(200);
 
   const requestURL = "/request/myRequests"
   const owedURL = "/favour/myOwedFavours";
@@ -32,16 +33,16 @@ function Profile(props) {
   const userAddScoreURL = "/Lists/addScore";
   const deleteURL = "/request/delete";
 
-    useEffect(() => {
-      socket = io({
-        query: {
-          token: token,
-        }
+  useEffect(() => {
+    socket = io({
+      query: {
+        token: token,
       }
-      );
+    }
+    );
     //find requests
     axios
-      .post(requestURL, { userID })
+      .post(requestURL, { token })
       .then((response) => {
         //setMyRequests(response.data)
         setMyRequests(response.data);
@@ -70,54 +71,56 @@ function Profile(props) {
       .then((response) => {
         setUsers(response.data)
       });
-    }, []);
+  }, []);
 
 
   useEffect(() => {
     socket.on('addFavour', favour => {
       let section = determineFavourSection(favour);
-      if(section){
-      section[1](section[0].concat(favour));
-    }
-  });
+      if (section) {
+        section[1](section[0].concat(favour));
+      }
+    });
     socket.on('deleteFavour', favour => {
       let section = determineFavourSection(favour);
-      if(section){
+      if (section) {
         let newSection = section[0];
         let i = newSection.length;
-        while(i--) {
-          if(section[0][i]._id == favour._id){
+        while (i--) {
+          if (section[0][i]._id === favour._id) {
             newSection.splice(i, 1);
           }
         }
         section[1](newSection);
-    };
+      };
     });
-        //Handle deleted request
-        socket.on("deleteRequest", requestID => {
-          let newRequests = myRequests;
-          let i = newRequests.length;
-          while(i--) {
-            if(myRequests[i]._id === requestID){
-              newRequests.splice(i, 1);
-            }
-          }
-          setMyRequests(newRequests);
-        }); 
-        socket.on("addRequest", newRequest => {
-          setMyRequests(myRequests.concat(newRequest));
-        })
+
+    //Handle deleted request
+    socket.on("deleteRequest", requestID => {
+      let newRequests = myRequests;
+      let i = newRequests.length;
+      while (i--) {
+        if (myRequests[i]._id === requestID) {
+          newRequests.splice(i, 1);
+        }
+      }
+      setMyRequests(newRequests);
+    });
+    socket.on("addRequest", newRequest => {
+      setMyRequests(myRequests.concat(newRequest));
+    })
   });
 
-  function determineFavourSection (favour) {
-    if(favour.creditorID === userID && favour.completed === false){
-      return([owed, setOwed]);
+  //Find appropriate section for favour
+  function determineFavourSection(favour) {
+    if (favour.creditorID === userID && favour.completed === false) {
+      return ([owed, setOwed]);
     }
-    if(favour.debitorID === userID && favour.completed === false){
-      return([owing, setOwing]);
+    if (favour.debitorID === userID && favour.completed === false) {
+      return ([owing, setOwing]);
     }
-    if(favour.debitorID === userID && favour.completed === true){
-      return([completed, setCompleted]);
+    if (favour.debitorID === userID && favour.completed === true) {
+      return ([completed, setCompleted]);
     }
     return;
   }
@@ -126,19 +129,12 @@ function Profile(props) {
   //delete unwanted requests
   const handleDelete = (request) => {
     console.log(localStorage.getItem('userID'));
-
     axios
       .post(deleteURL, {
         requestID: request._id,
         authToken: localStorage.getItem('authToken')
       });
-
-    setShowRequest(true)
-  }
-
-  const handleClose = (e) => {
-    setShow(false)
-    setShowRequest(false)
+    setShowModal(true);
   }
 
   //turn favour to completed status
@@ -147,19 +143,24 @@ function Profile(props) {
       .post(completeFavourURL, favour);
     axios
       .post(userAddScoreURL, { userID });
-    setShow(true)
+    setShowModal(true);
   }
 
+  //close modal
+  function handleClose() {
+    setShowModal(false);
+  }
 
   //redirect user if user is not logged in
   if (localStorage.getItem("loggedIn") === "false" || localStorage.getItem("loggedIn") === null || localStorage.getItem("loggedIn") === false) {
     return <Redirect to="/login" />;
   }
 
-
   return (
     <div class="center">
       <Card className="profileCard">
+
+        {/* User Information */}
         <Card.Header as="h5" > <h1>{localStorage.getItem('username')}</h1></Card.Header>
         <Card.Body>
           <p> Score: {users.score} </p>
@@ -170,6 +171,7 @@ function Profile(props) {
         </Card.Body>
       </Card>
 
+      {/* Requests */}
       <h2> Requests ({myRequests.length})  </h2>
       <p>  Public requests you've made </p>
       <Row max-width="100%"> {myRequests.map((request) => (<RequestCard request={request} onAccept={() => { handleComplete(request) }} onDelete={() => { handleDelete(request) }}></RequestCard>))} </Row>
@@ -178,6 +180,7 @@ function Profile(props) {
           No requests! Create a request to see something here
         </Alert>}
 
+      {/* Owing Favours */}
       <h2> Owing favours ({owed.length}) </h2>
       <p>  Favours that you owe others </p>
       <Row max-width="100%"> {owed.map((favour) => (<OwingFavourCard favour={favour} onAccept={() => { handleComplete(favour) }}></OwingFavourCard>))} </Row>
@@ -186,6 +189,7 @@ function Profile(props) {
           No owing favours! Create an owing favour to see something here
          </Alert>}
 
+      {/* Owed Favours */}
       <h2> Owed Favours ({owing.length}) </h2>
       <p>  Favours that others owe you  </p>
       <Row max-width="100%"> {owing.map((favour) => (<OwedFavourCard favour={favour} onAccept={() => { handleComplete(favour) }}></OwedFavourCard>))} </Row>
@@ -194,6 +198,7 @@ function Profile(props) {
           No owed favours! Accept requests or create an owed favour to see something here
         </Alert>}
 
+      {/* Completed Favours */}
       <h2> Completed ({completed.length}) </h2>
       <p>  Favours that others owed you and have completed  </p>
       <Row max-width="100%"> {completed.map((favour) => (<CompletedCard favour={favour} onAccept={() => { handleComplete(favour) }}></CompletedCard>))} </Row>
@@ -202,24 +207,15 @@ function Profile(props) {
           No completed favours! Start accepting and completing requests to see something here!
         </Alert>}
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body> Congratulations! Favour completed successfully. You have earned 1 point
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal>
 
-      <Modal show={showRequest} onHide={handleClose}>
-        <Modal.Body>You successfully deleted a request.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Modal */}
+      <OperationModal
+        status={status}
+        show={showModal}
+        onHandleClose={() => {
+          handleClose();
+        }}
+      ></OperationModal>
     </div>
   );
 }

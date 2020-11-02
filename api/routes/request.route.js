@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
   const io = req.app.locals.io;
   const requests = await Request.find();
   res.json(requests);
-  global.io.emit('update', 'Just out of requests ;)');
 });
 
 //get single request
@@ -18,7 +17,7 @@ router.get("/request", async (req, res) => {
   res.json(request);
 });
 
-//search requests according to usre query
+//search requests according to user query
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
   // return results where name OR content contains the search query
@@ -36,17 +35,25 @@ router.post("/searchRequest", async (req, res) => {
 router.post("/acceptRequest", async (req, res) => {
   const id = req.body._id;
   const request = await Request.deleteOne({ _id: id })
-  .then(
-    global.io.emit("deleteRequest", id)
-  );
+    .then(
+      global.io.emit("deleteRequest", id)
+    );
   return res.status(200).send();
 });
 
 //get all requests made by the user
 router.post("/myRequests", async (req, res) => {
   const ownerID = req.body.userID;
-  const requests = await Request.find({ ownerID: ownerID });
-  res.json(requests);
+  const token = req.body.token;
+  const verifiedUser = verifyUser(token);
+  if(verifiedUser.status == "200"){
+    const requests = await Request.find({ ownerID: verifiedUser.user._id });
+    res.json(requests);
+  }
+  else{
+    res.status(verifiedUser.status).send();
+  }
+
 });
 
 //delete request made by the user

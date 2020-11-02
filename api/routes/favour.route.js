@@ -77,7 +77,7 @@ router.post("/myOwedFavours", async (req, res) => {
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  else{
+  else {
     const userID = verifiedUser.user._id;
     const favour = await Favour.find({ creditorID: userID, completed: false });
     res.json(favour);
@@ -90,7 +90,7 @@ router.post("/myOwingFavours", async (req, res) => {
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  else{
+  else {
     const userID = verifiedUser.user._id;
     const favour = await Favour.find({ debitorID: userID, completed: false });
     res.json(favour);
@@ -103,7 +103,7 @@ router.post("/myCompletedFavours", async (req, res) => {
   if (verifiedUser.status != "200") {
     return res.send(verifiedUser.status);
   }
-  else{
+  else {
     const userID = verifiedUser.user._id;
     const favour = await Favour.find({ debitorID: userID, completed: true });
     res.json(favour);
@@ -113,24 +113,24 @@ router.post("/myCompletedFavours", async (req, res) => {
 //complete a favour
 router.post("/complete", async (req, res) => {
   const id = req.body._id;
-  const updatedFavour = await Favour.findOneAndUpdate({ _id: id }, { $set: { completed: true } }, {new: true}, (err, doc) => {
+  const updatedFavour = await Favour.findOneAndUpdate({ _id: id }, { $set: { completed: true } }, { new: true }, (err, doc) => {
     if (err) console.log("Something wrong when updating data!");
     emitFavour(req.body, "deleteFavour");
     emitFavour(doc, "addFavour");
   });
   res.status(200).json(updatedFavour);
 });
-  
+
 
 //add image to favour
 router.post("/addImg", async (req, res) => {
   const id = req.body._id;
-  const updatedFavour = await Favour.findOneAndUpdate({ _id: id }, { $set: { imageURL: req.body.imageURL, completed: true } }, {new: true}, (err, doc) => {
+  const updatedFavour = await Favour.findOneAndUpdate({ _id: id }, { $set: { imageURL: req.body.imageURL, completed: true } }, { new: true }, (err, doc) => {
     if (err) console.log("Something wrong when updating data!");
     emitFavour(req.body, "deleteFavour");
     emitFavour(doc, "addFavour");
   });
-  res.status(200).json(favour);
+  res.status(200).json(updatedFavour);
 });
 
 /**
@@ -138,17 +138,17 @@ router.post("/addImg", async (req, res) => {
  * @param {Favour} favour 
  * @param {String} action 
  */
-function emitFavour(favour, action){
+function emitFavour(favour, action) {
   let debitorSockets = global.userSocketIDMap.get(favour.debitorID.toString());
   let creditorSockets = global.userSocketIDMap.get(favour.creditorID.toString());
   //Emit favour to all debitor sockets
-  if(debitorSockets){
+  if (debitorSockets) {
     debitorSockets.forEach(socketID => {
       global.io.to(socketID).emit(action, favour);
     });
   }
   //Emit favour to all creditor sockets
-  if(creditorSockets){
+  if (creditorSockets) {
     creditorSockets.forEach(socketID => {
       global.io.to(socketID).emit(action, favour);
     });
