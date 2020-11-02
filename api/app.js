@@ -20,9 +20,6 @@ io.on('connection', function(socket) {
 
   socket.once('disconnect', ()=>{
   removeClientFromMap(userID, socket.id);
-  console.log("Disconnect from " + socket.id);
-  console.log("New Map " + userSocketIDMap);
-
   })
 });
 
@@ -39,7 +36,6 @@ function addClientToMap(userID, socketID) {
   else{
     userSocketIDMap.get(userID).add(socketID);
   }
-  console.log(userSocketIDMap);
 }
 
 function removeClientFromMap(userID, socketID) {

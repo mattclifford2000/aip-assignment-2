@@ -35,7 +35,10 @@ router.post("/searchRequest", async (req, res) => {
 //delete request when it's accepted. Request data is turned into favour on favour route
 router.post("/acceptRequest", async (req, res) => {
   const id = req.body._id;
-  const request = await Request.deleteOne({ _id: id });
+  const request = await Request.deleteOne({ _id: id })
+  .then(
+    global.io.emit("deleteRequest", id)
+  );
 });
 
 //get all requests made by the user

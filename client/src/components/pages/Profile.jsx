@@ -76,18 +76,14 @@ function Profile(props) {
     socket.on('addFavour', favour => {
       console.log("i should be adding");
       console.log(favour);
-
       let section = determineFavourSection(favour);
       if(section){
       section[1](section[0].concat(favour));
     }
   });
     socket.on('deleteFavour', favour => {
-      console.log("i should be deleting");
-      console.log(favour);
       let section = determineFavourSection(favour);
       if(section){
-        console.log("determined section for delete")
         let newSection = section[0];
         console.log(newSection)
         for(var i = 0, len = newSection.length; i < len; ++i){
@@ -95,11 +91,22 @@ function Profile(props) {
             newSection.splice(i, 1);
           }
         }
-        console.log("post edit");
-        console.log(newSection);
         section[1](newSection);
     };
-    })
+    });
+        //Handle deleted request
+        socket.on("deleteRequest", requestID => {
+          let newRequests = myRequests;
+          for(var i = 0, len = newRequests.length; i < len; ++i){
+            if(newRequests[i]._id === requestID){
+              newRequests.splice(i, 1);
+            }
+          }
+          setMyRequests(newRequests);
+        }); 
+        socket.on("addRequest", newRequest => {
+          setMyRequests(myRequests.concat(newRequest));
+        })
   });
 
   function determineFavourSection (favour) {
