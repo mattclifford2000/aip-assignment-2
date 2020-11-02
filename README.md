@@ -13,26 +13,33 @@ Requires Node.js and npm to be installed
 GET /favour:
     Params: ID of a query
     Returns: a single favour object
+    
 POST /new:
     Params: A favour object, A auth token
     Function: Saves a new favour in the database
     Returns: Status code
+
 POST /acceptRequest:
     Params: A favour object
     Function: Accepts a favour
+
 POST /myOwedFavours:
     Params: a users ID
     Returns: List of favour objects owed
+
 POST /myOwedFavours:
     Params: a users ID
     Returns: List of favour objects owing
+
 POST /myCompletedFavours:
     Params: a users ID
     Returns: List of favour objects completed
+
 POST /complete:
     Params: a ID of a favour
     Function: Turns the completed field of that favour to true
     Returns: Status code
+
 POST /addImg:
     Params: a ID of a favour, a URL for an image
     Function: Updates favour objects image field with the provided URL and sets completed field to true
