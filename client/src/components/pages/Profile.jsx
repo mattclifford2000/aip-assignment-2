@@ -7,7 +7,7 @@ import RequestCard from "../functionalComponents/request.comp";
 import OwingFavourCard from "../shared/OwingFavourCard";
 import CompletedCard from "../shared/CompletedCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import io from 'socket.io-client';
 var socket = null;
 
@@ -85,9 +85,9 @@ function Profile(props) {
       let section = determineFavourSection(favour);
       if(section){
         let newSection = section[0];
-        console.log(newSection)
-        for(var i = 0, len = newSection.length; i < len; ++i){
-          if(newSection[i]._id == favour._id){
+        let i = newSection.length;
+        while(i--) {
+          if(section[0][i]._id == favour._id){
             newSection.splice(i, 1);
           }
         }
@@ -97,8 +97,9 @@ function Profile(props) {
         //Handle deleted request
         socket.on("deleteRequest", requestID => {
           let newRequests = myRequests;
-          for(var i = 0, len = newRequests.length; i < len; ++i){
-            if(newRequests[i]._id === requestID){
+          let i = newRequests.length;
+          while(i--) {
+            if(myRequests[i]._id === requestID){
               newRequests.splice(i, 1);
             }
           }
