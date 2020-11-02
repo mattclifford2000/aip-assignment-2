@@ -32,20 +32,8 @@ export default class NewFavourComponent extends Component {
     this.onChangeImg = this.onChangeImg.bind(this);
   }
 
-  handleClose = () => {
-    this.setState({
-      showModal: false,
-      uploadProgress: null
-    });
-    if (this.state.status === 200) {
-      this.setState({ URL: "/profile" })
-    }
-  };
 
-  handleErrorClose = () => {
-    this.setState({ showErrorModal: false })
-  }
-
+  //submit new favour form
   handleSubmit = async (e) => {
     if (this.state.owed && this.state.image === null) {
       console.log("You need an image");
@@ -121,18 +109,6 @@ export default class NewFavourComponent extends Component {
     this.setState({ image: e.target.files[0] });
   }
 
-  addReward = (e) => {
-    const reward = {
-      key: this.state.rewards.length,
-      name: "",
-      content: "",
-    }
-    this.setState({
-      rewards: this.state.rewards.concat(reward)
-    });
-  }
-
-
   handleInputChange = (e) => {
     e.preventDefault();
     console.log(e);
@@ -153,7 +129,6 @@ export default class NewFavourComponent extends Component {
   };
 
   externalUserLabel() {
-
     return (this.state.owed ? "Email of user who owes you" : "Email of user you owe");
   }
 
@@ -161,6 +136,24 @@ export default class NewFavourComponent extends Component {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase()) && email.length > 6;
   }
+
+
+  //close modal
+  handleClose = () => {
+    this.setState({
+      showModal: false,
+      uploadProgress: null
+    });
+    if (this.state.status === 200) {
+      this.setState({ URL: "/profile" })
+    }
+  };
+
+  //close modal
+  handleErrorClose = () => {
+    this.setState({ showErrorModal: false })
+  }
+
 
   render() {
 

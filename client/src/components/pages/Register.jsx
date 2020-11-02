@@ -20,6 +20,8 @@ function Register(props) {
   const [status, setStatus] = useState(null);
   const registerURL = "user/register";
 
+
+  //submit register form
   function handleSubmit(e) {
     if (!validateEmail(email) || name.length < 6 || password.length < 8) {
       setStatus(400);
@@ -57,6 +59,7 @@ function Register(props) {
     setShowModal(true);
   }
 
+  //close modal
   function handleClose() {
     setShowModal(false);
     if (status === 200) {

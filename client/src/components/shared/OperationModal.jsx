@@ -15,13 +15,13 @@ class OperationModal extends React.Component {
   }
 
   statusTitle(status) {
-    if (status === 200) return ("Success");
-    else return ("Error");
+    if (status === 200) return ("Success"); //if action is successful
+    else return ("Error"); //if action is unsuccessful
   }
 
   statusInfo(status) {
-    if (status === 200) return ("Action completed successfully. Click close to continue.");
-    else return ("Please check inputs and try again.");
+    if (status === 200) return ("Action completed successfully. Click close to continue."); //if action is successful
+    else return ("Please check inputs and try again."); //if action is unsuccessful
   }
 
 

@@ -20,7 +20,7 @@ function Favour(props) {
     });
   }, []);
 
-
+  //delete favour
   const handleDelete = (request) => {
     axios
       .post(deleteURL, {

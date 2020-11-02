@@ -21,6 +21,8 @@ function Request(props) {
   }, []);
 
 
+
+  //delete request
   const handleDelete = (request) => {
     console.log(localStorage.getItem('userID'));
 

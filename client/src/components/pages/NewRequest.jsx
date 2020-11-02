@@ -23,6 +23,8 @@ function NewRequests(props) {
   const [status, setStatus] = useState(null);
   const [url] = useState("/request/new");
 
+
+  //submit new request form
   function handleSubmit() {
     const request = {
       ownerID: userID,
@@ -52,16 +54,14 @@ function NewRequests(props) {
     setShowModal(true);
   }
 
+  //close modal
   function handleClose() {
     setShowModal(false);
     if (status === 200) {
     }
   }
 
-  if (URL !== null) {
-    return <Redirect to={URL}></Redirect>;
-  }
-
+  //redirect user if not logged in
   if (localStorage.getItem("loggedIn") === "false" || localStorage.getItem("loggedIn") === null || localStorage.getItem("loggedIn") === false) {
     return <Redirect to="/login" />;
   }
