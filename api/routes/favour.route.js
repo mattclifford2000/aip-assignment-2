@@ -3,7 +3,6 @@ var router = express.Router();
 const { verifyUser } = require("../helpers/verifyUser");
 const User = require("../models/User.model");
 const Favour = require("../models/Favour.model");
-const { emit } = require("../models/User.model");
 
 //find favour by ID
 router.get("/favour", async (req, res) => {
@@ -74,23 +73,41 @@ router.post("/acceptRequest", async (req, res) => {
 
 //get all user's owed favours
 router.post("/myOwedFavours", async (req, res) => {
-  const userID = req.body.userID;
-  const favour = await Favour.find({ creditorID: userID, completed: false });
-  res.json(favour);
+  let verifiedUser = verifyUser(req.body.token);
+  if (verifiedUser.status != "200") {
+    return res.send(verifiedUser.status);
+  }
+  else{
+    const userID = verifiedUser.user._id;
+    const favour = await Favour.find({ creditorID: userID, completed: false });
+    res.json(favour);
+  }
 });
 
 //get all user's owing favours
 router.post("/myOwingFavours", async (req, res) => {
-  const userID = req.body.userID;
-  const favour = await Favour.find({ debitorID: userID, completed: false });
-  res.json(favour);
+  let verifiedUser = verifyUser(req.body.token);
+  if (verifiedUser.status != "200") {
+    return res.send(verifiedUser.status);
+  }
+  else{
+    const userID = verifiedUser.user._id;
+    const favour = await Favour.find({ debitorID: userID, completed: false });
+    res.json(favour);
+  }
 });
 
 //get all user's completed favours
 router.post("/myCompletedFavours", async (req, res) => {
-  const userID = req.body.userID;
-  const favour = await Favour.find({ debitorID: userID, completed: true });
-  res.json(favour);
+  let verifiedUser = verifyUser(req.body.token);
+  if (verifiedUser.status != "200") {
+    return res.send(verifiedUser.status);
+  }
+  else{
+    const userID = verifiedUser.user._id;
+    const favour = await Favour.find({ debitorID: userID, completed: true });
+    res.json(favour);
+  }
 });
 
 //complete a favour
