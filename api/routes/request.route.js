@@ -17,7 +17,7 @@ router.get("/request", async (req, res) => {
   res.json(request);
 });
 
-//search requests according to usre query
+//search requests according to user query
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
   // return results where name OR content contains the search query
@@ -35,9 +35,9 @@ router.post("/searchRequest", async (req, res) => {
 router.post("/acceptRequest", async (req, res) => {
   const id = req.body._id;
   const request = await Request.deleteOne({ _id: id })
-  .then(
-    global.io.emit("deleteRequest", id)
-  );
+    .then(
+      global.io.emit("deleteRequest", id)
+    );
   return res.status(200).send();
 });
 

@@ -79,9 +79,7 @@ function NewRequests(props) {
                 type="query"
                 placeholder="Request name"
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                onChange={(e) => { setName(e.target.value); }}
               />
               {name.length < 6 && (
                 <Form.Text>
@@ -96,9 +94,7 @@ function NewRequests(props) {
                 type="query"
                 placeholder="Request description"
                 value={content}
-                onChange={(e) => {
-                  setContent(e.target.value);
-                }}
+                onChange={(e) => { setContent(e.target.value); }}
               />
               {content.length < 6 && (
                 <Form.Text>
@@ -114,9 +110,7 @@ function NewRequests(props) {
                 type="number"
                 placeholder={chocolates}
                 value={chocolates}
-                onChange={(e) => {
-                  setChocolates(parseInt(e.target.value));
-                }}
+                onChange={(e) => { setChocolates(parseInt(e.target.value)); }}
               />
               {chocolates < 0 && (
                 <Form.Text>
@@ -132,9 +126,7 @@ function NewRequests(props) {
                 type="number"
                 placeholder={mints}
                 value={mints}
-                onChange={(e) => {
-                  setMints(parseInt(e.target.value));
-                }}
+                onChange={(e) => { setMints(parseInt(e.target.value)); }}
               />
               {mints < 0 && (
                 <Form.Text>
@@ -150,9 +142,7 @@ function NewRequests(props) {
                 type="number"
                 placeholder={pizzas}
                 value={pizzas}
-                onChange={(e) => {
-                  setPizzas(parseInt(e.target.value));
-                }}
+                onChange={(e) => { setPizzas(parseInt(e.target.value)); }}
               />
               {pizzas < 0 && (
                 <Form.Text>
@@ -168,9 +158,7 @@ function NewRequests(props) {
                 type="number"
                 placeholder={coffees}
                 value={coffees}
-                onChange={(e) => {
-                  setCoffees(parseInt(e.target.value));
-                }}
+                onChange={(e) => { setCoffees(parseInt(e.target.value)); }}
               />
               {coffees < 0 && (
                 <Form.Text>
@@ -186,9 +174,7 @@ function NewRequests(props) {
                 type="number"
                 placeholder={candies}
                 value={candies}
-                onChange={(e) => {
-                  setCandies(parseInt(e.target.value));
-                }}
+                onChange={(e) => { setCandies(parseInt(e.target.value)); }}
               />
               {candies < 0 && (
                 <Form.Text>
@@ -198,9 +184,7 @@ function NewRequests(props) {
             </Form.Group>
             <Button
               variant="primary"
-              onClick={() => {
-                handleSubmit();
-              }}
+              onClick={() => { handleSubmit(); }}
             >
               Submit
             </Button>

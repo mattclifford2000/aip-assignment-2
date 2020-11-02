@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row, Modal, Button } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import RequestCard from "../functionalComponents/request.comp";
 import "./../../styles/Requests.scss";
 import io from 'socket.io-client';
@@ -11,20 +11,19 @@ var socket = null;
 
 function Requests(props) {
   const [requests, setRequests] = useState([]);
-  const [status, setStatus] = useState(200);
-  const [deleteShow, setDeleteShow] = useState(false)
+  const [status] = useState(200);
   const [showModal, setShowModal] = useState(false);
 
   const favourURL = "/favour/acceptRequest";
   const requestURL = "/request/acceptRequest";
 
   useEffect(() => {
-      socket = io({
-        query: {
-          token: localStorage.getItem("authToken"),
-        }
+    socket = io({
+      query: {
+        token: localStorage.getItem("authToken"),
       }
-      );
+    }
+    );
     axios.get("/request").then((res) => {
       setRequests(res.data);
     })
@@ -35,8 +34,8 @@ function Requests(props) {
     socket.on("deleteRequest", requestID => {
       let newRequests = requests;
       let i = newRequests.length;
-      while(i--) {
-        if(requests[i]._id === requestID){
+      while (i--) {
+        if (requests[i]._id === requestID) {
           newRequests.splice(i, 1);
         }
       }
@@ -56,7 +55,6 @@ function Requests(props) {
         authToken: localStorage.getItem('authToken')
       })
       .then((res) => {
-        setDeleteShow(true);
       });
 
     setShowModal(true);

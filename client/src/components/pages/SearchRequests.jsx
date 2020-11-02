@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row, Spinner, Button, Modal } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -16,8 +16,7 @@ function SearchRequests(props) {
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
     const [showModal, setShowModal] = useState(false);
-    const [status, setStatus] = useState(200);
-    const [deleteShow, setDeleteShow] = useState(false)
+    const [status] = useState(200);
     const url = "/request/searchRequest";
     const favourURL = "/favour/acceptRequest";
     const requestURL = "/request/acceptRequest";
