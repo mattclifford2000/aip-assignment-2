@@ -6,6 +6,11 @@
 To setup the project after cloning it, run 'npm install' in the directories api and client, and then run 'npm start' in both directories. 
 Requires Node.js and npm to be installed
 
+## Project status
+
+This project is part of a group assignment being developed at University Technology Sydney. After the 2nd of November
+this project's roadmap will end. Do not expect continued support for this project.
+
 ## API Documentation
 
 - ### Favours
