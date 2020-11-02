@@ -76,13 +76,6 @@ function Register(props) {
 
   return (
     <div className="registerform">
-      <OperationModal
-        status={status}
-        show={showModal}
-        onHandleClose={() => {
-          handleClose();
-        }}
-      ></OperationModal>
       <Card style={{ width: "18rem" }}>
         <Card.Header>Register</Card.Header>
         <br></br>
@@ -141,6 +134,15 @@ function Register(props) {
           <Link to="/login">Already have an account?</Link>
         </Form>
       </Card>
+
+
+      <OperationModal
+        status={status}
+        show={showModal}
+        onHandleClose={() => {
+          handleClose();
+        }}
+      ></OperationModal>
     </div>
   );
 }

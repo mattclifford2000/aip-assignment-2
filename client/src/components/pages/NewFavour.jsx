@@ -166,8 +166,6 @@ export default class NewFavourComponent extends Component {
 
     return (
       <div className="registerform" id="registerform">
-        <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
-        <OperationModal status={this.state.status} show={this.state.showErrorModal} onHandleClose={this.handleErrorClose}></OperationModal>
         <Card style={{ width: "18rem" }}>
           <Card.Header>New Favour</Card.Header>
           <Form noValidate>
@@ -327,6 +325,10 @@ export default class NewFavourComponent extends Component {
             </Form.Group>
           </Form>
         </Card>
+
+
+        <OperationModal status={this.state.status} show={this.state.showModal} onHandleClose={this.handleClose}></OperationModal>
+        <OperationModal status={this.state.status} show={this.state.showErrorModal} onHandleClose={this.handleErrorClose}></OperationModal>
       </div>
     );
   }

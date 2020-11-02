@@ -13,7 +13,6 @@ function Requests(props) {
   const [deleteShow, setDeleteShow] = useState(false)
   const [showModal, setShowModal] = useState(false);
 
-
   const favourURL = "/favour/acceptRequest";
   const requestURL = "/request/acceptRequest";
 
@@ -38,8 +37,6 @@ function Requests(props) {
       setRequests(requests.concat(newRequest));
     })
   });
-
-
 
   //delete request
   const handleDelete = (request) => {
@@ -81,11 +78,10 @@ function Requests(props) {
     const _id = request._id
     axios
       .post(requestURL, { _id })
-
-
     setShowModal(true);
   }
 
+  //close modal
   function handleClose() {
     setShowModal(false);
   }
@@ -101,8 +97,6 @@ function Requests(props) {
       <Row max-width="100%" padding="0">
         {requests.map((request) => (<RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard>))}
       </Row>
-
-
 
       <OperationModal
         status={status}
