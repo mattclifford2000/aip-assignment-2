@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../../styles/searchRequests.scss";
 import RequestCard from "../functionalComponents/request.comp";
 import SearchBox from "../shared/SearchBox";
+import OperationModal from "../shared/OperationModal";
 import "./../../styles/Home.scss";
 
 function SearchRequests(props) {
@@ -14,7 +15,8 @@ function SearchRequests(props) {
     const { query } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [resultIndicator, setResultIndicator] = useState(); //"results for..." text
-    const [show, setShow] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [status, setStatus] = useState(200);
     const [deleteShow, setDeleteShow] = useState(false)
     const url = "/request/searchRequest";
     const favourURL = "/favour/acceptRequest";
@@ -41,8 +43,7 @@ function SearchRequests(props) {
 
     //close modal
     function handleClose() {
-        setShow(false)
-        setDeleteShow(false)
+        setShowModal(false);
     }
 
     //accept request
@@ -71,7 +72,7 @@ function SearchRequests(props) {
         axios
             .post(requestURL, { _id })
 
-        setShow(true)
+        setShowModal(true);
     }
 
     //delete request
@@ -83,9 +84,9 @@ function SearchRequests(props) {
                 authToken: localStorage.getItem('authToken')
             })
             .then((res) => {
-                setRequests(res.data);
             });
-        setDeleteShow(true)
+
+        setShowModal(true);
     }
 
     return (
@@ -110,19 +111,13 @@ function SearchRequests(props) {
                 {requests.map((request) => (<RequestCard request={request} onAccept={() => { handleAccept(request) }} onDelete={() => { handleDelete(request) }}></RequestCard>))}
             </Row>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Body>You successfully accepted a request. It is now an owed favour on your profile page.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}> Ok </Button>
-                </Modal.Footer>
-            </Modal>
-
-            <Modal show={deleteShow} onHide={handleClose}>
-                <Modal.Body>You successfully deleted a request.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}> Ok </Button>
-                </Modal.Footer>
-            </Modal>
+            <OperationModal
+                status={status}
+                show={showModal}
+                onHandleClose={() => {
+                    handleClose();
+                }}
+            ></OperationModal>
         </div>
     );
 }

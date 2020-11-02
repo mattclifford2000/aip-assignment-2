@@ -21,7 +21,7 @@ router.get("/request", async (req, res) => {
 //search requests according to usre query
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
-  /* return results where name OR content contains the search query */
+  // return results where name OR content contains the search query
   const result = await Request.find({
     $or: [
       { name: { $regex: req.body.query, $options: 'i' } },
@@ -56,8 +56,8 @@ router.post("/delete", async (req, res) => {
   const usersRequest = await Request.findOne({ _id: requestID });
   if (verifiedUser.user._id == usersRequest.ownerID) {
     await Request.deleteOne({ _id: requestID })
-    .then(
-      global.io.emit("deleteRequest", requestID));
+      .then(
+        global.io.emit("deleteRequest", requestID));
   }
   return res.status(200).send();
 });

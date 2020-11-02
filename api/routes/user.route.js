@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 
-//login
+//login user
 router.post("/login", async (req, res) => {
   console.log(req.body);
   var userCredentials = req.body.login;
@@ -91,16 +91,6 @@ router.post("/register", async (req, res) => {
 
   const savedUser = await user.save();
   return res.status(200).send(savedUser);
-});
-
-
-//find user by ownerID
-router.post("/findUser", async (req, res) => {
-  console.log(req.body.OwnerID)
-  const OwnerID = req.body.OwnerID;
-  const user = await User.findOne({ _id: OwnerID });
-  console.log(user)
-  res.json(user)
 });
 
 //find user by their userid
