@@ -1,7 +1,6 @@
 const express = require("express");
 var router = express.Router();
 const { verifyUser } = require("../helpers/verifyUser");
-const { addRewards } = require("../helpers/addRewards");
 const User = require("../models/User.model");
 const Favour = require("../models/Favour.model");
 

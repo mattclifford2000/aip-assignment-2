@@ -43,8 +43,6 @@ const ListRoute = require("./routes/Lists.route");
 const RequestRoute = require("./routes/request.route");
 /*const NewRequestRoute = require("./routes/newrequest.route");*/
 const FavourRoute = require("./routes/favour.route");
-const RewardRoute = require("./routes/reward.route");
-
 
 require("./database/initDB")();
 
@@ -64,7 +62,6 @@ app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
 app.use("/request", RequestRoute);
 app.use("/favour", FavourRoute);
-app.use("/reward", RewardRoute);
 app.use("/lists", ListRoute);
 
 
