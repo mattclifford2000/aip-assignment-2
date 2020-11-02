@@ -8,6 +8,9 @@ import OwingFavourCard from "../shared/OwingFavourCard";
 import CompletedCard from "../shared/CompletedCard";
 import OwedFavourCard from "../shared/OwedFavourCard";
 import { Redirect } from "react-router-dom";
+import io from 'socket.io-client';
+var socket = null;
+
 
 function Profile(props) {
   const [owed, setOwed] = useState([]);
@@ -28,38 +31,96 @@ function Profile(props) {
   const userAddScoreURL = "/Lists/addScore";
   const deleteURL = "/request/delete";
 
-  useEffect(() => {
+    useEffect(() => {
+      socket = io({
+        query: {
+          userID: userID,
+        }
+      }
+      );
     //find requests
     axios
       .post(requestURL, { userID })
       .then((response) => {
-        setMyRequests(response.data)
-      })
+        //setMyRequests(response.data)
+        setMyRequests(response.data);
+      });
     //find owed favours (favours others owed you)
     axios
       .post(owedURL, { userID })
       .then((response) => {
         setOwed(response.data)
-      })
+      });
     //find owing favours (favours you owe to others)
     axios
       .post(owingURL, { userID })
       .then((response) => {
         setOwing(response.data)
-      })
+      });
     //find completed favours
     axios
       .post(completedURL, { userID })
       .then((response) => {
         setCompleted(response.data)
-      })
+      });
     //find currently loggedin user
     axios
       .post(findUserURL, { userID })
       .then((response) => {
         setUsers(response.data)
-      })
-  }, [owed]);
+      });
+    }, []);
+
+
+  useEffect(() => {
+    socket.on('addFavour', favour => {
+      console.log("i should be adding");
+      console.log(favour);
+      let section = determineFavourSection(favour);
+      if(section){
+      section[1](section[0].concat(favour));
+    }
+  });
+    socket.on('deleteFavour', favour => {
+      let section = determineFavourSection(favour);
+      if(section){
+        let newSection = section[0];
+        console.log(newSection)
+        for(var i = 0, len = newSection.length; i < len; ++i){
+          if(newSection[i]._id == favour._id){
+            newSection.splice(i, 1);
+          }
+        }
+        section[1](newSection);
+    };
+    });
+        //Handle deleted request
+        socket.on("deleteRequest", requestID => {
+          let newRequests = myRequests;
+          for(var i = 0, len = newRequests.length; i < len; ++i){
+            if(newRequests[i]._id === requestID){
+              newRequests.splice(i, 1);
+            }
+          }
+          setMyRequests(newRequests);
+        }); 
+        socket.on("addRequest", newRequest => {
+          setMyRequests(myRequests.concat(newRequest));
+        })
+  });
+
+  function determineFavourSection (favour) {
+    if(favour.creditorID === userID && favour.completed === false){
+      return([owed, setOwed]);
+    }
+    if(favour.debitorID === userID && favour.completed === false){
+      return([owing, setOwing]);
+    }
+    if(favour.debitorID === userID && favour.completed === true){
+      return([completed, setCompleted]);
+    }
+    return;
+  }
 
 
   //delete unwanted requests
@@ -82,17 +143,10 @@ function Profile(props) {
 
   //turn favour to completed status
   function handleComplete(favour) {
-
     axios
-      .post(completeFavourURL, favour)
-      .then((response) => {
-      })
-
+      .post(completeFavourURL, favour);
     axios
-      .post(userAddScoreURL, { userID })
-      .then((response) => {
-      })
-
+      .post(userAddScoreURL, { userID });
     setShow(true)
   }
 
