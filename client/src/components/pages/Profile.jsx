@@ -41,7 +41,7 @@ function Profile(props) {
       );
     //find requests
     axios
-      .post(requestURL, { userID })
+      .post(requestURL, { token })
       .then((response) => {
         //setMyRequests(response.data)
         setMyRequests(response.data);

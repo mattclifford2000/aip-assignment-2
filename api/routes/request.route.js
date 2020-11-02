@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
   const io = req.app.locals.io;
   const requests = await Request.find();
   res.json(requests);
-  global.io.emit('update', 'Just out of requests ;)');
 });
 
 //get single request
@@ -45,8 +44,16 @@ router.post("/acceptRequest", async (req, res) => {
 //get all requests made by the user
 router.post("/myRequests", async (req, res) => {
   const ownerID = req.body.userID;
-  const requests = await Request.find({ ownerID: ownerID });
-  res.json(requests);
+  const token = req.body.token;
+  const verifiedUser = verifyUser(token);
+  if(verifiedUser.status == "200"){
+    const requests = await Request.find({ ownerID: verifiedUser.user._id });
+    res.json(requests);
+  }
+  else{
+    res.status(verifiedUser.status).send();
+  }
+
 });
 
 //delete request made by the user
