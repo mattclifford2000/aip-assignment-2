@@ -137,6 +137,9 @@ SOFTWARE.
 Developed by Group UTS-AIP-SPR-2020, consisting of Matthew Clifford (Klauser5), Ethan Choi (ethan-choi), Joe Drew (josephjdrew), and Lachlan Brown (LachlanB96).
 
 External Credits (credit in comments adjacent to functions/files):
+
 MediaQueries.scss (Client): Glenn McComb (https://glennmccomb.com/articles/useful-sass-scss-media-query-mixins-for-bootstrap/)
+
 parseJwt.js (API): Peheje (https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library)
+
 addClientToMap and removeClientFromMap functions (App.js, API): Albanero (https://medium.com/@albanero/socket-io-track-online-users-d8ed1df2cb88)
