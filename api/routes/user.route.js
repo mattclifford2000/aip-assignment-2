@@ -25,7 +25,10 @@ router.post("/login", async (req, res) => {
   if (!user) {
     console.log("No user with email found.");
     return res
-      .status(400).send("Account does not exist with provided email and password combination.");
+      .status(400)
+      .send(
+        "Account does not exist with provided email and password combination."
+      );
   }
   const validPassword = await bcrypt.compare(
     userCredentials.password,
