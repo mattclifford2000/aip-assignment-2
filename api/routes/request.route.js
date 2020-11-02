@@ -7,51 +7,76 @@ const { verifyUser } = require("../helpers/verifyUser");
 //get all requests
 router.get("/", async (req, res) => {
   const io = req.app.locals.io;
-  const requests = await Request.find();
-  res.json(requests);
+  try{
+    const requests = await Request.find();
+    res.json(requests);
+  } catch (e) {
+      console.error(e);
+    return res.status(500).send();
+  }
 });
 
 //get single request
 router.get("/request", async (req, res) => {
-  const request = await Request.findOne({ _id: req.query.id });
-  res.json(request);
+  try{
+    const request = await Request.findOne({ _id: req.query.id });
+    res.json(request);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send();
+  }
 });
 
 //search requests according to user query
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
   // return results where name OR content contains the search query
-  const result = await Request.find({
-    $or: [
-      { name: { $regex: req.body.query, $options: 'i' } },
-      { content: { $regex: req.body.query, $options: 'i' } },
-      { [req.body.query]: { $gt: 0 } },
-    ],
-  });
-  res.json(result);
+  try{
+    const result = await Request.find({
+      $or: [
+        { name: { $regex: req.body.query, $options: 'i' } },
+        { content: { $regex: req.body.query, $options: 'i' } },
+        { [req.body.query]: { $gt: 0 } },
+      ],
+    });
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send();
+  }
 });
 
 //delete request when it's accepted. Request data is turned into favour on favour route
 router.post("/acceptRequest", async (req, res) => {
   const id = req.body._id;
-  const request = await Request.deleteOne({ _id: id })
-    .then(
-      global.io.emit("deleteRequest", id)
-    );
-  return res.status(200).send();
+  try{
+    const request = await Request.deleteOne({ _id: id })
+      .then(
+        global.io.emit("deleteRequest", id)
+      );
+    return res.status(200).send();
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send();
+  }
 });
 
 //get all requests made by the user
 router.post("/myRequests", async (req, res) => {
   const ownerID = req.body.userID;
   const token = req.body.token;
-  const verifiedUser = verifyUser(token);
-  if(verifiedUser.status == "200"){
-    const requests = await Request.find({ ownerID: verifiedUser.user._id });
-    res.json(requests);
-  }
-  else{
-    res.status(verifiedUser.status).send();
+  try{
+    const verifiedUser = verifyUser(token);
+    if(verifiedUser.status == "200"){
+      const requests = await Request.find({ ownerID: verifiedUser.user._id });
+      res.json(requests);
+    }
+    else{
+      res.status(verifiedUser.status).send();
+    }
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send();
   }
 
 });

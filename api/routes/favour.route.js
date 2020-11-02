@@ -6,9 +6,13 @@ const Favour = require("../models/Favour.model");
 
 //find favour by ID
 router.get("/favour", async (req, res) => {
-  console.log(req.query.id);
-  const favour = await Favour.findOne({ _id: req.query.id });
-  res.json(favour);
+  try{
+    const favour = await Favour.findOne({ _id: req.query.id });
+    res.json(favour);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send();
+  }
 });
 
 //new favour

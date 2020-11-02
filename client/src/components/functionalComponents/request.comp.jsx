@@ -37,10 +37,11 @@ class RewardCard extends React.Component {
             <Card.Body>
               <Card.Title> <h2>{request.name}</h2> </Card.Title>
               <Card.Text>
-                <p> {request.content} </p>
-                <p> Requested by: {request.ownerName} </p>
-                <br></br>
-                <br></br>
+                {request.content}
+                <br />
+                Requested by: {request.ownerName}
+                <br />
+                <br />
                 <span display="inline">
                   {request.chocolates !== 0 && request.chocolates !== null &&
                     (<span><FontAwesomeIcon icon="cookie"></FontAwesomeIcon> x{request.chocolates}  </span>)}
