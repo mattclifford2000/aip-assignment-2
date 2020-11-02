@@ -22,7 +22,6 @@ io.on('connection', function (socket) {
     let verifiedUser = verifyUser(token);
     if(verifiedUser.status == "200"){
       userID = verifiedUser.user._id;
-      console.log(verifiedUser.user._id);
       addClientToMap(userID, socket.id);
     }
   } 

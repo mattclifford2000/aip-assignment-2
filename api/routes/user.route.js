@@ -96,6 +96,8 @@ router.post("/register", async (req, res) => {
 router.post("/findUserByID", async (req, res) => {
   const userID = req.body.userID;
   const user = await User.findOne({ _id: userID });
+  user.password = null;
+  user.dateofbirth = null;
   res.json(user)
 });
 
