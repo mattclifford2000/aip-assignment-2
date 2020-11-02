@@ -23,7 +23,7 @@ function Profile(props) {
   const owedURL = "/favour/myOwedFavours";
   const owingURL = "/favour/myOwingFavours";
   const completedURL = "/favour/myCompletedFavours";
-  const findUserURL = "/login/findUserByID"
+  const findUserURL = "/user/findUserByID"
   const completeFavourURL = "/favour/complete";
   const userAddScoreURL = "/Lists/addScore";
   const deleteURL = "/request/delete";

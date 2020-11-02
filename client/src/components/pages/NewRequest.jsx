@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import "../../styles/searchRequests.scss";
+import "../../styles/Register.scss";
 import "./../../styles/Home.scss";
 import OperationModal from "../shared/OperationModal";
 import { Redirect } from "react-router-dom";
@@ -67,7 +68,7 @@ function NewRequests(props) {
 
   return (
     <div>
-      <div class="searchRequestForm">
+      <div className="registerform" id="registerform">
         <Card style={{ width: "18rem" }}>
           <Form onSubmit={handleSubmit} noValidate>
             <Card.Header>New Request</Card.Header>

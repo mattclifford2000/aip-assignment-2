@@ -13,13 +13,13 @@ var io = require('./io');
 
 
 require("dotenv").config();
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
   console.log('Client connected!');
   socket.emit('update', 'Working!');
 
   socket.on('message', function (data) {
-      console.log('Sending update!');
-      socket.emit('update', 'Working!');
+    console.log('Sending update!');
+    socket.emit('update', 'Working!');
   });
 });
 
@@ -36,7 +36,7 @@ io.sockets.on("connection", (socket) => {
 
 global.io = io;
 
-const LoginRoute = require("./routes/login.route");
+const UserRoute = require("./routes/user.route");
 const RegisterRoute = require("./routes/register.route");
 const VerifyRoute = require("./routes/verify.route");
 const ListRoute = require("./routes/Lists.route");
@@ -59,7 +59,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
-app.use("/login", LoginRoute);
+app.use("/user", UserRoute);
 app.use("/register", RegisterRoute);
 app.use("/verify", VerifyRoute);
 app.use("/request", RequestRoute);
