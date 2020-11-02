@@ -22,27 +22,14 @@ router.get("/request", async (req, res) => {
 router.post("/searchRequest", async (req, res) => {
   const query = req.body.query;
   // return results where name OR content contains the search query
-  try{
-    let result = await Request.find({
-      $or: [
-        { name: { $regex: req.body.query, $options: 'i' } },
-        { content: { $regex: req.body.query, $options: 'i' } },
-        { [req.body.query]: { $gt: 0 } },
-      ],
-    });
-    console.log(result.length);
-    if(result.length === 0){
-      res.json({ success: false, error: "No results found" });
-      return res.status(500).send();
-    } else {
-      res.json(result);
-    }
-  } catch (e) {
-    res.json({ success: false, error: e });
-    return res.status(500).send();
-  }
-  
-  
+  const result = await Request.find({
+    $or: [
+      { name: { $regex: req.body.query, $options: 'i' } },
+      { content: { $regex: req.body.query, $options: 'i' } },
+      { [req.body.query]: { $gt: 0 } },
+    ],
+  });
+  res.json(result);
 });
 
 //delete request when it's accepted. Request data is turned into favour on favour route
@@ -57,19 +44,9 @@ router.post("/acceptRequest", async (req, res) => {
 
 //get all requests made by the user
 router.post("/myRequests", async (req, res) => {
-  try{
-    let requests = await Request.find({ ownerID: req.body.userID });
-    if (requests.length === 0){
-      res.json({ success: false, error: "No results found" });
-      return res.status(500).send();
-    } else {
-      res.json(requests);
-    }
-  } catch (e){
-    res.json({ success: false, error: e });
-    return res.status(500).send();
-  }
-  
+  const ownerID = req.body.userID;
+  const requests = await Request.find({ ownerID: ownerID });
+  res.json(requests);
 });
 
 //delete request made by the user
